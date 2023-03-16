@@ -1,4 +1,11 @@
-require('./bootstrap');
-require('./dark');
+// css
+import '../css/app.css';
+import '../css/app-dark.css';
+import '../css/iconly.css';
+import '../css/font-awesome-all.min.css';
 
-require('alpinejs');
+
+// js
+import './mazerapp';
+import './bootstrap';
+
