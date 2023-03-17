@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\LandingPageController;
-use App\Http\Controllers\UserController;
+// use App\Http\Controllers\UserController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -15,7 +15,6 @@ use App\Http\Controllers\UserController;
 |
 */
 
-
 Auth::routes([
     'register' => true,
 ]);
@@ -26,6 +25,22 @@ Auth::routes([
 * These routes need view-backend permission
 * --------------------------------------------------------------------
 */
+
+Route::group(['namespace' => 'App\Http\Controllers\Menu', 'prefix' => 'menu'], function () {
+    Route::get('dashboard', 'DashboardController@index')->name('dashboard');
+    Route::get('data_kriteria', 'DataKriteriaController@index')->name('data_kriteria');
+    Route::get('data_sub_kriteria', 'DataSubKriteriaController@index')->name('data_sub_kriteria');
+    Route::get('data_alternatif', 'DataAlternatifController@index')->name('data_alternatif');
+});
+
+Route::group(['namespace' => 'App\Http\Controllers\Management', 'prefix' => 'management'], function () {
+    Route::get('data_penilaian', 'DataPenilaianController@index')->name('data_penilaian');
+    Route::get('data_perhitungan', 'DataPerhitunganController@index')->name('data_perhitungan');
+    Route::get('data_hasil_akhir', 'DataHasilAkhirController@index')->name('data_hasil_akhir');
+});
+
+
+
 Route::group(['namespace' => 'App\Http\Controllers\Backend', 'prefix' => 'admin'], function () {
 
     /*
@@ -34,7 +49,7 @@ Route::group(['namespace' => 'App\Http\Controllers\Backend', 'prefix' => 'admin'
     *
     * ---------------------------------------------------------------------
     */
-    Route::get('dashboard', 'HomeController@index')->name('dashboard');
+    // Route::get('dashboard', 'HomeController@index')->name('dashboard');
 
     /*
     *

@@ -2,21 +2,20 @@
     <li class="sidebar-title">Menu</li>
     <x-sidebar.item name="Dashboard" :link="route('dashboard')" :active="'dashboard'" :icon="'speedometer'">
     </x-sidebar.item>
-    <x-sidebar.item name="Data Kriteria" :link="route('users.index')" :active="'users*'" :icon="'journal-bookmark'">
+    <x-sidebar.item name="Data Kriteria" :link="route('data_kriteria')" :active="'data_kriteria'" :icon="'journal-bookmark'">
     </x-sidebar.item>
-    <x-sidebar.item name="Data Sub Kriteria" :link="route('dashboard')" :active="'dashboarda'" :icon="'journal-text'">
+    <x-sidebar.item name="Data Sub Kriteria" :link="route('data_sub_kriteria')" :active="'data_sub_kriteria'" :icon="'journal-text'">
     </x-sidebar.item>
-    <x-sidebar.item name="Data Alternatif" :link="route('dashboard')" :active="'comments'" :icon="'people-fill'"></x-sidebar.item>
+    <x-sidebar.item name="Data Alternatif" :link="route('data_alternatif')" :active="'data_alternatif'" :icon="'people-fill'"></x-sidebar.item>
 
     <li class="sidebar-title">Management</li>
-    <x-sidebar.item name="Data Penilaian" :link="route('dashboard')" :active="'notifications'" :icon="'pencil-square'">
+    <x-sidebar.item name="Data Penilaian" :link="route('data_penilaian')" :active="'data_penilaian*'" :icon="'pencil-square'">
     </x-sidebar.item>
-    {{-- <x-sidebar.item name="Data Perhitungan" :link="route('settings.index')" :active="'settings.index'" :icon="'calculator-fill'">
-    </x-sidebar.item> --}}
-    <x-sidebar.dropdown name="Data Sub Kriteria" :active="'article'" :icon="'calculator-fill'">
-        <x-sidebar.submenu :name="'Data Hasil Akhir'" :link="route('post.index')" :active="'post'" :icon="'clipboard-data-fill'"></x-sidebar.submenu>
-        {{-- <x-sidebar.submenu :name="'Categories'" :link="route('category.index')" :active="'category'" :icon="'menu-button-fill'">
-        </x-sidebar.submenu> --}}
+    <x-sidebar.dropdown name="Data Kalkulasi" :active="'data_kalkulasi'" :icon="'calculator-fill'">
+    <x-sidebar.submenu :name="'Data Perhitungan'" :link="route('data_perhitungan')" :active="'data_perhitungan'" :icon="'clipboard-data-fill'">
+    </x-sidebar.submenu>
+    <x-sidebar.submenu :name="'Data Hasil Akhir'" :link="route('data_hasil_akhir')" :active="'data_hasil_akhir'" :icon="'box2-heart-fill'">
+    </x-sidebar.submenu>
     </x-sidebar.dropdown>
 
     <li class="sidebar-title">Information</li>
