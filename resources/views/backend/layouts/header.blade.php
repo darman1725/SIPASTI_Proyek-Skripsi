@@ -68,7 +68,7 @@
                         </li>
                         <li>
                             <a href="{{ route('users.show', Auth::user()->id) }}" class="dropdown-item"
-                                href="">View Profile</a>x-sidebar
+                                href="">View Profile</a>
                         </li>
                         <li>
                             <a class="dropdown-item" href="{{ route('logout') }}"
