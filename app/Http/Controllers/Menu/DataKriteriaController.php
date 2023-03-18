@@ -5,82 +5,64 @@ namespace App\Http\Controllers\Menu;
 use App\Http\Controllers\Controller;
 use App\Models\Menu\DataKriteria;
 use Illuminate\Http\Request;
+use App\Http\Requests\DataKriteriaRequest;
 
 class DataKriteriaController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        return view('menu.data_kriteria.index');
+        $data_kriteria = DataKriteria::all();
+        return view('menu.data_kriteria.index', compact('data_kriteria'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
-        //
+        $data_kriteria = DataKriteria::all();
+        return view('menu.data_kriteria.create', compact('data_kriteria'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function store(DataKriteriaRequest $request)
+    {
+        $validate = $request->validated();
+        $validate['keterangan'] = ($request->keterangan);
+        $validate['kode_kriteria'] = ($request->kode_kriteria);
+        $validate['bobot'] = ($request->bobot);
+        $validate['jenis'] = ($request->jenis);
+        DataKriteria::create($validate);
+
+        return redirect()->route('data_kriteria.index')->with('success', __('Data Kriteria Berhasil Dibuat'));
+    }
+
+    public function show($id)
     {
         //
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\DataKriteria  $dataKriteria
-     * @return \Illuminate\Http\Response
-     */
-    public function show(DataKriteria $dataKriteria)
+    public function edit($id)
     {
-        //
+        $data_kriteria = DataKriteria::find($id);
+        return view('menu.data_kriteria.edit', compact('data_kriteria'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\DataKriteria  $dataKriteria
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(DataKriteria $dataKriteria)
+    public function update(DataKriteriaRequest $request, $id)
     {
-        //
+        $data_kriteria = DataKriteria::find($id);
+
+        $validate = $request->validated();
+        $validate['keterangan'] = ($request->keterangan);
+        $validate['kode_kriteria'] = ($request->kode_kriteria);
+        $validate['bobot'] = ($request->bobot);
+        $validate['jenis'] = ($request->jenis);
+        $data_kriteria->update($validate);
+
+        return redirect()->route('data_kriteria.index')->with('success', __('Data Kriteria Berhasil Diupdate'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\DataKriteria  $dataKriteria
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, DataKriteria $dataKriteria)
+    public function destroy($id)
     {
-        //
-    }
+        $data_kriteria = DataKriteria::find($id);
+        $data_kriteria->delete();
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\DataKriteria  $dataKriteria
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(DataKriteria $dataKriteria)
-    {
-        //
+        return redirect()->route('data_kriteria')->with('success', __('Data Kriteria Berhasil Dihapus'));
     }
 }
