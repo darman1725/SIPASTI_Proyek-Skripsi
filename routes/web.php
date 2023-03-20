@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\LandingPageController;
 use App\Http\Controllers\Menu\DataKriteriaController;
+use App\Http\Controllers\Menu\DataSubKriteriaController;
 // use App\Http\Controllers\UserController;
 /*
 |--------------------------------------------------------------------------
@@ -27,14 +28,15 @@ Auth::routes([
 * --------------------------------------------------------------------
 */
 
+Route::resource('data_kriteria', DataKriteriaController::class);
+Route::resource('data_sub_kriteria', DataSubKriteriaController::class);
+
 Route::group(['namespace' => 'App\Http\Controllers\Menu', 'prefix' => 'menu'], function () {
     Route::get('dashboard', 'DashboardController@index')->name('dashboard');
     Route::get('data_kriteria', 'DataKriteriaController@index')->name('data_kriteria');
     Route::get('data_sub_kriteria', 'DataSubKriteriaController@index')->name('data_sub_kriteria');
     Route::get('data_alternatif', 'DataAlternatifController@index')->name('data_alternatif');
 });
-
-Route::resource('data_kriteria', DataKriteriaController::class);
 
 Route::group(['namespace' => 'App\Http\Controllers\Management', 'prefix' => 'management'], function () {
     Route::get('data_penilaian', 'DataPenilaianController@index')->name('data_penilaian');
