@@ -35,7 +35,7 @@
             </div>
         </div>
 
-        <div class="modal fade" id="tambah{{ $key->id_kriteria }}" tabindex="-1" role="dialog"
+        <div class="modal fade" id="tambah{{ $key->id_data_kriteria }}" tabindex="-1" role="dialog"
             aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
