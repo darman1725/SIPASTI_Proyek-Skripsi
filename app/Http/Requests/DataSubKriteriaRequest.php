@@ -14,6 +14,7 @@ class DataSubKriteriaRequest extends FormRequest
     public function rules()
     {
         return [
+            'id_data_kriteria' => 'required',
             'deskripsi' => 'required',
             'nilai' => 'required'
         ];
