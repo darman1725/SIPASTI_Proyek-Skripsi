@@ -35,19 +35,21 @@ class DataSubKriteriaController extends Controller
 
     public function store(DataSubKriteriaRequest $request)
     {
-     $request->validate([
-         'id_data_kriteria' => 'required',
-         'deskripsi' => 'required',
-         'nilai' => 'required',
-     ]);
-     
-     $sub_kriteria = new DataSubKriteria;
-     $sub_kriteria->id_data_kriteria = $request->input('id_data_kriteria');
-     $sub_kriteria->deskripsi = $request->input('deskripsi');
-     $sub_kriteria->nilai = $request->input('nilai');
-     $sub_kriteria->save();
-     
-     return redirect()->route('data_sub_kriteria.index')->with('success', 'Data Sub Kriteria berhasil dibuat');
+        $request->validate([
+            'id_data_kriteria' => 'required',
+            'deskripsi' => 'required',
+            'nilai' => 'required'
+        ]);
+
+        $data = [
+            'id_data_kriteria' => $request->input('id_data_kriteria'),
+            'deskripsi' => $request->input('deskripsi'),
+            'nilai' => $request->input('nilai')
+        ];
+
+        DataSubKriteria::create($data);
+
+        return redirect()->route('data_sub_kriteria.index')->with('success', 'Data Sub Kriteria berhasil diupdate');
     }
     
     public function show($id)

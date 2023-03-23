@@ -10,7 +10,7 @@
     </div>
     @endif
 
-    @if ($data_kriteria==NULL)
+    @if ($kriteria==NULL)
     <div class="card shadow mb-4">
         <div class="card-header py-3">
             <h6 class="m-0 font-weight-bold text-primary"><i class="fa fa-table"></i> Daftar Data Sub Kriteria</h6>
@@ -24,51 +24,46 @@
     </div>
     @endif
 
-    @foreach ($data_kriteria as $key)
+    @foreach ($kriteria as $key)
     <div class="card shadow mb-4">
         <div class="card-header py-3">
             <div class="d-sm-flex align-items-center justify-content-between">
                 <h6 class="m-0 font-weight-bold text-primary"><i class="fa fa-table"></i> {{ $key->keterangan }} ({{
                     $key->kode_kriteria }})</h6>
-                <a href="#tambah{{ $key->id_data_kriteria }}" data-toggle="modal" class="btn btn-sm btn-success"> <i
+                <a href="#tambah{{ $key->id }}" data-toggle="modal" class="btn btn-sm btn-success"> <i
                         class="fa fa-plus"></i> Tambah Data </a>
             </div>
         </div>
 
-        <div class="modal fade" id="tambah{{ $key->id_data_kriteria }}" tabindex="-1" role="dialog"
-            aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal fade" id="tambah{{ $key->id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="myModalLabel"><i class="fa fa-plus"></i> Tambah {{ $key->keterangan
-                            }}</h5>
+                        <h5 class="modal-title" id="myModalLabel"><i class="fa fa-plus"></i> Tambah {{ $key->keterangan }}</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                     </div>
                     <form method="POST" action="{{ route('data_sub_kriteria.store') }}">
                         @csrf
                         <div class="modal-body">
-                            <input type="text" name="id_kriteria" value="{{ $key->id_kriteria }}" hidden>
+                            <input type="hidden" name="id_data_kriteria" value="{{ $key->id }}">
                             <div class="form-group">
                                 <label for="deskripsi" class="font-weight-bold">Nama Sub Kriteria</label>
-                                <input autocomplete="off" type="text" id="deskripsi" class="form-control"
-                                    name="deskripsi" required>
+                                <input autocomplete="off" type="text" id="deskripsi" class="form-control" name="deskripsi" required>
                             </div>
                             <div class="form-group">
                                 <label for="nilai" class="font-weight-bold">Nilai</label>
-                                <input autocomplete="off" type="text" id="nilai" name="nilai" class="form-control"
-                                    required>
+                                <input autocomplete="off" type="text" id="nilai" name="nilai" class="form-control" required>
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-warning" data-dismiss="modal"><i
-                                    class="fa fa-times"></i> Batal</button>
+                            <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fa fa-times"></i> Batal</button>
                             <button type="submit" class="btn btn-success"><i class="fa fa-save"></i> Simpan</button>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
-
+        
         <div class="card-body">
             <div class="table-responsive">
                 <table class="table table-bordered" width="100%" cellspacing="0">
@@ -82,56 +77,60 @@
                     </thead>
                     <tbody>
                         @php
-                        $sub_kriteria1 =
-                        app('App\Models\Menu\DataSubKriteria')->data_sub_kriteria($key->id_kriteria);
+                        $sub_kriteria =
+                        app('App\Models\Menu\DataSubKriteria')->data_sub_kriteria($key->id);
                         $no = 1;
                         @endphp
-                        @foreach ($sub_kriteria1 as $key)
+                        @foreach ($sub_kriteria as $ksub)
                         <tr align="center">
                             <td>{{ $no }}</td>
-                            <td align="left">{{ $key->deskripsi }}</td>
-                            <td>{{ $key->nilai }}</td>
+                            <td align="left">{{ $ksub->deskripsi }}</td>
+                            <td>{{ $ksub->nilai }}</td>
                             <td>
                                 <div class="btn-group" role="group">
-                                    <a data-toggle="modal" title="Edit Data" href="#editsk{{ $key->id_sub_kriteria }}"
+                                    <a data-toggle="modal" title="Edit Data" href="#editsk{{ $ksub->id }}"
                                         class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></a>
-                                    <a data-toggle="tooltip" data-placement="bottom" title="Hapus Data"
-                                        href="{{ url('Sub_kriteria/destroy/'.$key->id_sub_kriteria) }}"
-                                        onclick="return confirm('Apakah anda yakin untuk meghapus data ini')"
-                                        class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+                                    <div class="ml-2">
+                                        <form action="{{route('data_sub_kriteria.destroy', $ksub->id)}}" method="post">
+                                            @csrf
+                                            @method('delete')
+                                            <button type="submit" class="btn btn-danger btn-sm"
+                                                onclick="return confirm('Apakah anda yakin ingin menghapus data sub kriteria ini ?')"><i
+                                                    class="fa fa-trash"></i></button>
+                                        </form>
+                                    </div>
                                 </div>
                             </td>
                         </tr>
 
                         <!-- Modal -->
-                        <div class="modal fade" id="editsk{{ $key->id_sub_kriteria }}" tabindex="-1" role="dialog"
+                        <div class="modal fade" id="editsk{{ $ksub->id }}" tabindex="-1" role="dialog"
                             aria-labelledby="myModalLabel" aria-hidden="true">
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <h5 class="modal-title" id="myModalLabel"><i class="fa fa-edit"></i> Edit {{
-                                            $key->deskripsi }}</h5>
+                                            $ksub->deskripsi }}</h5>
                                         <button type="button" class="close" data-dismiss="modal"
                                             aria-hidden="true">&times;</button>
                                     </div>
-                                    <form method="post"
-                                        action="{{ url('Sub_kriteria/update/'.$key->id_sub_kriteria) }}">
+                                    <form method="post" action="{{ url('data_sub_kriteria/'.$key->id) }}">
                                         @csrf
                                         @method('put')
                                         <div class="modal-body">
-                                            <input type="text" name="id_kriteria" value="{{ $key->id_kriteria }}"
-                                                hidden>
+                                            <input type="text" name="id_data_kriteria"
+                                                value="{{ $ksub->id_data_kriteria }}" hidden>
                                             <div class="form-group">
                                                 <label for="deskripsi" class="font-weight-bold">Nama Sub
                                                     Kriteria</label>
                                                 <input type="text" id="deskripsi" autocomplete="off"
-                                                    class="form-control" value="{{ $key->deskripsi }}" name="deskripsi"
+                                                    class="form-control" value="{{ $ksub->deskripsi }}" name="deskripsi"
                                                     required>
                                             </div>
                                             <div class="form-group">
                                                 <label for="nilai" class="font-weight-bold">Nilai</label>
                                                 <input type="text" autocomplete="off" id="nilai" name="nilai"
-                                                    class="form-control" value="{{ $key->nilai }}" required>
+                                                    class="form-control" value="{{ $ksub->nilai }}" required>
                                             </div>
                                         </div>
                                         <div class="modal-footer">
