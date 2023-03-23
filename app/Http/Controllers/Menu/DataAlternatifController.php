@@ -5,82 +5,69 @@ namespace App\Http\Controllers\Menu;
 use App\Http\Controllers\Controller;
 use App\Models\Menu\DataAlternatif;
 use Illuminate\Http\Request;
+use App\Http\Requests\DataAlternatifRequest;
+
 
 class DataAlternatifController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index()
     {
-        return view('menu.data_alternatif.index');
+        $data_alternatif = DataAlternatif::all();
+        return view('menu.data_alternatif.index', compact('data_alternatif'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
-        //
+        return view('menu.data_alternatif.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function store(DataAlternatifRequest $request)
     {
-        //
+        $validatedData = $request->validate([
+            'nama' => 'required'
+        ]);
+
+        $data_alternatif = new DataAlternatif;
+        $data_alternatif->nama = $request->nama;
+        $data_alternatif->save();
+
+        return redirect('data_alternatif')->with('success', 'Data Alternatif berhasil dibuat');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\DataAlternatif  $dataAlternatif
-     * @return \Illuminate\Http\Response
-     */
     public function show(DataAlternatif $dataAlternatif)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\DataAlternatif  $dataAlternatif
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(DataAlternatif $dataAlternatif)
+    public function edit($id)
     {
-        //
+        $data_alternatif = DataAlternatif::findOrFail($id);
+        return view('menu.data_alternatif.edit', compact('data_alternatif'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\DataAlternatif  $dataAlternatif
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, DataAlternatif $dataAlternatif)
+    public function update(DataAlternatifRequest $request, $id)
     {
-        //
+        $validatedData = $request->validate([
+            'nama' => 'required'
+        ]);
+
+        $data_alternatif = new DataAlternatif;
+        $data_alternatif->nama = $request->nama;
+        $data_alternatif->save();
+
+        return redirect('data_alternatif')->with('success', 'Data Alternatif berhasil diupdate');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\DataAlternatif  $dataAlternatif
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(DataAlternatif $dataAlternatif)
+    public function destroy($id)
     {
-        //
+        $data_alternatif = DataAlternatif::findOrFail($id);
+        $data_alternatif->delete();
+
+        return redirect('data_alternatif')->with('success', 'Data Alternatif berhasil dihapus');
     }
 }
