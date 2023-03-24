@@ -52,15 +52,15 @@ class DataAlternatifController extends Controller
 
     public function update(DataAlternatifRequest $request, $id)
     {
-        $validatedData = $request->validate([
+        $data_alternatif = DataAlternatif::find($id);
+
+        $validate =  $request->validate([
             'nama' => 'required'
         ]);
 
-        $data_alternatif = new DataAlternatif;
-        $data_alternatif->nama = $request->nama;
-        $data_alternatif->save();
+        $data_alternatif->update($validate);
 
-        return redirect('data_alternatif')->with('success', 'Data Alternatif berhasil diupdate');
+        return redirect()->route('data_alternatif.index')->with('success', 'Data Alternatif berhasil diupdate');
     }
 
     public function destroy($id)
