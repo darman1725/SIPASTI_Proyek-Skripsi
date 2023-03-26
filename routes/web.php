@@ -6,6 +6,7 @@ use App\Http\Controllers\LandingPageController;
 use App\Http\Controllers\Menu\DataKriteriaController;
 use App\Http\Controllers\Menu\DataSubKriteriaController;
 use App\Http\Controllers\Menu\DataAlternatifController;
+use App\Http\Controllers\Management\DataPenilaianController;
 // use App\Http\Controllers\UserController;
 /*
 |--------------------------------------------------------------------------
@@ -39,6 +40,8 @@ Route::group(['namespace' => 'App\Http\Controllers\Menu', 'prefix' => 'menu'], f
     Route::get('data_sub_kriteria', 'DataSubKriteriaController@index')->name('data_sub_kriteria');
     Route::get('data_alternatif', 'DataAlternatifController@index')->name('data_alternatif');
 });
+
+Route::post('/data-penilaian', [DataPenilaianController::class, 'tambah_penilaian'])->name('data_penilaian.tambah_penilaian');
 
 Route::group(['namespace' => 'App\Http\Controllers\Management', 'prefix' => 'management'], function () {
     Route::get('data_penilaian', 'DataPenilaianController@index')->name('data_penilaian');
