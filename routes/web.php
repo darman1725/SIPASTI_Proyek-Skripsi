@@ -8,27 +8,10 @@ use App\Http\Controllers\Menu\DataSubKriteriaController;
 use App\Http\Controllers\Menu\DataAlternatifController;
 use App\Http\Controllers\Management\DataPenilaianController;
 // use App\Http\Controllers\UserController;
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
 
 Auth::routes([
     'register' => true,
 ]);
-
-/*
-*
-* Backend Routes
-* These routes need view-backend permission
-* --------------------------------------------------------------------
-*/
 
 Route::resource('data_kriteria', DataKriteriaController::class);
 Route::resource('data_sub_kriteria', DataSubKriteriaController::class);
@@ -41,14 +24,14 @@ Route::group(['namespace' => 'App\Http\Controllers\Menu', 'prefix' => 'menu'], f
     Route::get('data_alternatif', 'DataAlternatifController@index')->name('data_alternatif');
 });
 
-Route::post('/data-penilaian', [DataPenilaianController::class, 'tambah_penilaian'])->name('data_penilaian.tambah_penilaian');
+Route::post('/tambah_penilaian', [DataPenilaianController::class, 'tambah_penilaian'])->name('data_penilaian.tambah_penilaian');
+Route::post('/update_penilaian', [DataPenilaianController::class, 'update_penilaian'])->name('data_penilaian.update_penilaian');
 
 Route::group(['namespace' => 'App\Http\Controllers\Management', 'prefix' => 'management'], function () {
     Route::get('data_penilaian', 'DataPenilaianController@index')->name('data_penilaian');
     Route::get('data_perhitungan', 'DataPerhitunganController@index')->name('data_perhitungan');
     Route::get('data_hasil_akhir', 'DataHasilAkhirController@index')->name('data_hasil_akhir');
 });
-
 
 
 Route::group(['namespace' => 'App\Http\Controllers\Backend', 'prefix' => 'admin'], function () {
