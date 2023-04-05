@@ -23,17 +23,6 @@ class DataPerhitungan extends Model
         return $query->toArray();
     }
 
-    // public static function data_nilai($id_alternatif, $id_kriteria)
-    // {
-    // $query = DB::select("SELECT * FROM data_penilaian JOIN data_sub_kriteria WHERE data_penilaian.nilai=data_sub_kriteria.id_data_kriteria AND data_penilaian.id_data_alternatif='$id_alternatif' AND data_penilaian.id_data_kriteria='$id_kriteria';");
-
-    // if(count($query) > 0) {
-    //     return (array) $query[0];
-    // } else {
-    //     return null;
-    // }
-    // }
-
     public static function data_nilai($id_data_alternatif, $id_data_kriteria)
     {
     $query = DB::table('data_penilaian')
@@ -65,15 +54,22 @@ class DataPerhitungan extends Model
 
     public function get_hasil()
     {
-        $query = DB::select("SELECT * FROM hasil ORDER BY nilai DESC;");
+        $query = DB::select("SELECT * FROM data_hasil ORDER BY nilai DESC;");
         return $query->toArray();
     }
 
-    public function get_hasil_alternatif($id_alternatif)
+    public static function get_hasil_alternatif($id_data_alternatif)
     {
-        $query = DB::select("SELECT * FROM data_alternatif WHERE id_data_alternatif='$id_data_alternatif';");
-        return (array) $query[0];
+    $data_alternatif = DB::table('data_alternatif')
+                        ->where('id', '=', $id_data_alternatif)
+                        ->first();
+
+    if($data_alternatif){
+        return (array) $data_alternatif;
+    }else{
+        return [];
     }
+    }   
 
     public static function insert_hasil($hasil_akhir = [])
     {
@@ -83,7 +79,7 @@ class DataPerhitungan extends Model
 
     public function hapus_hasil()
     {
-        $query = DB::select("TRUNCATE TABLE hasil;");
+        $query = DB::select("TRUNCATE TABLE data_hasil;");
         return $query;
     }
 }

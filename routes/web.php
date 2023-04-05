@@ -7,6 +7,7 @@ use App\Http\Controllers\Menu\DataKriteriaController;
 use App\Http\Controllers\Menu\DataSubKriteriaController;
 use App\Http\Controllers\Menu\DataAlternatifController;
 use App\Http\Controllers\Management\DataPenilaianController;
+use App\Http\Controllers\Management\DataHasilAkhirController;
 // use App\Http\Controllers\UserController;
 
 Auth::routes([
