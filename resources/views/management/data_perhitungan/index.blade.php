@@ -36,7 +36,7 @@
                                 $data_pencocokan = App\Models\Management\DataPerhitungan::data_nilai($keys->id,
                                 $key->id);
                                 @endphp
-                                @if($data_pencocokan)
+                                @if(!is_null($data_pencocokan) && isset($data_pencocokan->nilai))
                                 {{ $data_pencocokan->nilai }}
                                 @endif
                             </td>
@@ -52,7 +52,9 @@
                             <th>
                                 @php
                                 $min_max=App\Models\Management\DataPerhitungan::get_max_min($key->id);
-                                echo $min_max['max'];
+                                if(!is_null($min_max) && isset($min_max['max'])){
+                                    echo $min_max['max'];
+                                }
                                 @endphp
                             </th>
                             @endforeach
@@ -63,7 +65,9 @@
                             <th>
                                 @php
                                 $min_max=App\Models\Management\DataPerhitungan::get_max_min($key->id);
-                                echo $min_max['min'];
+                                if(!is_null($min_max) && isset($min_max['min'])){
+                                    echo $min_max['min'];
+                                }
                                 @endphp
                             </th>
                             @endforeach
@@ -71,7 +75,7 @@
                     </tbody>
                 </table>
             </div>
-        </div>
+        </div>        
     </div>
 
     <div class="card shadow mb-4">
