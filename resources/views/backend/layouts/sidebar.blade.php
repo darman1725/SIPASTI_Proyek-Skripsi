@@ -21,14 +21,16 @@
         <li class="sidebar-title">Management</li>
         <x-sidebar.item name="Data Penilaian" :link="route('data_penilaian')" :active="'data_penilaian*'" :icon="'pencil-square'">
         </x-sidebar.item>
-        <x-sidebar.dropdown name="Data Kalkulasi" :active="'data_kalkulasi'" :icon="'calculator-fill'">
-            <x-sidebar.submenu :name="'Data Perhitungan'" :link="route('data_perhitungan')" :active="'data_perhitungan'" :icon="'clipboard-data-fill'">
+        <x-sidebar.dropdown name="Data Kalkulasi" :active="in_array(Route::currentRouteName(), ['data_perhitungan', 'data_hasil_akhir'])" :icon="'calculator-fill'">
+            <x-sidebar.submenu :name="'Data Perhitungan'" :link="route('data_perhitungan')" :active="Route::currentRouteName() == 'data_hasil_akhir'" :icon="'clipboard-data-fill'">
             </x-sidebar.submenu>
-            <x-sidebar.submenu :name="'Data Hasil Akhir'" :link="route('data_hasil_akhir')" :active="'data_hasil_akhir'" :icon="'box2-heart-fill'">
+            <x-sidebar.submenu :name="'Data Hasil Akhir'" :link="route('data_hasil_akhir')" :active="Route::currentRouteName() == 'data_perhitungan'" :icon="'box2-heart-fill'">
             </x-sidebar.submenu>
-        </x-sidebar.dropdown>
+        </x-sidebar.dropdown>        
 
         <li class="sidebar-title">Information</li>
+        <x-sidebar.item name="Data User" :link="route('profile', Auth::user()->id)" :active="'profile*'" :icon="'person-circle'">
+        </x-sidebar.item>
         <x-sidebar.dropdown name="Data Profile" :active="'log-viewer'" :icon="'person-check'">
             <x-sidebar.submenu :name="'Dashboard'" :link="url('admin/log-viewer')" :active="'log-viewer'" :icon="'inboxes-fill'">
             </x-sidebar.submenu>
