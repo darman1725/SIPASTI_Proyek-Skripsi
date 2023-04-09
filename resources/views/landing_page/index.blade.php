@@ -96,7 +96,7 @@
                             </p>
                             <ul class="header-btn">
                                 <li><a class="main-btn btn-one" href="{{ url('/login') }}">DAFTAR</a></li>
-                                <li><a class="main-btn btn-two video-popup" href="https://www.youtube.com/watch?v=2ISLCgszvIM&ab_channel=MasUlulTukangSensus">LIHAT TUTORIAL<i class="lni-play"></i></a></li>
+                                <li><a class="main-btn btn-two video-popup" href="https://www.youtube.com/watch?v=iTYmojXCpIw">LIHAT TUTORIAL<i class="lni-play"></i></a></li>
                             </ul>
                         </div> <!-- header content -->
                     </div>
