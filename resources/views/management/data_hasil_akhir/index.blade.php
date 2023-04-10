@@ -3,7 +3,7 @@
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800"><i class="fas fa-fw fa-chart-area"></i> Data Hasil Akhir</h1>
 
-        <a href="{{ url('Laporan/cetak_laporan_hasil') }}" class="btn btn-primary"> <i class="fa fa-print"></i> Cetak
+        <a href="{{ route('generate_pdf') }}" class="btn btn-primary"> <i class="fa fa-print"></i> Cetak
             Data </a>
     </div>
 
