@@ -52,10 +52,14 @@ class LoginController extends Controller
 
     function authenticated(Request $request, $user)
     {
-        $count = $user->where('id', $user->id)->pluck('login_count')[0];
-        $user->update([
-            'last_ip' => $request->getClientIp(),
-            'login_count' =>  $count + 1,
-        ]);
+        // $count = $user->where('id', $user->id)->pluck('login_count')[0];
+        // $user->update([
+        //     'last_ip' => $request->getClientIp(),
+        //     'login_count' =>  $count + 1,
+        // ]);
+        if ($user->level == 'user') {
+            return redirect()->route('data_hasil_akhir');
+        }
+        return redirect('/menu/dashboard');
     }
 }
