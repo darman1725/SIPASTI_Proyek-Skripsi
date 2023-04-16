@@ -25,18 +25,19 @@ class KegiatanController extends Controller
 
     public function store(DataKegiatanRequest $request)
     {
-        $gambarName = time().'.'.$request->gambar->extension();
-        $request->gambar->move(public_path('storage/gambar'), $gambarName);
-
-        Kegiatan::create([
-            'nama' => $request->nama,
-            'deskripsi' => $request->deskripsi,
-            'gambar' => $gambarName,
-            'tanggal_mulai' => $request->tanggal_mulai,
-            'tanggal_akhir' => $request->tanggal_akhir,
-            'id_data_kriteria' => $request->id_data_kriteria,
-        ]);
-
+        $gambarName = time().'.'.$request->file('gambar')->getClientOriginalExtension();
+        $request->file('gambar')->move(public_path('storage/gambar'), $gambarName);
+        $dataKriteria = implode(',', $request->input('data_kriteria'));
+    
+        $kegiatan = new Kegiatan();
+        $kegiatan->nama = $request->nama;
+        $kegiatan->deskripsi = $request->deskripsi;
+        $kegiatan->gambar = $gambarName;
+        $kegiatan->tanggal_mulai = $request->tanggal_mulai;
+        $kegiatan->tanggal_akhir = $request->tanggal_akhir;
+        $kegiatan->data_kriteria = $dataKriteria;
+        $kegiatan->save();
+    
         return redirect()->route('kegiatan.index')->with('success', __('Data Kegiatan Berhasil Dibuat'));
     }
 
@@ -52,27 +53,28 @@ class KegiatanController extends Controller
     }
 
     public function update(DataKegiatanRequest $request, Kegiatan $kegiatan)
-    {
-        if ($request->has('gambar')) {
-            $gambarName = time().'.'.$request->gambar->extension();
-            $request->gambar->move(public_path('storage/gambar'), $gambarName);
+{
+    if ($request->has('gambar')) {
+        $gambarName = time().'.'.$request->gambar->extension();
+        $request->gambar->move(public_path('storage/gambar'), $gambarName);
 
-            Storage::delete(public_path('storage/gambar/'.$kegiatan->gambar));
-        } else {
-            $gambarName = $kegiatan->gambar;
-        }
-
-        $kegiatan->update([
-            'nama' => $request->nama,
-            'deskripsi' => $request->deskripsi,
-            'gambar' => $gambarName,
-            'tanggal_mulai' => $request->tanggal_mulai,
-            'tanggal_akhir' => $request->tanggal_akhir,
-            'id_data_kriteria' => $request->id_data_kriteria,
-        ]);
-
-        return redirect()->route('kegiatan.index')->with('success', __('Data Kegiatan Berhasil Diupdate'));
+        Storage::delete(public_path('storage/gambar/'.$kegiatan->gambar));
+    } else {
+        $gambarName = $kegiatan->gambar;
     }
+
+    $dataKriteria = implode(',', $request->input('data_kriteria'));
+
+    $kegiatan->nama = $request->nama;
+    $kegiatan->deskripsi = $request->deskripsi;
+    $kegiatan->gambar = $gambarName;
+    $kegiatan->tanggal_mulai = $request->tanggal_mulai;
+    $kegiatan->tanggal_akhir = $request->tanggal_akhir;
+    $kegiatan->data_kriteria = $dataKriteria;
+    $kegiatan->save();
+
+    return redirect()->route('kegiatan.index')->with('success', __('Data Kegiatan Berhasil Diupdate'));
+}
 
     public function destroy(Kegiatan $kegiatan)
     {

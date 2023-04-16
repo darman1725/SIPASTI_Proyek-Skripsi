@@ -37,15 +37,18 @@
                                 <label for="gambar">Gambar</label>
                                 <input type="file" name="gambar" id="gambar"
                                     class="form-control-file @error('gambar') is-invalid @enderror" accept="image/*">
-
                                 @error('gambar')
                                 <span class="invalid-feedback">{{ $message }}</span>
                                 @enderror
-
                                 @if ($kegiatan->gambar)
-                                <img src="{{ asset('storage/gambar/' . $kegiatan->gambar) }}"
-                                    alt="{{ $kegiatan->nama }}" class="img-thumbnail my-3" style="max-width: 200px;">
+                                <div class="mt-2">
+                                    <img src="{{ asset('storage/gambar/' . $kegiatan->gambar) }}"
+                                        alt="{{ $kegiatan->nama }}" class="img-thumbnail my-3"
+                                        style="max-width: 200px;">
+                                    <div>{{ $kegiatan->gambar }}</div>
+                                </div>
                                 @endif
+
                             </div>
 
                             <div class="form-group">
@@ -71,26 +74,34 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="id_data_kriteria">Kriteria</label>
-                                <select name="id_data_kriteria" id="id_data_kriteria"
-                                    class="form-control @error('id_data_kriteria') is-invalid @enderror" required>
-                                    <option value="">-- Pilih Kriteria --</option>
-
-                                    @foreach ($dataKriterias as $dataKriteria)
-                                    <option value="{{ $dataKriteria->id }}" {{ old('id_data_kriteria', $kegiatan->
-                                        id_data_kriteria) == $dataKriteria->id ? 'selected' : '' }}>{{
-                                        $dataKriteria->keterangan }}</option>
+                                <label for="data_kriteria" class="col-md-4 col-form-label text-md-right">{{ __('Data
+                                    Kriteria') }}</label>
+                                <div class="col-md-6">
+                                    @foreach($dataKriterias as $dataKriteria)
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="data_kriteria[]"
+                                            value="{{ $dataKriteria->id }}" id="{{ $dataKriteria->id }}"
+                                            @if(isset($selectedKriteria) && in_array($dataKriteria->id,
+                                        $selectedKriteria))
+                                        checked
+                                        @endif
+                                        >
+                                        <label class="form-check-label" for="{{ $dataKriteria->id }}">
+                                            {{ $dataKriteria->keterangan }}
+                                        </label>
+                                    </div>
                                     @endforeach
-                                </select>
-
-                                @error('id_data_kriteria')
-                                <span class="invalid-feedback">{{ $message }}</span>
-                                @enderror
+                                    @error('data_kriteria')
+                                    <span class="invalid-feedback d-block" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
+                                </div>
                             </div>
 
                             <div class="form-group">
                                 <button type="submit" class="btn btn-primary">Simpan</button>
-                                <a href="{{ route('kegiatan.index') }}" class="btn btn-secondary">Batal</a>
+                                <a href="{{ route('kegiatan.index') }}" class="btn btn-secondary">Kembali</a>
                             </div>
                         </form>
                     </div>

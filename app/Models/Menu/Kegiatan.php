@@ -10,7 +10,7 @@ class Kegiatan extends Model
 {
     use HasFactory;
     protected $table = "kegiatan";
-    protected $fillable = ['nama', 'deskripsi', 'gambar', 'tanggal_mulai', 'tanggal_akhir', 'id_data_kriteria'];
+    protected $fillable = ['nama', 'deskripsi', 'gambar', 'tanggal_mulai', 'tanggal_akhir', 'data_kriteria'];
 
     public function getKriteria()
     {

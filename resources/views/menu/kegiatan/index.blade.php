@@ -1,51 +1,54 @@
 <x-app-layout>
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="d-flex justify-content-start mb-3">
-                    <a href="{{ route('kegiatan.create') }}" class="btn btn-sm btn-success"><i class="fa fa-plus"></i>
-                        Tambah Data</a>
-                </div>
-                <h1 class="h3 mb-0 text-gray-800"><i class="fas fa-fw fa-users"></i> Data Kegiatan</h1><br><br>
-                <div class="row row-cols-1 row-cols-md-2 g-4">
-                    @foreach ($kegiatans as $kegiatan)
-                    <div class="col">
-                        <div class="card h-100">
-                            <img src="{{ asset('storage/gambar/'.$kegiatan->gambar) }}" class="card-img-top img-fluid"
-                                alt="{{ $kegiatan->nama }}" style="object-fit: cover; height: 300px">
-                            <div class="card-body">
-                                <h5 class="card-title" style="text-align: center">{{ $kegiatan->nama }}</h5>
-                                <p class="card-text" style="text-align: center">{{ $kegiatan->deskripsi }}</p>
-                                <div style="text-align: center;">
-                                    <small class="text-muted">Tanggal mulai : {{ date('d-m-Y',
-                                        strtotime($kegiatan->tanggal_mulai)) }} <br> Tanggal berakhir : {{
-                                        date('d-m-Y', strtotime($kegiatan->tanggal_akhir)) }} Kriteria seleksi : {{
-                                        $kegiatan->getKriteria->keterangan }}</small>
-                                </div>
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800"><i class="fas fa-fw fa-book"></i> Data Kegiatan</h1>
+        <a href="{{ route('kegiatan.create') }}" class="btn btn-success"> <i class="fa fa-plus"></i> Tambah Data
+        </a>
+    </div>
 
-                                <div class="d-flex justify-content-center mt-3">
-                                    <div class="btn-group" role="group">
-                                        <a data-toggle="tooltip" data-placement="bottom" title="Edit Data"
-                                            href="{{ route('kegiatan.edit', $kegiatan) }}"
-                                            class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></a>
-                                        <div class="ml-2">
-                                            <form action="{{route('kegiatan.destroy', $kegiatan)}}" method="post">
-                                                @csrf
-                                                @method('delete')
-                                                <button type="submit" class="btn btn-danger btn-sm"
-                                                    onclick="return confirm('Apakah anda yakin ingin menghapus data kriteria ini ?')"><i
-                                                        class="fa fa-trash"></i></button>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
+    <div class="row">
+        @foreach ($kegiatans as $kegiatan)
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <img src="{{ asset('storage/gambar/'.$kegiatan->gambar) }}" class="card-img-top"
+                    alt="{{ $kegiatan->nama }}">
+                <div class="card-body">
+                    <h5 class="card-title">{{ $kegiatan->nama }}</h5>
+                    <p class="card-text">{{ $kegiatan->deskripsi }}</p>
+                    <p class="card-text"><strong>Tanggal Mulai:</strong> {{ date('d-m-Y',
+                        strtotime($kegiatan->tanggal_mulai)) }}</p>
+                    <p class="card-text"><strong>Tanggal Akhir:</strong> {{ date('d-m-Y',
+                        strtotime($kegiatan->tanggal_akhir)) }}</p>
+                    <p class="card-text"><strong>Kriteria:</strong></p>
+                    <ul class="card-text">
+                        @php
+                        $kriteriaArray = explode(',', $kegiatan->data_kriteria);
+                        $dataKriterias = [];
+                        foreach ($kriteriaArray as $kriteriaId) {
+                        $kriteria = App\Models\Menu\DataKriteria::find($kriteriaId);
+                        if ($kriteria) {
+                        $dataKriterias[] = $kriteria->keterangan;
+                        }
+                        }
+                        @endphp
+                        @foreach ($dataKriterias as $kriteria)
+                        <li>{{ $kriteria }}</li>
+                        @endforeach
+                    </ul>
+                    <div class="mt-3">
+                        <a href="{{ route('kegiatan.edit', $kegiatan->id) }}" class="btn btn-primary"><i
+                                class="fas fa-edit"></i> Edit</a>
+                        <form action="{{ route('kegiatan.destroy', $kegiatan->id) }}" method="POST" class="d-inline">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger"
+                                onclick="return confirm('Apakah anda yakin ingin menghapus data kegiatan ini ?')"><i
+                                    class="fas fa-trash"></i>
+                                Hapus</button>
+                        </form>
                     </div>
-                    @endforeach
                 </div>
             </div>
         </div>
+        @endforeach
     </div>
 </x-app-layout>

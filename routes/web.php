@@ -18,7 +18,7 @@ Auth::routes([
 Route::resource('data_kriteria', DataKriteriaController::class);
 Route::resource('data_sub_kriteria', DataSubKriteriaController::class);
 Route::resource('data_alternatif', DataAlternatifController::class);
-Route::resource('kegiatan', 'App\Http\Controllers\Menu\KegiatanController');
+Route::resource('kegiatan', KegiatanController::class);
 
 Route::group(['namespace' => 'App\Http\Controllers\Menu', 'prefix' => 'menu'], function () {
     Route::get('dashboard', 'DashboardController@index')->name('dashboard');
