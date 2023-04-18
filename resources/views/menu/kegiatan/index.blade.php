@@ -14,8 +14,8 @@
                             <h5 class="card-title text-center">{{ $kegiatan->nama }}</h5>
                             <p class="card-text text-center">{{ $kegiatan->deskripsi }}</p>
                             <hr>
-                            <p class="card-text"><strong>Tanggal mulai:</strong> {{ date('d-m-Y', strtotime($kegiatan->tanggal_mulai)) }}</p>
-                            <p class="card-text"><strong>Tanggal akhir:</strong> {{ date('d-m-Y', strtotime($kegiatan->tanggal_selesai)) }}</p>
+                            <p class="card-text text-center"><strong>Tanggal mulai:</strong> {{ date('d-m-Y', strtotime($kegiatan->tanggal_mulai)) }}</p>
+                            <p class="card-text text-center"><strong>Tanggal akhir:</strong> {{ date('d-m-Y', strtotime($kegiatan->tanggal_selesai)) }}</p>
                             <div class="d-flex justify-content-center">
                                 <a href="{{ route('kegiatan.edit', $kegiatan->id) }}" class="btn btn-primary mr-1">Edit</a>
                                 <form action="{{ route('kegiatan.destroy', $kegiatan->id) }}" method="POST">
