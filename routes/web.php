@@ -28,10 +28,6 @@ Route::group(['namespace' => 'App\Http\Controllers\Menu', 'prefix' => 'menu'], f
     Route::get('data_alternatif', 'DataAlternatifController@index')->name('data_alternatif');
 });
 
-// Route::group(['namespace' => 'App\Http\Controllers\Menu', 'prefix' => 'menu'], function () {
-//     Route::resource('kegiatan', 'App\Http\Controllers\Menu\KegiatanController');
-// });
-
 
 Route::post('/tambah_penilaian', [DataPenilaianController::class, 'tambah_penilaian'])->name('data_penilaian.tambah_penilaian');
 Route::post('/update_penilaian', [DataPenilaianController::class, 'update_penilaian'])->name('data_penilaian.update_penilaian');
