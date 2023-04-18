@@ -10,11 +10,6 @@ use App\Http\Requests\DataAlternatifRequest;
 
 class DataAlternatifController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
     public function index()
     {
         $data_alternatif = DataAlternatif::all();
@@ -36,7 +31,7 @@ class DataAlternatifController extends Controller
         $data_alternatif->nama = $request->nama;
         $data_alternatif->save();
 
-        return redirect('data_alternatif')->with('success', 'Data Alternatif berhasil dibuat');
+        return redirect()->route('data_alternatif')->with('success', 'Data Alternatif berhasil dibuat');
     }
 
     public function show(DataAlternatif $dataAlternatif)
@@ -60,7 +55,7 @@ class DataAlternatifController extends Controller
 
         $data_alternatif->update($validate);
 
-        return redirect()->route('data_alternatif.index')->with('success', 'Data Alternatif berhasil diupdate');
+        return redirect()->route('data_alternatif')->with('success', 'Data Alternatif berhasil diupdate');
     }
 
     public function destroy($id)
@@ -68,6 +63,6 @@ class DataAlternatifController extends Controller
         $data_alternatif = DataAlternatif::findOrFail($id);
         $data_alternatif->delete();
 
-        return redirect('data_alternatif')->with('success', 'Data Alternatif berhasil dihapus');
+        return redirect()->route('data_alternatif')->with('success', 'Data Alternatif berhasil dihapus');
     }
 }

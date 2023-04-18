@@ -30,7 +30,7 @@ class DataKriteriaController extends Controller
         $validate['jenis'] = ($request->jenis);
         DataKriteria::create($validate);
 
-        return redirect()->route('data_kriteria.index')->with('success', __('Data Kriteria Berhasil Dibuat'));
+        return redirect()->route('data_kriteria')->with('success', __('Data Kriteria Berhasil Dibuat'));
     }
 
     public function show($id)
@@ -55,7 +55,7 @@ class DataKriteriaController extends Controller
         $validate['jenis'] = ($request->jenis);
         $data_kriteria->update($validate);
 
-        return redirect()->route('data_kriteria.index')->with('success', __('Data Kriteria Berhasil Diupdate'));
+        return redirect()->route('data_kriteria')->with('success', __('Data Kriteria Berhasil Diupdate'));
     }
 
     public function destroy($id)

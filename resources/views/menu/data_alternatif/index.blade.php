@@ -36,7 +36,7 @@
                                         href="{{ route('data_alternatif.edit', $data->id) }}"
                                         class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></a>
                                     <form action="{{ route('data_alternatif.destroy', $data->id) }}" method="POST"
-                                        onsubmit="return confirm('Apakah anda yakin untuk menghapus data ini?')">
+                                        onsubmit="return confirm('Apakah anda yakin untuk menghapus data alternatif ini?')">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-danger btn-sm" data-toggle="tooltip"

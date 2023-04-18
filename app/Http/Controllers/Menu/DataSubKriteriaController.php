@@ -49,7 +49,7 @@ class DataSubKriteriaController extends Controller
 
         DataSubKriteria::create($data);
 
-        return redirect()->route('data_sub_kriteria.index')->with('success', 'Data Sub Kriteria berhasil diupdate');
+        return redirect()->route('data_sub_kriteria')->with('success', 'Data Sub Kriteria berhasil diupdate');
     }
     
     public function show($id)
@@ -72,7 +72,7 @@ class DataSubKriteriaController extends Controller
         $sub_kriteria->nilai = $request->get('nilai');
         $sub_kriteria->save();
 
-        return redirect()->route('data_sub_kriteria.index')->with('success', 'Data Sub Kriteria berhasil diupdate');
+        return redirect()->route('data_sub_kriteria')->with('success', 'Data Sub Kriteria berhasil diupdate');
     }
 
     public function destroy($id)
@@ -80,7 +80,7 @@ class DataSubKriteriaController extends Controller
         $sub_kriteria = DataSubKriteria::find($id);
         $sub_kriteria->delete();
 
-        return redirect()->route('data_sub_kriteria.index')->with('success', 'Data Sub Kriteria berhasil dihapus');
+        return redirect()->route('data_sub_kriteria')->with('success', 'Data Sub Kriteria berhasil dihapus');
     }
 }
 

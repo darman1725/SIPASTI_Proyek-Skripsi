@@ -72,7 +72,7 @@ class KegiatanController extends Controller
 
     public function destroy(Kegiatan $kegiatan)
     {
-        Storage::delete('storage/gambar/' . $kegiatan->gambar);
+        Storage::delete('public/kegiatan/' . $kegiatan->gambar);
         $kegiatan->delete();
 
         return redirect()->route('kegiatan')
