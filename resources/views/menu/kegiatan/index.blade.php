@@ -21,7 +21,7 @@
                                 <form action="{{ route('kegiatan.destroy', $kegiatan->id) }}" method="POST">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-danger ml-1">Delete</button>
+                                    <button type="submit" class="btn btn-danger ml-1" onclick="return confirm('Apakah anda yakin ingin menghapus data kegiatan ini ?')">Hapus</button>
                                 </form>
                             </div>                            
                             <hr>

@@ -39,7 +39,7 @@
                             </div>
 
                             <button type="submit" class="btn btn-primary">Simpan</button>
-                            <a href="{{ route('kegiatan.index') }}" class="btn btn-secondary">Kembali</a>
+                            <a href="{{ route('kegiatan') }}" class="btn btn-secondary">Kembali</a>
                         </form>
                     </div>
                 </div>

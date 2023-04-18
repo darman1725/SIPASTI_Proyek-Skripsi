@@ -40,7 +40,7 @@ class KegiatanController extends Controller
 
         $kegiatan->save();
 
-        return redirect()->route('kegiatan.index')
+        return redirect()->route('kegiatan')
             ->with('success', 'Data kegiatan berhasil dibuat');
     }
 
@@ -66,7 +66,7 @@ class KegiatanController extends Controller
 
         $kegiatan->save();
 
-        return redirect()->route('kegiatan.index')
+        return redirect()->route('kegiatan')
             ->with('success', 'Data kegiatan berhasil diperbarui.');
     }
 
@@ -75,7 +75,7 @@ class KegiatanController extends Controller
         Storage::delete('storage/gambar/' . $kegiatan->gambar);
         $kegiatan->delete();
 
-        return redirect()->route('kegiatan.index')
+        return redirect()->route('kegiatan')
             ->with('success', 'Data kegiatan berhasil dihapus.');
     }
 }
