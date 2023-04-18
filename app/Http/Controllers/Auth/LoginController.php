@@ -58,7 +58,7 @@ class LoginController extends Controller
         //     'login_count' =>  $count + 1,
         // ]);
         if ($user->level == 'user') {
-            return redirect()->route('data_hasil_akhir');
+            return redirect()->route('kegiatan');
         }
         return redirect('/menu/dashboard');
     }
