@@ -22,12 +22,13 @@ class DataKriteriaRequest extends FormRequest
      * @return array<string, mixed>
      */
     public function rules()
-    {
+    { 
         return [
-            'keterangan' => 'required',
-            'kode_kriteria' => 'required',
-            'bobot' => 'required',
-            'jenis' => 'required'
+            'keterangan' => 'required|max:100',
+            'kode_kriteria' => 'required|max:100',
+            'bobot' => 'required|numeric',
+            'jenis' => 'required|max:100',
+            'id_data_kegiatan' => 'required|exists:data_kegiatan,id'
         ];
     }
 }

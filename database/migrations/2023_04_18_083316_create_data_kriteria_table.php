@@ -11,17 +11,12 @@ return new class extends Migration
         Schema::create('data_kriteria', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('id_data_kegiatan');
+            $table->foreign('id_data_kegiatan')->references('id')->on('data_kegiatan');
             $table->string('keterangan', 100);
             $table->string('kode_kriteria', 100);
             $table->double('bobot');
             $table->string('jenis', 100);
             $table->timestamps();
-
-            // foreign key constraint
-            $table->foreign('id_data_kegiatan')
-                  ->references('id')
-                  ->on('kegiatan')
-                  ->onDelete('cascade');
         });
     }
 

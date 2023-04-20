@@ -1,6 +1,6 @@
 <x-app-layout>
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800"><i class="fas fa-fw fa-book"></i> Data Kriteria</h1>
+        <h1 class="h3 mb-0 text-gray-800"><i class="bi bi-journal-bookmark"></i> Data Kriteria</h1>
         <a href="{{ route('data_kriteria.create') }}" class="btn btn-success"> <i class="fa fa-plus"></i> Tambah Data
         </a>
     </div>
@@ -16,10 +16,11 @@
                     <thead class="bg-primary text-white">
                         <tr style="text-align: center">
                             <th width="5%">No</th>
-                            <th>Kode Kriteria</th>
+                            <th>Kode</th>
                             <th>Nama Kriteria</th>
                             <th>Bobot</th>
                             <th>Jenis</th>
+                            <th>Kegiatan</th>
                             <th width="15%">Aksi</th>
                         </tr>
                     </thead>
@@ -31,6 +32,7 @@
                             <td>{{ $dk->keterangan }}</td>
                             <td>{{ $dk->bobot }}</td>
                             <td>{{ $dk->jenis }}</td>
+                            <td>{{ $dk->kegiatan->nama }}</td>
                             <td>
                                 <div class="btn-group" role="group">
                                     <a data-toggle="tooltip" data-placement="bottom" title="Edit Data"

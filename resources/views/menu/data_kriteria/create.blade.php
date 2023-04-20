@@ -43,6 +43,17 @@
                             <option value="Cost">Cost</option>
                         </select>
                     </div>
+                    
+                    <div class="form-group col-md-6">
+                        <label class="font-weight-bold">Data Kegiatan</label>
+                        <select name="id_data_kegiatan" class="form-control" required>
+                            <option value="">--Pilih Data Kegiatan--</option>
+                            @foreach($data_kegiatan as $dk)
+                            <option value="{{ $dk->id }}">{{ $dk->nama }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    
                 </div>
             </div>
             <div class="card-footer text-right">
