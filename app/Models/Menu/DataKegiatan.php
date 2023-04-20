@@ -6,9 +6,10 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Menu\DataKriteria;
 
-class Kegiatan extends Model
+class DataKegiatan extends Model
 {
     use HasFactory;
-    protected $table = "kegiatan";
+    protected $guarded=['id'];
+    protected $table = "data_kegiatan";
     protected $fillable = ['nama', 'deskripsi', 'gambar', 'tanggal_mulai', 'tanggal_selesai', 'kuota'];
 }

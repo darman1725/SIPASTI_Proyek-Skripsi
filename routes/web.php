@@ -6,7 +6,7 @@ use App\Http\Controllers\LandingPageController;
 use App\Http\Controllers\Menu\DataKriteriaController;
 use App\Http\Controllers\Menu\DataSubKriteriaController;
 use App\Http\Controllers\Menu\DataAlternatifController;
-use App\Http\Controllers\Menu\KegiatanController;
+use App\Http\Controllers\Menu\DataKegiatanController;
 use App\Http\Controllers\Management\DataPenilaianController;
 use App\Http\Controllers\Management\DataHasilAkhirController;
 // use App\Http\Controllers\UserController;
@@ -18,11 +18,11 @@ Auth::routes([
 Route::resource('data_kriteria', DataKriteriaController::class);
 Route::resource('data_sub_kriteria', DataSubKriteriaController::class);
 Route::resource('data_alternatif', DataAlternatifController::class);
-Route::resource('kegiatan', KegiatanController::class);
+Route::resource('kegiatan', DataKegiatanController::class);
 
 Route::group(['namespace' => 'App\Http\Controllers\Menu', 'prefix' => 'menu'], function () {
     Route::get('dashboard', 'DashboardController@index')->name('dashboard');
-    Route::get('kegiatan', 'KegiatanController@index')->name('kegiatan');
+    Route::get('kegiatan', 'DataKegiatanController@index')->name('kegiatan');
     Route::get('data_kriteria', 'DataKriteriaController@index')->name('data_kriteria');
     Route::get('data_sub_kriteria', 'DataSubKriteriaController@index')->name('data_sub_kriteria');
     Route::get('data_alternatif', 'DataAlternatifController@index')->name('data_alternatif');
