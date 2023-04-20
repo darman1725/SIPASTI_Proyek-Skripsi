@@ -10,11 +10,21 @@ use App\Http\Requests\DataKriteriaRequest;
 
 class DataKriteriaController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $data_kriteria = DataKriteria::all();
-        $data_kegiatan = DataKegiatan::all();
-        return view('menu.data_kriteria.index', compact('data_kriteria','data_kegiatan'));
+        // $data_kriteria = DataKriteria::all();
+        // $data_kegiatan = DataKegiatan::all();
+        // return view('menu.data_kriteria.index', compact('data_kriteria','data_kegiatan'));
+
+        $data_kriteria = DataKriteria::with('kegiatan')->orderBy('id', 'ASC');
+        $selectedKegiatanId = $request->input('id_data_kegiatan');
+        if ($selectedKegiatanId) {
+        $data_kriteria->where('id_data_kegiatan', $selectedKegiatanId);
+        }
+        $data_kriteria = $data_kriteria->get();
+        $data_kegiatan = DataKegiatan::orderBy('nama')->get();
+
+        return view('menu.data_kriteria.index', compact('data_kriteria', 'data_kegiatan', 'selectedKegiatanId'));
         
     }
 
