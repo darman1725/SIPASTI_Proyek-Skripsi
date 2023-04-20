@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers\Menu;
 
 use Illuminate\Http\Request;
@@ -22,33 +21,9 @@ class DataKegiatanController extends Controller
         return view('menu.data_kegiatan.create');
     }
 
-    public function store(DataKriteriaRequest $request)
-{
-    $data_kriteria = new DataKriteria();
-    $data_kriteria->kode_kriteria = $request->kode_kriteria;
-    $data_kriteria->keterangan = $request->keterangan;
-    $data_kriteria->bobot = $request->bobot;
-    $data_kriteria->jenis = $request->jenis;
-    $data_kriteria->save();
-
-    $kegiatan = $request->id_data_kegiatan ?? [];
-
-    if (!empty($kegiatan)) {
-        foreach ($kegiatan as $kg) {
-            $data_kriteria->dataKegiatan()->attach($kg);
-        }
-    }
-
-    return redirect()->route('data_kriteria')->with('success', 'Data kriteria berhasil ditambahkan!');
-}
-
-    public function edit(DataKegiatan $kegiatan)
+    public function store(DataKegiatanRequest $request)
     {
-        return view('menu.data_kegiatan.edit', compact('kegiatan'));
-    }
-
-    public function update(DataKegiatanRequest $request, DataKegiatan $kegiatan)
-    {
+        $kegiatan = new DataKegiatan();
         $kegiatan->nama = $request->nama;
         $kegiatan->deskripsi = $request->deskripsi;
         $kegiatan->tanggal_mulai = $request->tanggal_mulai;
@@ -64,6 +39,29 @@ class DataKegiatanController extends Controller
 
         $kegiatan->save();
 
+        return redirect()->route('kegiatan')
+            ->with('success', 'Data kegiatan berhasil dibuat');
+    }
+
+    public function edit(DataKegiatan $kegiatan)
+    {
+        return view('menu.data_kegiatan.edit', compact('kegiatan'));
+    }
+
+    public function update(DataKegiatanRequest $request, DataKegiatan $kegiatan)
+    {
+        $kegiatan->nama = $request->nama;
+        $kegiatan->deskripsi = $request->deskripsi;
+        $kegiatan->tanggal_mulai = $request->tanggal_mulai;
+        $kegiatan->tanggal_selesai = $request->tanggal_selesai;
+        $kegiatan->kuota = $request->kuota;
+        if ($request->hasFile('gambar')) {
+            $gambar = $request->file('gambar');
+            $gambarName = time() . '_' . $gambar->getClientOriginalName();
+            $gambarPath = $gambar->storeAs('public/kegiatan', $gambarName);
+            $kegiatan->gambar = $gambarName;
+        }
+        $kegiatan->save();
         return redirect()->route('kegiatan')
             ->with('success', 'Data kegiatan berhasil diperbarui.');
     }
