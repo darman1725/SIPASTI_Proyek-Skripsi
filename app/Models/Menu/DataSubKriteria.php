@@ -11,8 +11,12 @@ class DataSubKriteria extends Model
     use HasFactory;
     protected $guarded=['id'];
     protected $table = "data_sub_kriteria";
-    protected $fillable = ['id_data_kriteria','deskripsi','nilai'];
+    protected $fillable = ['id_data_kegiatan','deskripsi','nilai','id_data_kriteria'];
 
+    public function guestDataKegiatan() {
+        return $this->belongsTo(DataKegiatan::class, 'id_data_kegiatan');
+    }
+    
     public function guestDataKriteria() {
         return $this->belongsTo(DataKriteria::class, 'id_data_kriteria');
     }

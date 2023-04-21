@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Menu;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Menu\DataKegiatan;
 use App\Models\Menu\DataKriteria;
 use App\Models\Menu\DataSubKriteria;
 use App\Http\Requests\DataSubKriteriaRequest;
@@ -19,37 +20,33 @@ class DataSubKriteriaController extends Controller
 
     public function index()
     {
-        $sub_kriteria = DataSubKriteria::all();
+        $sub_kriteria = DataSubKriteria::with('guestDataKegiatan')->get();
         $kriteria = DataSubKriteria::get_kriteria();
         $count_kriteria = DataSubKriteria::count_kriteria();
-        
-        $data = [
-            'page' => 'Sub Kriteria',
-            'sub_kriteria' => $sub_kriteria,
-            'kriteria' => $kriteria,
-            'count_kriteria' => $count_kriteria
-        ];
+        $kegiatan = DataKriteria::all();
 
-        return view('menu.data_sub_kriteria.index', $data);
+        return view('menu.data_sub_kriteria.index', compact('sub_kriteria','kriteria','count_kriteria','kegiatan'));
     }
 
     public function store(DataSubKriteriaRequest $request)
     {
-        $request->validate([
-            'id_data_kriteria' => 'required',
-            'deskripsi' => 'required',
-            'nilai' => 'required'
-        ]);
+    $request->validate([
+        'id_data_kegiatan' => 'required',
+        'id_data_kriteria' => 'required',
+        'deskripsi' => 'required',
+        'nilai' => 'required'
+    ]);
 
-        $data = [
-            'id_data_kriteria' => $request->input('id_data_kriteria'),
-            'deskripsi' => $request->input('deskripsi'),
-            'nilai' => $request->input('nilai')
-        ];
+    $data = [
+        'id_data_kegiatan' => $request->input('id_data_kegiatan'),
+        'id_data_kriteria' => $request->input('id_data_kriteria'),
+        'deskripsi' => $request->input('deskripsi'),
+        'nilai' => $request->input('nilai')
+    ];
 
-        DataSubKriteria::create($data);
+    DataSubKriteria::create($data);
 
-        return redirect()->route('data_sub_kriteria')->with('success', 'Data Sub Kriteria berhasil diupdate');
+    return redirect()->route('data_sub_kriteria')->with('success', 'Data Sub Kriteria berhasil diupdate');
     }
     
     public function show($id)

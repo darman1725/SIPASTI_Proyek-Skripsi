@@ -1,7 +1,7 @@
 <x-app-layout>
 
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800"><i class="fas fa-fw fa-cubes"></i> Data Sub Kriteria</h1>
+        <h1 class="h3 mb-0 text-gray-800"><i class="bi bi-journal-text"></i> Data Sub Kriteria</h1>
     </div>
 
     @if (session('message'))
@@ -28,7 +28,8 @@
     <div class="card shadow mb-4">
         <div class="card-header py-3">
             <div class="d-sm-flex align-items-center justify-content-between">
-                <h6 class="m-0 font-weight-bold text-primary"><i class="fa fa-table"></i> {{ $key->keterangan }} ({{
+                <h6 class="m-0 font-weight-bold text-primary" style="align-content: "><i class="fa fa-table"></i>
+                    Kriteria : {{ $key->keterangan }} ({{
                     $key->kode_kriteria }})</h6>
                 <a href="#tambah{{ $key->id }}" data-toggle="modal" class="btn btn-sm btn-success"> <i
                         class="fa fa-plus"></i> Tambah Data </a>
@@ -47,6 +48,7 @@
                     <form method="POST" action="{{ route('data_sub_kriteria.store') }}">
                         @csrf
                         <div class="modal-body">
+                            <input type="hidden" name="id_data_kegiatan" value="{{ $key->id_data_kegiatan }}">
                             <input type="hidden" name="id_data_kriteria" value="{{ $key->id }}">
                             <div class="form-group">
                                 <label for="deskripsi" class="font-weight-bold">Nama Sub Kriteria</label>
@@ -77,6 +79,7 @@
                             <th width="5%">No</th>
                             <th>Nama Sub Kriteria</th>
                             <th>Nilai</th>
+                            <th>Kegiatan</th>
                             <th width="15%">Aksi</th>
                         </tr>
                     </thead>
@@ -91,6 +94,11 @@
                             <td>{{ $no }}</td>
                             <td align="left">{{ $ksub->deskripsi }}</td>
                             <td>{{ $ksub->nilai }}</td>
+                            @php
+                            // Ubah variabel $ksub menjadi objek dari model DataSubKriteria
+                            $ksub = \App\Models\Menu\DataSubKriteria::find($ksub->id);
+                            @endphp
+                            <td>{{ $ksub->guestDataKegiatan->nama }}</td>
                             <td>
                                 <div class="btn-group" role="group">
                                     <a data-toggle="modal" title="Edit Data" href="#editsk{{ $ksub->id }}"

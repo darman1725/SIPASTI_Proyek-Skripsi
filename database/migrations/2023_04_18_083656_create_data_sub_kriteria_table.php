@@ -15,6 +15,8 @@ return new class extends Migration
     {
         Schema::create('data_sub_kriteria', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('id_data_kegiatan');
+            $table->foreign('id_data_kegiatan')->references('id')->on('data_kegiatan');
             $table->unsignedBigInteger('id_data_kriteria');
             $table->foreign('id_data_kriteria')->references('id')->on('data_kriteria');
             $table->string('deskripsi', 200);
