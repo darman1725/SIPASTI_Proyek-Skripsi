@@ -131,8 +131,8 @@
                                         @csrf
                                         @method('put')
                                         <div class="modal-body">
-                                            <input type="hidden" name="id_data_kriteria"
-                                                value="{{ $ksub->id_data_kriteria }}">
+                                            <input type="hidden" name="id_data_kegiatan" value="{{ $key->id_data_kegiatan }}">
+                                            <input type="hidden" name="id_data_kriteria" value="{{ $ksub->id_data_kriteria }}">
                                             <div class="form-group">
                                                 <label for="deskripsi" class="font-weight-bold">Nama Sub
                                                     Kriteria</label>
