@@ -18,14 +18,19 @@ class DataSubKriteriaController extends Controller
         $this->middleware('auth');
     }
 
-    public function index()
+    public function index(Request $request)
     {
+        $data_kegiatan = DataKegiatan::all();
         $sub_kriteria = DataSubKriteria::with('guestDataKegiatan')->get();
         $kriteria = DataSubKriteria::get_kriteria();
         $count_kriteria = DataSubKriteria::count_kriteria();
         $kegiatan = DataKriteria::all();
 
-        return view('menu.data_sub_kriteria.index', compact('sub_kriteria','kriteria','count_kriteria','kegiatan'));
+        if ($request->filled('id_data_kegiatan')) {
+            $kriteria = $kriteria->where('id_data_kegiatan', $request->input('id_data_kegiatan'));
+        }
+
+        return view('menu.data_sub_kriteria.index', compact('sub_kriteria','kriteria','count_kriteria','kegiatan','data_kegiatan'));
     }
 
     public function store(DataSubKriteriaRequest $request)

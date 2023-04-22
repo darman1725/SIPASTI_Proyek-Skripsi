@@ -9,22 +9,37 @@
         {{ session('message') }}
     </div>
     @endif
+    
+    <form method="GET" action="{{ route('data_sub_kriteria') }}">
+        <div class="form-group">
+            <label for="id_data_kegiatan">Filter by Data Kegiatan:</label>
+            <select name="id_data_kegiatan" class="form-control">
+                <option value="">-- Semua Kegiatan --</option>
+                @foreach ($data_kegiatan as $kegiatan)
+                    <option value="{{ $kegiatan->id }}" {{ request('id_data_kegiatan') == $kegiatan->id ? 'selected' : '' }}>
+                        {{ $kegiatan->nama }}
+                    </option>
+                @endforeach
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary" onclick="event.preventDefault(); this.form.submit();">Filter</button><br><br>
+    </form>    
 
-    @if ($kriteria==NULL)
+    @if ($kriteria->isEmpty())
     <div class="card shadow mb-4">
         <div class="card-header py-3">
             <h6 class="m-0 font-weight-bold text-primary"><i class="fa fa-table"></i> Daftar Data Sub Kriteria</h6>
         </div>
-
         <div class="card-body">
             <div class="alert alert-info">
                 Data masih kosong.
             </div>
         </div>
     </div>
-    @endif
+    @else
 
     @foreach ($kriteria as $key)
+    @if (!request('id_data_kegiatan') || $key->id_data_kegiatan == request('id_data_kegiatan'))
     <div class="card shadow mb-4">
         <div class="card-header py-3">
             <div class="d-sm-flex align-items-center justify-content-between">
@@ -41,7 +56,8 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="myModalLabel"><i class="fa fa-plus"></i> Tambah {{ $key->keterangan
+                        <h5 class="modal-title" id="myModalLabel"><i class="fa fa-plus"></i> Tambah {{
+                            $key->keterangan
                             }}</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                     </div>
@@ -131,8 +147,10 @@
                                         @csrf
                                         @method('put')
                                         <div class="modal-body">
-                                            <input type="hidden" name="id_data_kegiatan" value="{{ $key->id_data_kegiatan }}">
-                                            <input type="hidden" name="id_data_kriteria" value="{{ $ksub->id_data_kriteria }}">
+                                            <input type="hidden" name="id_data_kegiatan"
+                                                value="{{ $key->id_data_kegiatan }}">
+                                            <input type="hidden" name="id_data_kriteria"
+                                                value="{{ $ksub->id_data_kriteria }}">
                                             <div class="form-group">
                                                 <label for="deskripsi" class="font-weight-bold">Nama Sub
                                                     Kriteria</label>
@@ -166,6 +184,8 @@
             </div>
         </div>
     </div>
+    @endif
     @endforeach
+    @endif
 
 </x-app-layout>
