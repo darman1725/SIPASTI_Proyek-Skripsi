@@ -20,17 +20,7 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string('level')->default('user');
-            $table->tinyInteger('status')->default(1)->unsigned();
-            $table->string('last_ip')->nullable();
-            $table->integer('login_count')->default(0);
-            $table->timestamp('last_seen')->nullable();
-            $table->uuid('created_by')->nullable();
-            $table->uuid('updated_by')->nullable();
-            $table->uuid('deleted_by')->nullable();
-            $table->uuid('restore_by')->nullable();
-            $table->rememberToken();
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 

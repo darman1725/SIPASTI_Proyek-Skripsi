@@ -2,18 +2,19 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Controllers\LandingPageController;
+use App\Http\Controllers\Frontend\LandingPageController;
 use App\Http\Controllers\Menu\DataKriteriaController;
 use App\Http\Controllers\Menu\DataSubKriteriaController;
 use App\Http\Controllers\Menu\DataAlternatifController;
 use App\Http\Controllers\Menu\DataKegiatanController;
 use App\Http\Controllers\Management\DataPenilaianController;
 use App\Http\Controllers\Management\DataHasilAkhirController;
-// use App\Http\Controllers\UserController;
 
 Auth::routes([
     'register' => true,
 ]);
+
+Route::get('/', [LandingPageController::class, 'index']);
 
 Route::resource('data_kriteria', DataKriteriaController::class);
 Route::resource('data_sub_kriteria', DataSubKriteriaController::class);
@@ -100,16 +101,3 @@ Route::group(['namespace' => 'App\Http\Controllers\Backend', 'prefix' => 'admin'
     Route::delete('article/post/force/{id}', 'PostController@deletePermanent')->name('post.force');
 });
 
-
-
-/*
-*
-* Frontend Routes
-*
-* --------------------------------------------------------------------
-*/
-// Route::group(['namespace' => 'App\Http\Controllers\Frontend', 'as' => 'frontend.'], function () {
-//     Route::get('/', 'HomeController@index');
-// });
-
-Route::get('/', [LandingPageController::class, 'index']);

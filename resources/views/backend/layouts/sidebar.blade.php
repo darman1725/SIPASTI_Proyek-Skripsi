@@ -33,8 +33,8 @@
         </x-sidebar.dropdown>        
 
         <li class="sidebar-title">Information</li>
-        <x-sidebar.item name="Data User" :link="route('profile', Auth::user()->id)" :active="'profile*'" :icon="'person-circle'">
-        </x-sidebar.item>
+        {{-- <x-sidebar.item name="Data User" :link="route('profile', Auth::user()->id)" :active="'profile*'" :icon="'person-circle'">
+        </x-sidebar.item> --}}
         <x-sidebar.dropdown name="Data Profile" :active="'log-viewer'" :icon="'person-check'">
             <x-sidebar.submenu :name="'Dashboard'" :link="url('admin/log-viewer')" :active="'log-viewer'" :icon="'inboxes-fill'">
             </x-sidebar.submenu>
