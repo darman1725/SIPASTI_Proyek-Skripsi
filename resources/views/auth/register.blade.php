@@ -3,28 +3,28 @@
         <div class="col-lg-5 col-12">
             <div id="auth-left">
                 <div class="auth-logo">
-                    <a href="{{ route('login') }}"><img src="{{ asset('assets/images/bps.png') }}"
-                            alt="Logo"></a>
+                    <a href="{{ route('login') }}"><img src="{{ asset('assets/images/bps.png') }}" alt="Logo"></a>
                 </div>
                 <h1 class="auth-title">Register</h1>
-                <p class="auth-subtitle mb-3">Inputkan isian kolom sesuai dengan data yang anda miliki untuk melengkapi proses pendaftaran.</p>
+                <p class="auth-subtitle mb-3">Inputkan isian kolom sesuai dengan data yang anda miliki untuk melengkapi
+                    proses pendaftaran.</p>
                 @if (session('status'))
-                    <div class="mb-4 font-medium text-sm text-green-600">
-                        {{ session('status') }}
-                    </div>
+                <div class="mb-4 font-medium text-sm text-green-600">
+                    {{ session('status') }}
+                </div>
                 @endif
                 @if ($errors->any())
-                    <div class="alert alert-danger">
-                        {{ $errors->first() }}
-                    </div>
+                <div class="alert alert-danger">
+                    {{ $errors->first() }}
+                </div>
                 @endif
                 <form action="" method="POST">
                     @csrf
                     <div class="form-group position-relative has-icon-left mb-4">
-                        <input type="text" class="form-control form-control" name="username" placeholder="Username..."
-                            value="{{ old('username') }}">
+                        <input type="number" class="form-control form-control" name="nik" placeholder="Data NIK..."
+                            value="{{ old('nik') }}">
                         <div class="form-control-icon">
-                            <i class="bi bi-person"></i>
+                            <i class="bi bi-123"></i>
                         </div>
                     </div>
                     <div class="form-group position-relative has-icon-left mb-4">
@@ -35,7 +35,22 @@
                         </div>
                     </div>
                     <div class="form-group position-relative has-icon-left mb-4">
-                        <input type="password" class="form-control form-control" name="password" placeholder="Password...">
+                        <input type="text" class="form-control form-control" name="nama_lengkap"
+                            placeholder="Nama Lengkap..." value="{{ old('nama_lengkap') }}">
+                        <div class="form-control-icon">
+                            <i class="bi bi-person-lines-fill"></i>
+                        </div>
+                    </div>
+                    <div class="form-group position-relative has-icon-left mb-4">
+                        <input type="text" class="form-control form-control" name="username" placeholder="Username..."
+                            value="{{ old('username') }}">
+                        <div class="form-control-icon">
+                            <i class="bi bi-person"></i>
+                        </div>
+                    </div>
+                    <div class="form-group position-relative has-icon-left mb-4">
+                        <input type="password" class="form-control form-control" name="password"
+                            placeholder="Password...">
                         <div class="form-control-icon">
                             <i class="bi bi-shield-lock"></i>
                         </div>

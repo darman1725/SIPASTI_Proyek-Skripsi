@@ -74,7 +74,7 @@
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
                         <li>
-                            <h6 class="dropdown-header">Hello, {{ strtok(Auth::user()->username, ' ') }}!</h6>
+                            <h6 class="dropdown-header">Hello, {{ strtok(Auth::user()->nama_lengkap, ' ') }}!</h6>
                         </li>
                         <li>
                             <hr class="dropdown-divider">
