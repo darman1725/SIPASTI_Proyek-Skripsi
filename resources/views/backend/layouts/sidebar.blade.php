@@ -3,7 +3,7 @@
     @if(Auth::user()->level == 'admin')
         <x-sidebar.item name="Dashboard" :link="route('dashboard')" :active="'dashboard'" :icon="'speedometer'">
         </x-sidebar.item>
-        <x-sidebar.item name="Kegiatan" :link="route('kegiatan')" :active="'kegiatan'" :icon="'ui-checks-grid'">
+        <x-sidebar.item name="Data Kegiatan" :link="route('kegiatan')" :active="'kegiatan'" :icon="'ui-checks-grid'">
         </x-sidebar.item>
         <x-sidebar.item name="Data Kriteria" :link="route('data_kriteria')" :active="'data_kriteria'" :icon="'journal-bookmark'">
         </x-sidebar.item>
@@ -13,7 +13,9 @@
     @endif
 
     @if(Auth::user()->level == 'user')
-        <x-sidebar.item name="Kegiatan" :link="route('kegiatan')" :active="'kegiatan'" :icon="'ui-checks-grid'">
+        <x-sidebar.item name="Data Kegiatan" :link="route('kegiatan')" :active="'kegiatan'" :icon="'ui-checks-grid'">
+        </x-sidebar.item>
+        <x-sidebar.item name="Riwayat Daftar" :link="route('pendaftaran')" :active="'pendaftaran'" :icon="'ui-checks'">
         </x-sidebar.item>
         <x-sidebar.item name="Data Hasil Akhir" :link="route('data_hasil_akhir')" :active="'data_hasil_akhir'" :icon="'box2-heart-fill'">
         </x-sidebar.item>
