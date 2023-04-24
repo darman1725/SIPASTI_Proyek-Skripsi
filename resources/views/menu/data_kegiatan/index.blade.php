@@ -33,7 +33,7 @@
                             @if(Auth::user()->level == 'admin')
                             <!-- Tombol daftar dihilangkan jika level auth adalah admin -->
                             @else
-                            <a href="#" class="btn btn-primary btn-block">Daftar</a>
+                            <a href="{{ route('pendaftaran') }}" class="btn btn-primary btn-block">Daftar</a>
                             @endif
                         </div>
                     </div>
