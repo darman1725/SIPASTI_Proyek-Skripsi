@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Menu;
 
 use App\Http\Controllers\Controller;
 use App\Models\Menu\DataAlternatif;
+use App\Models\Menu\DataKegiatan;
 use App\Models\Menu\Pendaftaran;
 use Illuminate\Http\Request;
 use App\Http\Requests\DataAlternatifRequest;
@@ -11,11 +12,20 @@ use App\Http\Requests\DataAlternatifRequest;
 
 class DataAlternatifController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $data_alternatif = DataAlternatif::all();
-        $pendaftarans = Pendaftaran::with('user', 'kegiatan')->get();
-        return view('menu.data_alternatif.index', compact('data_alternatif','pendaftarans'));
+        $selectedKegiatanId = $request->input('id_data_kegiatan');
+
+        $pendaftarans = Pendaftaran::with('kegiatan')
+            ->when($selectedKegiatanId, function ($query, $selectedKegiatanId) {
+                return $query->where('id_data_kegiatan', $selectedKegiatanId);
+            })
+            ->orderBy('id', 'ASC')
+            ->get();
+    
+        $data_kegiatan = DataKegiatan::all();
+        
+        return view('menu.data_alternatif.index', compact('pendaftarans','data_kegiatan','selectedKegiatanId'));
     }
 
     public function create()

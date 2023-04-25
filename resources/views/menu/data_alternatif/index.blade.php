@@ -17,6 +17,24 @@
         </div>
 
         <div class="card-body">
+            <form action="{{ route('data_alternatif') }}" method="GET">
+                <div class="form-group row">
+                    <label for="id_data_kegiatan" class="col-sm-2 col-form-label">Pilih Kegiatan</label>
+                    <div class="col-sm-4">
+                        <select class="form-control" name="id_data_kegiatan">
+                            <option value="">-- Semua Kegiatan --</option>
+                            @foreach($data_kegiatan as $kegiatan)
+                                <option value="{{ $kegiatan->id }}" {{ $kegiatan->id == $selectedKegiatanId ? 'selected' : '' }}>{{ $kegiatan->nama }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="col-sm-2">
+                        <button type="submit" class="btn btn-primary">Filter</button>
+                    </div>
+                </div>
+            </form>
+            
+
             <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead class="bg-primary text-white">
