@@ -38,16 +38,24 @@
                             </div>
                             <div class="form-group">
                                 <label for="provinsi">{{ __('Provinsi') }}</label>
-                                <input id="provinsi" type="text" class="form-control" name="provinsi" required>
+                                <select class="form-control" id="provinsi" name="provinsi">
+                                    <option value="">-- Pilih Provinsi --</option>
+                                </select>
                             </div>
                             <div class="form-group">
                                 <label for="kabupaten_kota">{{ __('Kabupaten/Kota') }}</label>
-                                <input id="kabupaten_kota" type="text" class="form-control" name="kabupaten_kota"
-                                    required>
+                                <select class="form-control" id="kabupaten_kota" name="kabupaten_kota">
+                                    <option value="">-- Pilih Kabupaten/Kota --</option>
+                                </select>
                             </div>
                             <div class="form-group">
                                 <label for="jabatan">{{ __('Jabatan') }}</label>
-                                <input id="jabatan" type="text" class="form-control" name="jabatan" required>
+                                <select class="form-control" name="jabatan" required>
+                                    <option value="" disabled selected>-- Pilih Jabatan --</option>
+                                    <option value="PML">PML</option>
+                                    <option value="PPL">PPL</option>
+                                    <option value="Koseka">Koseka</option>
+                                </select>
                             </div>
                             <div class="form-group mb-0">
                                 <button type="submit" class="btn btn-primary">{{ __('Simpan') }}</button>
@@ -58,5 +66,53 @@
             </div>
         </div>
     </div>
+
+    <script>
+        fetch(`https://darman1725.github.io/api-wilayah-indonesia/api/provinces.json`)
+            .then((response) => response.json())
+            .then((provinces) => {
+                var data = provinces;
+                var tampung = `<option>-- Pilih Provinsi --</option>`;
+                data.forEach((element) => {
+                    tampung += `<option data-prov="${element.id}" value="${element.name}">${element.name}</option>`;
+                });
+                document.getElementById("provinsi").innerHTML = tampung;
+            });
+    </script>
+
+<script>
+    const selectProvinsi = document.getElementById('provinsi');
+    const selectKota = document.getElementById('kabupaten_kota');
+
+    selectProvinsi.addEventListener('change', (e) => {
+        var provinsi = e.target.options[e.target.selectedIndex].dataset.prov;
+        fetch(`https://darman1725.github.io/api-wilayah-indonesia/api/regencies/${provinsi}.json`)
+            .then((response) => response.json())
+            .then((regencies) => {
+                var data = regencies;
+                var tampung = `<option>-- Pilih Kabupaten/Kota --</option>`;
+                document.getElementById('kabupaten_kota').innerHTML = '<option>Pilih</option>';
+                data.forEach((element) => {
+                    tampung += `<option data-prov="${element.id}" value="${element.name}">${element.name}</option>`;
+                });
+                document.getElementById("kabupaten_kota").innerHTML = tampung;
+            });
+    });
+
+    selectKota.addEventListener('change', (e) => {
+        var kota = e.target.options[e.target.selectedIndex].dataset.prov;
+        fetch(`https://darman1725.github.io/api-wilayah-indonesia/api/districts/${kota}.json`)
+            .then((response) => response.json())
+            .then((districts) => {
+                var data = districts;
+                var tampung = `<option>-- Pilih Kabupaten/Kota --</option>`;
+                document.getElementById('kecamatan').innerHTML = '<option>Pilih</option>';
+                data.forEach((element) => {
+                    tampung += `<option data-prov="${element.id}" value="${element.name}">${element.name}</option>`;
+                });
+                document.getElementById("kecamatan").innerHTML = tampung;
+            });
+    });
+</script>
 
 </x-app-layout>

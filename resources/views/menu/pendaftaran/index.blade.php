@@ -11,28 +11,30 @@
             <div class="card-body">
                 <table class="table">
                     <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>User</th>
-                            <th>Kegiatan</th>
-                            <th>Provinsi</th>
-                            <th>Kabupaten/Kota</th>
+                        <tr style="text-align: center">
+                            <th>No</th>
+                            <th>Nama Pelamar</th>
+                            <th>Kegiatan Diikuti</th>
+                            {{-- <th>Provinsi</th>
+                            <th>Kabupaten/Kota</th> --}}
                             <th>Jabatan</th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach($pendaftarans as $pendaftaran)
-                        <tr>
-                            <td>{{ $pendaftaran->id }}</td>
+                        <tr style="text-align: center">
+                            <td>{{ $loop->iteration }}</td>
                             <td>{{ $pendaftaran->user->nama_lengkap }}</td>
                             <td>{{ $pendaftaran->kegiatan->nama }}</td>
-                            <td>{{ $pendaftaran->provinsi }}</td>
-                            <td>{{ $pendaftaran->kabupaten_kota }}</td>
+                            {{-- <td>{{ ucwords(strtolower($pendaftaran->provinsi)) }}</td>
+                            <td>{{ ucwords(strtolower($pendaftaran->kabupaten_kota)) }}</td> --}}
                             <td>{{ $pendaftaran->jabatan }}</td>
                             <td>
                                 <a href="{{ route('pendaftaran.edit', $pendaftaran->id) }}"
                                     class="btn btn-sm btn-primary">Edit</a>
+                                <a href="{{ route('pendaftaran.show', $pendaftaran->id) }}"
+                                    class="btn btn-sm btn-info">Show</a>
                                 <form action="{{ route('pendaftaran.destroy', $pendaftaran->id) }}" method="POST"
                                     style="display:inline-block;">
                                     @csrf

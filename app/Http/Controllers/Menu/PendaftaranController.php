@@ -34,6 +34,12 @@ class PendaftaranController extends Controller
         return redirect()->route('pendaftaran')->with('success', 'Data pendaftaran berhasil dibuat');
     }
 
+    public function show($id)
+    {
+        $pendaftarans = Pendaftaran::findOrFail($id);
+        return view('menu.pendaftaran.show', compact('pendaftarans'));
+    }
+
     public function edit($id)
     {
         $pendaftaran = Pendaftaran::findOrFail($id);
