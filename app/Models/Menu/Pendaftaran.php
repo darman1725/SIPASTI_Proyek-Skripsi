@@ -24,4 +24,9 @@ class Pendaftaran extends Model
     {
         return $this->belongsTo(DataKegiatan::class, 'id_data_kegiatan');
     }
+
+    public function data_alternatif()
+    {
+        return $this->hasOne(DataAlternatif::class, 'id_pendaftaran');
+    }
 }

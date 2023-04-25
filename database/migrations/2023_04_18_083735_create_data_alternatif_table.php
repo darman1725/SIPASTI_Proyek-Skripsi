@@ -15,7 +15,8 @@ return new class extends Migration
     {
         Schema::create('data_alternatif', function (Blueprint $table) {
             $table->id();
-            $table->string('nama', 100);
+            $table->unsignedBigInteger('id_pendaftaran');
+            $table->foreign('id_pendaftaran')->references('id')->on('pendaftaran');
             $table->timestamps();
         });
     }

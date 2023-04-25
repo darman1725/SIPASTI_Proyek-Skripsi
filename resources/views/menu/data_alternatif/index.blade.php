@@ -2,8 +2,9 @@
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800"><i class="fas fa-fw fa-users"></i> Data Alternatif</h1>
 
-        <a href="{{ route('data_alternatif.create') }}" class="btn btn-success"> <i class="fa fa-plus"></i> Tambah Data
-        </a>
+        {{-- <a href="{{ route('data_alternatif.create') }}" class="btn btn-success"> <i class="fa fa-plus"></i> Tambah
+            Data
+        </a> --}}
     </div>
 
     @if(Session::has('message'))
@@ -19,18 +20,24 @@
             <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead class="bg-primary text-white">
-                        <tr align="center">
+                        <tr style="text-align: center">
                             <th width="5%">No</th>
-                            <th>Nama Alternatif</th>
-                            <th width="15%">Aksi</th>
+                            <th>Nama Pelamar</th>
+                            <th>Provinsi</th>
+                            <th>Kabupaten/Kota</th>
+                            <th>Tujuan Kegiatan</th>
+                            {{-- <th width="15%">Aksi</th> --}}
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($data_alternatif as $data)
-                        <tr align="center">
+                        @foreach($pendaftarans as $data)
+                        <tr style="text-align: center">
                             <td>{{ $loop->iteration }}</td>
-                            <td align="left">{{ $data->nama }}</td>
-                            <td>
+                            <td>{{ $data->user->nama_lengkap }} </td>
+                            <td>{{ ucwords(strtolower($data->provinsi)) }}</td>
+                            <td>{{ ucwords(strtolower($data->kabupaten_kota)) }}</td>
+                            <td>{{ $data->kegiatan->nama }}</td>
+                            {{-- <td>
                                 <div class="btn-group" role="group">
                                     <a data-toggle="tooltip" data-placement="bottom" title="Edit Data"
                                         href="{{ route('data_alternatif.edit', $data->id) }}"
@@ -44,7 +51,7 @@
                                                 class="fa fa-trash"></i></button>
                                     </form>
                                 </div>
-                            </td>
+                            </td> --}}
                         </tr>
                         @endforeach
                     </tbody>

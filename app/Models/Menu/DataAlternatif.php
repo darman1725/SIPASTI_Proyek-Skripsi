@@ -10,5 +10,10 @@ class DataAlternatif extends Model
     use HasFactory;
     protected $guarded=['id'];
     protected $table = "data_alternatif";
-    protected $fillable = ['nama'];
+    protected $fillable = ['id_pendaftaran'];
+
+    public function pendaftaran()
+    {
+        return $this->belongsTo(Pendaftaran::class, 'id_pendaftaran');
+    }
 }
