@@ -80,8 +80,8 @@
                             <hr class="dropdown-divider">
                         </li>
                         <li>
-                            <a href="{{ route('users.show', Auth::user()->id) }}" class="dropdown-item"
-                                href="">View Profile</a>
+                            <a href="#" class="dropdown-item"
+                                href=""><i class="icon-mid bi bi-eye-fill me-2"></i>Lihat Profile</a>
                         </li>
                         <li>
                             <a class="dropdown-item" href="{{ route('logout') }}"
