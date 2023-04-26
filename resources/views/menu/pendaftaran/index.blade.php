@@ -12,7 +12,7 @@
                 <table class="table">
                     <thead>
                         <tr style="text-align: center">
-                            <th>No</th>
+                            {{-- <th>No</th> --}}
                             <th>Nama Pelamar</th>
                             <th>Kegiatan Diikuti</th>
                             {{-- <th>Provinsi</th>
@@ -23,14 +23,16 @@
                     </thead>
                     <tbody>
                         @foreach($pendaftarans as $pendaftaran)
+                        @if(Auth::user()->level == 'admin' || Auth::user()->id == $pendaftaran->id_data_user)
                         <tr style="text-align: center">
-                            <td>{{ $loop->iteration }}</td>
+                            {{-- <td>{{ $loop->iteration }}</td> --}}
                             <td>{{ $pendaftaran->user->nama_lengkap }}</td>
                             <td>{{ $pendaftaran->kegiatan->nama }}</td>
                             {{-- <td>{{ ucwords(strtolower($pendaftaran->provinsi)) }}</td>
                             <td>{{ ucwords(strtolower($pendaftaran->kabupaten_kota)) }}</td> --}}
                             <td>{{ $pendaftaran->jabatan }}</td>
                             <td>
+                                @if(Auth::user()->level == 'admin' || Auth::user()->id == $pendaftaran->id_data_user)
                                 <a href="{{ route('pendaftaran.edit', $pendaftaran->id) }}"
                                     class="btn btn-sm btn-primary">Edit</a>
                                 <a href="{{ route('pendaftaran.show', $pendaftaran->id) }}"
@@ -42,8 +44,10 @@
                                     <button type="submit" class="btn btn-sm btn-danger"
                                         onclick="return confirm('Apakah Anda yakin ingin menghapus data pendaftaran ini?')">Hapus</button>
                                 </form>
+                                @endif
                             </td>
                         </tr>
+                        @endif
                         @endforeach
                     </tbody>
                 </table>
