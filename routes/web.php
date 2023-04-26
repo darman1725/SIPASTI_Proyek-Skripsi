@@ -11,6 +11,8 @@ use App\Http\Controllers\Menu\DataKegiatanController;
 use App\Http\Controllers\Menu\PendaftaranController;
 use App\Http\Controllers\Management\DataPenilaianController;
 use App\Http\Controllers\Management\DataHasilAkhirController;
+use App\Http\Controllers\Information\DataPelamarController;
+use App\Http\Controllers\Information\DataProfileController;
 
 Auth::routes([
     'register' => true,
@@ -33,7 +35,6 @@ Route::group(['namespace' => 'App\Http\Controllers\Menu', 'prefix' => 'menu'], f
     Route::get('data_alternatif', 'DataAlternatifController@index')->name('data_alternatif');
 });
 
-
 Route::post('/tambah_penilaian', [DataPenilaianController::class, 'tambah_penilaian'])->name('data_penilaian.tambah_penilaian');
 Route::post('/update_penilaian', [DataPenilaianController::class, 'update_penilaian'])->name('data_penilaian.update_penilaian');
 Route::get('/generate_pdf', [DataHasilAkhirController::class, 'generatePDF'])->name('generate_pdf');
@@ -44,6 +45,10 @@ Route::group(['namespace' => 'App\Http\Controllers\Management', 'prefix' => 'man
     Route::get('data_hasil_akhir', 'DataHasilAkhirController@index')->name('data_hasil_akhir');
 });
 
+Route::group(['namespace' => 'App\Http\Controllers\Information', 'prefix' => 'information'], function () {
+    Route::get('data_pelamar', 'DataPelamarController@index')->name('data_pelamar');
+    Route::get('data_profile', 'DataProfileController@index')->name('data_profile');
+});
 
 Route::group(['namespace' => 'App\Http\Controllers\Backend', 'prefix' => 'admin'], function () {
 

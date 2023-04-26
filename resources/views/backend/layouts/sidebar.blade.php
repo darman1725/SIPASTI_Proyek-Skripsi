@@ -17,16 +17,16 @@
         </x-sidebar.item>
         <x-sidebar.item name="Riwayat Daftar" :link="route('pendaftaran')" :active="'pendaftaran'" :icon="'ui-checks'">
         </x-sidebar.item>
-        <li class="sidebar-title">Informasi</li>
+        <li class="sidebar-title">Manajemen</li>
         <x-sidebar.item name="Data Hasil Akhir" :link="route('data_hasil_akhir')" :active="'data_hasil_akhir'" :icon="'box2-heart-fill'">
         </x-sidebar.item>
-        <li class="sidebar-title">Manajemen</li>
-        <x-sidebar.item name="Data Profile" :link="route('profile', Auth::user()->id)" :active="'profile*'" :icon="'person-circle'">
+        <li class="sidebar-title">Informasi</li>
+        <x-sidebar.item name="Data Profile" :link="route('data_profile')" :active="'data_profile'" :icon="'person-square'">
         </x-sidebar.item>
     @endif
 
     @if(Auth::user()->level == 'admin')
-        <li class="sidebar-title">Informasi</li>
+        <li class="sidebar-title">Manajemen</li>
         <x-sidebar.item name="Data Penilaian" :link="route('data_penilaian')" :active="'data_penilaian*'" :icon="'pencil-square'">
         </x-sidebar.item>
         <x-sidebar.dropdown name="Data Kalkulasi" :active="in_array(Route::currentRouteName(), ['data_perhitungan', 'data_hasil_akhir'])" :icon="'calculator-fill'">
@@ -36,14 +36,10 @@
             </x-sidebar.submenu>
         </x-sidebar.dropdown>        
 
-        <li class="sidebar-title">Manajemen</li>
-        <x-sidebar.dropdown name="Data Pelamar" :active="'log-viewer'" :icon="'person-check'">
-            <x-sidebar.submenu :name="'Dashboard'" :link="url('admin/log-viewer')" :active="'log-viewer'" :icon="'inboxes-fill'">
-            </x-sidebar.submenu>
-            <x-sidebar.submenu :name="'Logs by Date'" :link="url('admin/log-viewer/logs')" :active="'logs'" :icon="'journal-text'">
-            </x-sidebar.submenu>
-        </x-sidebar.dropdown>
-        <x-sidebar.item name="Data Profile" :link="route('profile', Auth::user()->id)" :active="'profile*'" :icon="'person-circle'">
+        <li class="sidebar-title">Informasi</li>
+        <x-sidebar.item name="Data Pelamar" :link="route('data_pelamar')" :active="'data_pelamar'" :icon="'person-check'">
+        </x-sidebar.item>
+        <x-sidebar.item name="Data Profile" :link="route('data_profile')" :active="'data_profile'" :icon="'person-square'">
         </x-sidebar.item>
     @endif
 </x-sidebar.index>
