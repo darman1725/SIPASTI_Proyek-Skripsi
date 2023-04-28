@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Menu;
 
 use Illuminate\Http\Request;
-use App\Models\User;
+use App\Models\Information\User;
 use App\Models\Menu\DataKegiatan;
 use App\Models\Menu\Pendaftaran;
 use App\Models\Menu\DataAlternatif;

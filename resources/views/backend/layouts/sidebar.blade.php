@@ -37,7 +37,7 @@
         </x-sidebar.dropdown>        
 
         <li class="sidebar-title">Informasi</li>
-        <x-sidebar.item name="Data Pelamar" :link="route('data_pelamar')" :active="'data_pelamar'" :icon="'person-check'">
+        <x-sidebar.item name="Data Pelamar" :link="route('user')" :active="'user'" :icon="'person-check'">
         </x-sidebar.item>
         <x-sidebar.item name="Data Profile" :link="route('data_profile')" :active="'data_profile'" :icon="'person-square'">
         </x-sidebar.item>

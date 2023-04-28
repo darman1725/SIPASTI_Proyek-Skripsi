@@ -4,7 +4,7 @@ namespace App\Models\Menu;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\User;
+use App\Models\Information\User;
 use App\Models\Menu\DataKegiatan;
 
 class Pendaftaran extends Model
