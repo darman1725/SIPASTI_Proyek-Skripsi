@@ -8,65 +8,70 @@ use App\Models\Information\User;
 use App\Models\Menu\Pendaftaran;
 use App\Http\Requests\UserRequest;
 use Illuminate\Support\Facades\Hash;
+use DB;
 
 class UserController extends Controller
 {
     public function index()
     {
-        $users = User::paginate(10);
+        $users = User::orderBy('created_at', 'desc')->paginate(10);
         return view('information.data_pelamar.index', compact('users'));
     }
 
     public function create()
     {
-        $users = User::all();
-        return view('information.data_pelamar.create', compact('users'));
+        return view('information.data_pelamar.create');
     }
 
     public function store(UserRequest $request)
     {
-        $data = $request->all();
+        $data = $request->validated();
         $data['password'] = Hash::make($data['password']);
+        $data['level'] = 'user';
         User::create($data);
-        return redirect()->route('user')->with('success', 'Data User berhasil dibuat');
+        return redirect()->route('user')->with('success', 'Data pelamar berhasil ditambahkan');
     }
 
-    public function show($id)
+    public function show(User $user)
     {
-        $user = User::findOrFail($id);
         return view('information.data_pelamar.show', compact('user'));
     }
 
-    public function edit($id)
+    public function edit(User $user)
     {
-        $user = User::findOrFail($id);
         return view('information.data_pelamar.edit', compact('user'));
     }
 
-    public function update(UserRequest $request, $id)
+    public function update(UserRequest $request, User $user)
     {
-        $user = User::findOrFail($id);
-        $data = $request->all();
-        if (isset($data['password'])) {
-            $data['password'] = Hash::make($data['password']);
-        }
+        $data = $request->validated();
+
         $user->update($data);
-        return redirect()->route('user')->with('success', 'Data User berhasil diupdate');
+        
+        return redirect()->route('user')
+            ->with('success', 'Data pengguna berhasil diupdate');
     }
 
-    public function destroy($id)
-{
-    try {
-        $user = Pendaftaran::findOrFail($id);
-        $user->delete();
-
-        $user = User::findOrFail($id);
-        $user->delete();
-
-        return redirect()->route('user')->with('success', 'Data User berhasil dihapus');
-    } catch (\Exception $e) {
-        return redirect()->route('user')->with('error', 'Gagal menghapus data user');
+    public function destroy(User $user)
+    {
+        DB::beginTransaction();
+        try {
+            // Hapus data terkait di tabel data_alternatif
+            DB::table('data_alternatif')->whereIn('id_pendaftaran', function ($query) use ($user) {
+                $query->select('id')->from('pendaftaran')->where('id_data_user', $user->id);
+            })->delete();
+    
+            // Hapus data terkait di tabel pendaftaran
+            $user->pendaftaran()->delete();
+    
+            // Hapus data user
+            $user->delete();
+    
+            DB::commit();
+            return redirect()->route('user')->with('success', 'Pengguna berhasil dihapus.');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return redirect()->route('user')->with('error', 'Terjadi kesalahan saat menghapus pengguna: ' . $e->getMessage());
+        }
     }
-}
-
 }
