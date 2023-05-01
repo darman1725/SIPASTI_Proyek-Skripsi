@@ -25,11 +25,12 @@ class UserRequest extends FormRequest
     public function rules()
     {
         return [
-            'nik' => ['required', 'numeric', 'unique:users,nik,' . $this->route('user')->id],
-            'email' => ['required', 'email', 'unique:users,email,' . $this->route('user')->id],
-            'nama_lengkap' => ['required', 'string'],
-            'username' => ['required', 'string', 'unique:users,username,' . $this->route('user')->id],
-            'password' => ['nullable', 'string', 'min:8', 'confirmed'],
+            'nik' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'nama_lengkap' => ['required', 'string', 'max:255'],
+            'username' => ['required', 'string', 'max:255', 'unique:users'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'level' => ['required', 'string', 'in:admin,user'],
         ];
     }
 
