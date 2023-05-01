@@ -3,7 +3,7 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">{{ __('Edit Data Pelamar') }}</div>
+                    <div class="card-header">{{ __('Edit Data Pengguna') }}</div>
 
                     <div class="card-body">
                         <form method="POST" action="{{ route('user.update', $user->id) }}">
@@ -11,60 +11,59 @@
                             @method('PUT')
 
                             <div class="form-group">
-                                <label for="nik">{{ __('NIK') }}</label>
-                                <input id="nik" type="text"
-                                    class="form-control{{ $errors->has('nik') ? ' is-invalid' : '' }}" name="nik"
-                                    value="{{ $user->nik }}" required autocomplete="nik" autofocus>
+                                <label for="nik">NIK</label>
+                                <input type="text" name="nik" id="nik" value="{{ $user->nik }}"
+                                    class="form-control @error('nik') is-invalid @enderror">
+                                @error('nik')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
                             </div>
 
                             <div class="form-group">
-                                <label for="email">{{ __('Email') }}</label>
-                                <input id="email" type="email"
-                                    class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email"
-                                    value="{{ $user->email }}" required autocomplete="email" readonly>
+                                <label for="nama_lengkap">Nama Lengkap</label>
+                                <input type="text" name="nama_lengkap" id="nama_lengkap"
+                                    value="{{ $user->nama_lengkap }}"
+                                    class="form-control @error('nama_lengkap') is-invalid @enderror">
+                                @error('nama_lengkap')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
                             </div>
 
                             <div class="form-group">
-                                <label for="nama_lengkap">{{ __('Nama Lengkap') }}</label>
-                                <input id="nama_lengkap" type="text"
-                                    class="form-control{{ $errors->has('nama_lengkap') ? ' is-invalid' : '' }}"
-                                    name="nama_lengkap" value="{{ $user->nama_lengkap }}" required
-                                    autocomplete="nama_lengkap">
+                                <label for="username">Username</label>
+                                <input type="text" name="username" id="username" value="{{ $user->username }}"
+                                    class="form-control @error('username') is-invalid @enderror">
+                                @error('username')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
                             </div>
 
                             <div class="form-group">
-                                <label for="username">{{ __('Username') }}</label>
-                                <input id="username" type="text"
-                                    class="form-control{{ $errors->has('username') ? ' is-invalid' : '' }}"
-                                    name="username" value="{{ $user->username }}" required autocomplete="username"
-                                    readonly>
+                                <label for="email">Email</label>
+                                <input type="email" name="email" id="email" value="{{ $user->email }}"
+                                    class="form-control @error('email') is-invalid @enderror">
+                                @error('email')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
                             </div>
 
                             <div class="form-group">
-                                <label for="password">{{ __('Password') }}</label>
-                                <input id="password" type="password"
-                                    class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}"
-                                    name="password" autocomplete="new-password">
+                                <label for="password">Password</label>
+                                <input type="password" name="password" id="password"
+                                    value="{{ old('password', 'default_password') }}"
+                                    class="form-control @error('password') is-invalid @enderror">
+                                @error('password')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
                             </div>
 
                             <div class="form-group">
-                                <label for="password-confirm">{{ __('Confirm Password') }}</label>
-                                <input id="password-confirm" type="password" class="form-control"
-                                    name="password_confirmation" autocomplete="new-password">
+                                <label for="password_confirmation">Konfirmasi Password</label>
+                                <input type="password" name="password_confirmation" id="password_confirmation"
+                                    value="{{ old('password_confirmation', 'default_password') }}" class="form-control">
                             </div>
 
-                            <div class="form-group">
-                                <label for="level">{{ __('Level') }}</label>
-                                <input id="level" type="text"
-                                    class="form-control{{ $errors->has('level') ? ' is-invalid' : '' }}" name="level"
-                                    value="{{ $user->level }}" required autocomplete="level">
-                            </div>
-
-                            <div class="form-group">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Update') }}
-                                </button>
-                            </div>
+                            <button type="submit" class="btn btn-primary">Simpan</button>
                         </form>
                     </div>
                 </div>

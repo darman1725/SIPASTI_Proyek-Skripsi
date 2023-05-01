@@ -55,7 +55,7 @@
                                 <label for="level">{{ __('Level') }}</label>
                                 <input id="level" type="text"
                                     class="form-control{{ $errors->has('level') ? ' is-invalid' : '' }}" name="level"
-                                    value="{{ old('level') ?? 'user' }}" required autocomplete="level">
+                                    value="{{ old('level') ?? 'user' }}" autocomplete="level" readonly>
                             </div>
 
                             <div class="form-group">

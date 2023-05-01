@@ -11,7 +11,7 @@
                 <div class="table-responsive">
                     <table class="table table-striped">
                         <thead>
-                            <tr>
+                            <tr style="text-align: center">
                                 <th scope="col">No</th>
                                 <th scope="col">{{ __('NIK') }}</th>
                                 <th scope="col">{{ __('Nama Lengkap') }}</th>
@@ -25,7 +25,7 @@
                             @php $no = 1 @endphp
                             @foreach($users as $user)
                             @if($user->level == 'user')
-                            <tr>
+                            <tr style="text-align: center">
                                 <td>{{ $no++ }}</td>
                                 <td>{{ $user->nik }}</td>
                                 <td>{{ $user->nama_lengkap }}</td>
