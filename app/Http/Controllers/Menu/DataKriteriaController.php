@@ -12,10 +12,6 @@ class DataKriteriaController extends Controller
 {
     public function index(Request $request)
     {
-        // $data_kriteria = DataKriteria::all();
-        // $data_kegiatan = DataKegiatan::all();
-        // return view('menu.data_kriteria.index', compact('data_kriteria','data_kegiatan'));
-
         $data_kriteria = DataKriteria::with('kegiatan')->orderBy('id', 'ASC');
         $selectedKegiatanId = $request->input('id_data_kegiatan');
         if ($selectedKegiatanId) {
@@ -86,8 +82,8 @@ class DataKriteriaController extends Controller
     if (!$data_kriteria) {
         return redirect()->route('data_kriteria')->with('error', 'Data kriteria tidak ditemukan');
     }
-
-    $data_kriteria->delete();
+    
+    $data_kriteria->forceDelete();    
 
     return redirect()->route('data_kriteria')->with('success', 'Data kriteria berhasil dihapus');
     }

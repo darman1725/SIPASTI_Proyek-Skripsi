@@ -18,7 +18,8 @@
                         <select class="form-control" name="id_data_kegiatan">
                             <option value="">-- Semua Kegiatan --</option>
                             @foreach($data_kegiatan as $kegiatan)
-                                <option value="{{ $kegiatan->id }}" {{ $kegiatan->id == $selectedKegiatanId ? 'selected' : '' }}>{{ $kegiatan->nama }}</option>
+                            <option value="{{ $kegiatan->id }}" {{ $kegiatan->id == $selectedKegiatanId ? 'selected' :
+                                '' }}>{{ $kegiatan->nama }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -27,7 +28,7 @@
                     </div>
                 </div>
             </form>
-            
+
             <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead class="bg-primary text-white">
@@ -61,7 +62,7 @@
                                             @csrf
                                             @method('delete')
                                             <button type="submit" class="btn btn-danger btn-sm"
-                                                onclick="return confirm('Apakah anda yakin ingin menghapus data kriteria ini ?')"><i
+                                                onclick="return confirm('Apakah anda yakin ingin menghapus data kriteria ini? Jika anda menghapus kriteria ini, maka secara otomatis data sub kriteria juga terhapus?')"><i
                                                     class="fa fa-trash"></i></button>
                                         </form>
                                     </div>
@@ -75,4 +76,3 @@
         </div>
     </div>
 </x-app-layout>
-                                
