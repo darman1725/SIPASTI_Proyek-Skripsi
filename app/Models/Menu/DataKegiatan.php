@@ -11,5 +11,5 @@ class DataKegiatan extends Model
     use HasFactory;
     protected $guarded=['id'];
     protected $table = "data_kegiatan";
-    protected $fillable = ['nama', 'deskripsi', 'gambar', 'tanggal_mulai', 'tanggal_selesai', 'kuota'];
+    protected $fillable = ['nama', 'jenis', 'level', 'gambar', 'tanggal_mulai', 'tanggal_selesai'];
 }

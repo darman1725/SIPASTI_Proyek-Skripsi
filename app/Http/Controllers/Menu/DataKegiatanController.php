@@ -25,10 +25,10 @@ class DataKegiatanController extends Controller
     {
         $kegiatan = new DataKegiatan();
         $kegiatan->nama = $request->nama;
-        $kegiatan->deskripsi = $request->deskripsi;
+        $kegiatan->jenis = $request->jenis;
+        $kegiatan->level = $request->level;
         $kegiatan->tanggal_mulai = $request->tanggal_mulai;
         $kegiatan->tanggal_selesai = $request->tanggal_selesai;
-        $kegiatan->kuota = $request->kuota;
 
         if ($request->hasFile('gambar')) {
             $gambar = $request->file('gambar');
@@ -51,10 +51,10 @@ class DataKegiatanController extends Controller
     public function update(DataKegiatanRequest $request, DataKegiatan $kegiatan)
     {
         $kegiatan->nama = $request->nama;
-        $kegiatan->deskripsi = $request->deskripsi;
+        $kegiatan->jenis = $request->jenis;
+        $kegiatan->level = $request->level;
         $kegiatan->tanggal_mulai = $request->tanggal_mulai;
         $kegiatan->tanggal_selesai = $request->tanggal_selesai;
-        $kegiatan->kuota = $request->kuota;
         if ($request->hasFile('gambar')) {
             $gambar = $request->file('gambar');
             $gambarName = time() . '_' . $gambar->getClientOriginalName();
@@ -62,6 +62,7 @@ class DataKegiatanController extends Controller
             $kegiatan->gambar = $gambarName;
         }
         $kegiatan->save();
+
         return redirect()->route('kegiatan')
             ->with('success', 'Data kegiatan berhasil diperbarui.');
     }

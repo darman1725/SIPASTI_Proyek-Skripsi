@@ -11,11 +11,11 @@ return new class extends Migration
         Schema::create('data_kegiatan', function (Blueprint $table) {
             $table->id();
             $table->string('nama');
-            $table->text('deskripsi');
+            $table->text('jenis');
+            $table->text('level');
             $table->string('gambar');
             $table->date('tanggal_mulai');
             $table->date('tanggal_selesai');
-            $table->integer('kuota');
             $table->timestamps();
         });
     }

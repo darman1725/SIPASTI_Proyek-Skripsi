@@ -24,12 +24,13 @@ class DataKegiatanRequest extends FormRequest
     public function rules()
     {
         return [
-            'nama' => 'required|max:255',
-            'deskripsi' => 'required',
+            'nama' => 'required|string|max:255',
+            'jenis' => 'required|string|in:Lapangan,Pengolahan',
+            'level' => 'required|string|in:Umum,Provinsi,Kabupaten/Kota',
             'gambar' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'tanggal_mulai' => 'required|date',
             'tanggal_selesai' => 'required|date|after_or_equal:tanggal_mulai',
-            'kuota' => 'required|integer',
         ];
     }
+
 }
