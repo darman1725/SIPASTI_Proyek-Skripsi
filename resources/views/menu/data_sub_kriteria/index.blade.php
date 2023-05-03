@@ -9,21 +9,22 @@
         {{ session('message') }}
     </div>
     @endif
-    
+
     <form method="GET" action="{{ route('data_sub_kriteria') }}">
         <div class="form-group">
-            <label for="id_data_kegiatan">Filter by Data Kegiatan:</label>
+            <label for="id_data_kegiatan">Filter Berdasarkan Data Kegiatan:</label>
             <select name="id_data_kegiatan" class="form-control">
                 <option value="">-- Semua Kegiatan --</option>
                 @foreach ($data_kegiatan as $kegiatan)
-                    <option value="{{ $kegiatan->id }}" {{ request('id_data_kegiatan') == $kegiatan->id ? 'selected' : '' }}>
-                        {{ $kegiatan->nama }}
-                    </option>
+                <option value="{{ $kegiatan->id }}" {{ old('id_data_kegiatan', request('id_data_kegiatan'))==$kegiatan->
+                    id ? 'selected' : '' }}>
+                    {{ $kegiatan->nama }}
+                </option>
                 @endforeach
             </select>
         </div>
-        <button type="submit" class="btn btn-primary" onclick="event.preventDefault(); this.form.submit();">Filter</button><br><br>
-    </form>    
+        <button type="submit" class="btn btn-primary">Filter</button><br><br>
+    </form>
 
     @if ($kriteria->isEmpty())
     <div class="card shadow mb-4">
@@ -42,12 +43,21 @@
     @if (!request('id_data_kegiatan') || $key->id_data_kegiatan == request('id_data_kegiatan'))
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <div class="d-sm-flex align-items-center justify-content-between">
-                <h6 class="m-0 font-weight-bold text-primary" style="align-content: "><i class="fa fa-table"></i>
-                    Kriteria : {{ $key->keterangan }} ({{
-                    $key->kode_kriteria }})</h6>
-                <a href="#tambah{{ $key->id }}" data-toggle="modal" class="btn btn-sm btn-success"> <i
-                        class="fa fa-plus"></i> Tambah Data </a>
+            <div class="d-sm-flex align-items-center justify-content-center flex-wrap">
+                <h6 class="m-0 font-weight-bold text-primary mb-1" style="text-align: center">
+                    <i class="fa fa-table"></i>
+                    @php
+                    // Ubah variabel $ksub menjadi objek dari model Kriteria
+                    $key = \App\Models\Menu\DataKriteria::find($key->id);
+                    @endphp
+                    Kegiatan {{ $key->kegiatan->nama }}
+                </h6>
+                <div class="d-flex justify-content-between align-items-center w-100">
+                    <p class="m-0 font-weight-bold text-primary mb-1"><strong>Kriteria : {{ $key->keterangan }}
+                            ({{$key->kode_kriteria }})</strong></p>
+                    <a href="#tambah{{ $key->id }}" data-toggle="modal" class="btn btn-sm btn-success"> <i
+                            class="fa fa-plus"></i> Tambah Data </a>
+                </div>
             </div>
         </div>
 
@@ -73,7 +83,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="nilai" class="font-weight-bold">Nilai</label>
-                                <input autocomplete="off" type="text" id="nilai" name="nilai" class="form-control"
+                                <input autocomplete="off" type="number" id="nilai" name="nilai" class="form-control"
                                     required>
                             </div>
                         </div>
@@ -95,7 +105,6 @@
                             <th width="5%">No</th>
                             <th>Nama Sub Kriteria</th>
                             <th>Nilai</th>
-                            <th>Kegiatan</th>
                             <th width="15%">Aksi</th>
                         </tr>
                     </thead>
@@ -110,11 +119,6 @@
                             <td>{{ $no }}</td>
                             <td align="left">{{ $ksub->deskripsi }}</td>
                             <td>{{ $ksub->nilai }}</td>
-                            @php
-                            // Ubah variabel $ksub menjadi objek dari model DataSubKriteria
-                            $ksub = \App\Models\Menu\DataSubKriteria::find($ksub->id);
-                            @endphp
-                            <td>{{ $ksub->guestDataKegiatan->nama }}</td>
                             <td>
                                 <div class="btn-group" role="group">
                                     <a data-toggle="modal" title="Edit Data" href="#editsk{{ $ksub->id }}"
@@ -160,7 +164,7 @@
                                             </div>
                                             <div class="form-group">
                                                 <label for="nilai" class="font-weight-bold">Nilai</label>
-                                                <input type="text" autocomplete="off" id="nilai" name="nilai"
+                                                <input type="number" autocomplete="off" id="nilai" name="nilai"
                                                     class="form-control" value="{{ $ksub->nilai }}" required>
                                             </div>
                                         </div>

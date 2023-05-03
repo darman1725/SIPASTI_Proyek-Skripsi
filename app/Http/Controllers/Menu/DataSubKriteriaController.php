@@ -26,8 +26,9 @@ class DataSubKriteriaController extends Controller
         $count_kriteria = DataSubKriteria::count_kriteria();
         $kegiatan = DataKriteria::all();
 
-        if ($request->filled('id_data_kegiatan')) {
-            $kriteria = $kriteria->where('id_data_kegiatan', $request->input('id_data_kegiatan'));
+        $id_data_kegiatan = $request->session()->get('id_data_kegiatan');
+        if ($id_data_kegiatan) {
+            $kriteria = $kriteria->where('id_data_kegiatan', $id_data_kegiatan);
         }
 
         return view('menu.data_sub_kriteria.index', compact('sub_kriteria','kriteria','count_kriteria','kegiatan','data_kegiatan'));
@@ -51,7 +52,7 @@ class DataSubKriteriaController extends Controller
 
     DataSubKriteria::create($data);
 
-    return redirect()->route('data_sub_kriteria')->with('success', 'Data Sub Kriteria berhasil diupdate');
+    return redirect()->route('data_sub_kriteria')->with('success', 'Data Sub Kriteria berhasil disimpan')->with('id_data_kegiatan', $request->input('id_data_kegiatan'))->withInput();
     }
     
     public function show($id)
@@ -75,16 +76,26 @@ class DataSubKriteriaController extends Controller
     $sub_kriteria->nilai = $request->input('nilai');
     $sub_kriteria->save();
 
-    return redirect()->route('data_sub_kriteria')->with('success', 'Data Sub Kriteria berhasil diupdate');
+    return redirect()->route('data_sub_kriteria')->with('success', 'Data Sub Kriteria berhasil diupdate')->with('id_data_kegiatan', $request->input('id_data_kegiatan'))->withInput();
     }
 
     public function destroy($id)
-    {
-        $sub_kriteria = DataSubKriteria::find($id);
-        $sub_kriteria->delete();
+{
+    $sub_kriteria = DataSubKriteria::find($id);
+    $id_data_kegiatan = $sub_kriteria->id_data_kegiatan;
+    $id_data_kriteria = $sub_kriteria->id_data_kriteria;
+    $sub_kriteria->delete();
 
-        return redirect()->route('data_sub_kriteria')->with('success', 'Data Sub Kriteria berhasil dihapus');
-    }
+    request()->session()->reflash();
+
+    $params = ['id_data_kegiatan' => $id_data_kegiatan, 'id_data_kriteria' => $id_data_kriteria];
+    $url = route('data_sub_kriteria', $params);
+    return redirect($url)->with('success', 'Data Sub Kriteria berhasil dihapus')->with('id_data_kegiatan', $id_data_kegiatan)->withInput();
+}
+ 
+
+
+
 }
 
 
