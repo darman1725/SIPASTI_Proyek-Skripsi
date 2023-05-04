@@ -13,7 +13,7 @@ class Pendaftaran extends Model
 
     protected $guarded=['id'];
     protected $table = "pendaftaran";
-    protected $fillable = ['id_data_user','id_data_kegiatan','provinsi','kabupaten_kota','jabatan'];
+    protected $fillable = ['id_data_user','id_data_kegiatan','provinsi','kabupaten_kota','kecamatan'];
 
     public function user()
     {

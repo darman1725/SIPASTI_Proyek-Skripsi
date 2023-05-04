@@ -12,7 +12,8 @@
                         </div>
                         <div class="form-group">
                             <label for="id_data_kegiatan">{{ __('Kegiatan') }}</label>
-                            <p class="form-control">{{ $pendaftarans->kegiatan->nama }}</p>
+                            <p class="form-control">{{ $pendaftarans->kegiatan->nama }} - {{
+                                $pendaftarans->kegiatan->jenis }}</p>
                         </div>
                         <div class="form-group">
                             <label for="provinsi">{{ __('Provinsi') }}</label>
@@ -23,8 +24,8 @@
                             <p class="form-control">{{ ucwords(strtolower($pendaftarans->kabupaten_kota)) }}</p>
                         </div>
                         <div class="form-group">
-                            <label for="jabatan">{{ __('Jabatan') }}</label>
-                            <p class="form-control">{{ $pendaftarans->jabatan }}</p>
+                            <label for="kecamatan">{{ __('Kecamatan') }}</label>
+                            <p class="form-control">{{ ucwords(strtolower($pendaftarans->kecamatan)) }}</p>
                         </div>
                         <div class="form-group mb-0">
                             <a href="{{ route('pendaftaran', $pendaftarans->id) }}" class="btn btn-primary">{{

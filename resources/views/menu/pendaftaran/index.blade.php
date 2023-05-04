@@ -12,12 +12,10 @@
                 <table class="table">
                     <thead>
                         <tr style="text-align: center">
-                            {{-- <th>No</th> --}}
-                            <th>Nama Pelamar</th>
-                            <th>Kegiatan Diikuti</th>
-                            {{-- <th>Provinsi</th>
-                            <th>Kabupaten/Kota</th> --}}
-                            <th>Jabatan</th>
+                            <th>No</th>
+                            <th>Daerah Pelaksanaan</th>
+                            <th>Kegiatan</th>
+                            <th>Jenis</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -25,12 +23,12 @@
                         @foreach($pendaftarans as $pendaftaran)
                         @if(Auth::user()->level == 'admin' || Auth::user()->id == $pendaftaran->id_data_user)
                         <tr style="text-align: center">
-                            {{-- <td>{{ $loop->iteration }}</td> --}}
-                            <td>{{ $pendaftaran->user->nama_lengkap }}</td>
+                            <td>{{ $loop->iteration }}</td>
+                            <td>{{ ucwords(strtolower($pendaftaran->provinsi)) }},
+                                {{ ucwords(strtolower($pendaftaran->kabupaten_kota)) }},
+                                {{ ucwords(strtolower($pendaftaran->kecamatan)) }}</td>
                             <td>{{ $pendaftaran->kegiatan->nama }}</td>
-                            {{-- <td>{{ ucwords(strtolower($pendaftaran->provinsi)) }}</td>
-                            <td>{{ ucwords(strtolower($pendaftaran->kabupaten_kota)) }}</td> --}}
-                            <td>{{ $pendaftaran->jabatan }}</td>
+                            <td>{{ $pendaftaran->kegiatan->jenis }}</td>
                             <td>
                                 @if(Auth::user()->level == 'admin' || Auth::user()->id == $pendaftaran->id_data_user)
                                 <a href="{{ route('pendaftaran.edit', $pendaftaran->id) }}"

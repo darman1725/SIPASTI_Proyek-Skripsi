@@ -24,18 +24,12 @@ class PendaftaranController extends Controller
         $users = User::all();
         $kegiatans = DataKegiatan::all();
         $pendaftarans = Pendaftaran::with('user', 'kegiatan')->get();
-        return view('menu.pendaftaran.create', compact('users', 'kegiatans','pendaftarans'));
+        return view('menu.pendaftaran.create', compact('users', 'kegiatans', 'pendaftarans'));
     }
 
-    public function store(Request $request)
+    public function store(DataPendaftaranRequest $request)
     {
-        $validatedData = $request->validate([
-            'id_data_user' => 'required|exists:users,id',
-            'id_data_kegiatan' => 'required|exists:data_kegiatan,id',
-            'provinsi' => 'required',
-            'kabupaten_kota' => 'required',
-            'jabatan' => 'required'
-        ]);
+        $validatedData = $request->validated();
 
         $pendaftaran = Pendaftaran::create($validatedData);
 
@@ -60,15 +54,9 @@ class PendaftaranController extends Controller
         return view('menu.pendaftaran.edit', compact('pendaftaran', 'users', 'kegiatans'));
     }
 
-    public function update(Request $request, Pendaftaran $pendaftaran)
+    public function update(DataPendaftaranRequest $request, Pendaftaran $pendaftaran)
     {
-        $validatedData = $request->validate([
-            'id_data_user' => 'required|exists:users,id',
-            'id_data_kegiatan' => 'required|exists:data_kegiatan,id',
-            'provinsi' => 'required',
-            'kabupaten_kota' => 'required',
-            'jabatan' => 'required'
-        ]);
+        $validatedData = $request->validated();
 
         $pendaftaran->update($validatedData);
 
@@ -81,20 +69,18 @@ class PendaftaranController extends Controller
     }
 
     public function destroy(Pendaftaran $pendaftaran)
-    {  
-    $data_alternatif = $pendaftaran->data_alternatif;
+    {
+        $data_alternatif = $pendaftaran->data_alternatif;
 
-    if ($data_alternatif) {
-        $data_alternatif->delete();
+        if ($data_alternatif) {
+            $data_alternatif->delete();
+        }
+
+        if ($pendaftaran) {
+            $pendaftaran->delete();
+            return redirect()->route('pendaftaran')->with('success', 'Data pendaftaran berhasil dihapus');
+        } else {
+            return redirect()->route('pendaftaran')->with('error', 'Data pendaftaran tidak ditemukan');
+        }
     }
-
-    if ($pendaftaran) {
-        $pendaftaran->delete();
-        return redirect()->route('pendaftaran')->with('success', 'Data pendaftaran berhasil dihapus');
-    } else {
-        return redirect()->route('pendaftaran')->with('error', 'Data pendaftaran tidak ditemukan');
-    }
-}
-
-
 }

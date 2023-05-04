@@ -32,10 +32,13 @@
                                     name="id_data_kegiatan" required>
                                     <option value="" disabled selected>-- Pilih Data Kegiatan --</option>
                                     @foreach($kegiatans as $kg)
-                                    <option value="{{ $kg->id }}">{{ $kg->nama }}</option>
+                                    <option value="{{ $kg->id }}">{{ $kg->nama }} - {{ $kg->jenis }}</option>
                                     @endforeach
                                 </select>
                             </div>
+                            <p>
+                            <div>{{ __('Letak Keberadaan Anda Sekarang') }}</div>
+                            </p>
                             <div class="form-group">
                                 <label for="provinsi">{{ __('Provinsi') }}</label>
                                 <select class="form-control" id="provinsi" name="provinsi">
@@ -49,16 +52,14 @@
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label for="jabatan">{{ __('Jabatan') }}</label>
-                                <select class="form-control" name="jabatan" required>
-                                    <option value="" disabled selected>-- Pilih Jabatan --</option>
-                                    <option value="PML">PML</option>
-                                    <option value="PPL">PPL</option>
-                                    <option value="Koseka">Koseka</option>
+                                <label for="kabupaten_kota">{{ __('Kecamatan') }}</label>
+                                <select class="form-control" id="kecamatan" name="kecamatan">
+                                    <option value="">-- Pilih Kecamatan --</option>
                                 </select>
                             </div>
-                            <div class="form-group mb-0">
+                            <div class="form-group">
                                 <button type="submit" class="btn btn-primary">{{ __('Simpan') }}</button>
+                                <a href="{{ route('pendaftaran') }}" class="btn btn-secondary">{{ __('Kembali') }}</a>
                             </div>
                         </form>
                     </div>
@@ -80,9 +81,10 @@
             });
     </script>
 
-<script>
-    const selectProvinsi = document.getElementById('provinsi');
+    <script>
+        const selectProvinsi = document.getElementById('provinsi');
     const selectKota = document.getElementById('kabupaten_kota');
+    const selectKecamatan = document.getElementById('kecamatan');
 
     selectProvinsi.addEventListener('change', (e) => {
         var provinsi = e.target.options[e.target.selectedIndex].dataset.prov;
@@ -105,7 +107,7 @@
             .then((response) => response.json())
             .then((districts) => {
                 var data = districts;
-                var tampung = `<option>-- Pilih Kabupaten/Kota --</option>`;
+                var tampung = `<option>-- Pilih Kecamatan --</option>`;
                 document.getElementById('kecamatan').innerHTML = '<option>Pilih</option>';
                 data.forEach((element) => {
                     tampung += `<option data-prov="${element.id}" value="${element.name}">${element.name}</option>`;
@@ -113,6 +115,21 @@
                 document.getElementById("kecamatan").innerHTML = tampung;
             });
     });
-</script>
+
+    selectKecamatan.addEventListener('change', (e) => {
+            var kecamatan = e.target.options[e.target.selectedIndex].dataset.prov;
+            fetch(`https://darman1725.github.io/api-wilayah-indonesia/api/villages/${kecamatan}.json`)
+                .then((response) => response.json())
+                .then((villages) => {
+                    var data = villages;
+                    var tampung = `<option>Pilih</option>`;
+                    document.getElementById('kelurahan').innerHTML = '<option>Pilih</option>';
+                    data.forEach((element) => {
+                        tampung += `<option data-prov="${element.id}" value="${element.name}">${element.name}</option>`;
+                    });
+                    document.getElementById("kelurahan").innerHTML = tampung;
+                });
+    });
+    </script>
 
 </x-app-layout>

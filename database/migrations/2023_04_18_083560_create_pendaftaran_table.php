@@ -20,7 +20,7 @@ return new class extends Migration
             $table->foreign('id_data_kegiatan')->references('id')->on('data_kegiatan');
             $table->string('provinsi');
             $table->string('kabupaten_kota');
-            $table->string('jabatan');
+            $table->string('kecamatan');
             $table->timestamps();
         });
     }

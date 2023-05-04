@@ -28,7 +28,7 @@ class DataPendaftaranRequest extends FormRequest
             'id_data_kegiatan' => 'required|integer',
             'provinsi' => 'required|string|max:255',
             'kabupaten_kota' => 'required|string|max:255',
-            'jabatan' => 'required|string|max:255',
+            'kecamatan' => 'required|string|max:255',
         ];
     }
 }
