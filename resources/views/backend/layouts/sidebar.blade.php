@@ -13,6 +13,8 @@
     @endif
 
     @if(Auth::user()->level == 'user')
+        <x-sidebar.item name="Dashboard" :link="route('dashboard_user')" :active="'dashboard_user'" :icon="'speedometer'">
+        </x-sidebar.item>
         <x-sidebar.item name="Data Kegiatan" :link="route('kegiatan')" :active="'kegiatan'" :icon="'ui-checks-grid'">
         </x-sidebar.item>
         <x-sidebar.item name="Riwayat Daftar" :link="route('pendaftaran')" :active="'pendaftaran'" :icon="'ui-checks'">

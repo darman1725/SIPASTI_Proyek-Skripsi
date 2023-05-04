@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Frontend\LandingPageController;
+use App\Http\Controllers\Menu\DashboardController;
+use App\Http\Controllers\Menu\DashboardUserController;
 use App\Http\Controllers\Menu\DataKriteriaController;
 use App\Http\Controllers\Menu\DataSubKriteriaController;
 use App\Http\Controllers\Menu\DataAlternatifController;
@@ -27,6 +29,7 @@ Route::resource('pendaftaran', PendaftaranController::class);
 
 Route::group(['namespace' => 'App\Http\Controllers\Menu', 'prefix' => 'menu'], function () {
     Route::get('dashboard', 'DashboardController@index')->name('dashboard');
+    Route::get('dashboard_user', 'DashboardUserController@index')->name('dashboard_user');
     Route::get('kegiatan', 'DataKegiatanController@index')->name('kegiatan');
     Route::get('pendaftaran', 'PendaftaranController@index')->name('pendaftaran');
     Route::get('data_kriteria', 'DataKriteriaController@index')->name('data_kriteria');

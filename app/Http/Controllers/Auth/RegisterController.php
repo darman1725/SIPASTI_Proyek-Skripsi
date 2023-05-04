@@ -46,7 +46,7 @@ class RegisterController extends Controller
         return Validator::make($data, [
             'nik' => 'required|string|unique:users,nik',
             'email' => 'required|string|email|unique:users,email',
-            'nama_lengkap' => 'required|string|unique:users,nama_lengkap',
+            'nama_lengkap' => 'required|string',
             'username' => 'nullable|string',
             'password' => 'required|string|min:6',
             'level' => 'nullable|string|in:user,admin',
@@ -63,5 +63,10 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
             'level' => 'user'
         ]);
+    }
+
+    protected function redirectTo()
+    {
+    return '/menu/dashboard_user';
     }
 }

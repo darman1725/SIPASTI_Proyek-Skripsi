@@ -13,7 +13,7 @@
                         <thead>
                             <tr style="text-align: center">
                                 <th scope="col">No</th>
-                                <th scope="col">{{ __('NIK') }}</th>
+                                {{-- <th scope="col">{{ __('NIK') }}</th> --}}
                                 <th scope="col">{{ __('Nama Lengkap') }}</th>
                                 <th scope="col">{{ __('Username') }}</th>
                                 <th scope="col">{{ __('Email') }}</th>
@@ -27,7 +27,7 @@
                             @if($user->level == 'user')
                             <tr style="text-align: center">
                                 <td>{{ $no++ }}</td>
-                                <td>{{ $user->nik }}</td>
+                                {{-- <td>{{ $user->nik }}</td> --}}
                                 <td>{{ $user->nama_lengkap }}</td>
                                 <td>{{ $user->username }}</td>
                                 <td>{{ $user->email }}</td>

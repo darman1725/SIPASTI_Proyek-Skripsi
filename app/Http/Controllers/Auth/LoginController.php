@@ -53,7 +53,7 @@ class LoginController extends Controller
     function authenticated(Request $request, $user)
     {
         if ($user->level == 'user') {
-            return redirect('/menu/kegiatan');
+            return redirect('/menu/dashboard_user');
         }
         return redirect('/menu/dashboard');
     }
