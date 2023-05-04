@@ -3,8 +3,8 @@
         <div class="row justify-content-center">
             <div class="col-md-6">
                 <div class="card p-3 bg-white">
-                    <h2 style="text-align: center">Rekrutmen Mitra</h2>
-                    <p style="text-align: justify">Sesuai amanat Undang-Undang Nomor 16 Tahun 1997 tentang Statistik dan
+                    <h2 style="text-align: center; color: #111">Rekrutmen Mitra</h2>
+                    <p style="text-align: justify; color: #333">Sesuai amanat Undang-Undang Nomor 16 Tahun 1997 tentang Statistik dan
                         Peraturan Pemerintah Nomor 51 Tahun 1999 tentang Penyelenggaraan Statistik, Badan Pusat Statistik 
                         (BPS) menyelenggarakan kegiatan sensus dan survei secara rutin. Salah satu tahapan penting dalam 
                         pelaksanaan kegiatan sensus dan survei adalah rekruitment mitra/petugas.<br><br>
@@ -14,7 +14,7 @@
             </div>
             <div class="col-md-5">
                 <div class="card p-3 bg-white">
-                    <h2 style="text-align: center">Kilas Kegiatan</h2>
+                    <h2 style="text-align: center; color: #111">Kilas Kegiatan</h2>
                     <div id="imageCarousel" class="carousel slide" data-ride="carousel">
                         <ol class="carousel-indicators">
                             <li data-target="#imageCarousel" data-slide-to="0" class="active"></li>
