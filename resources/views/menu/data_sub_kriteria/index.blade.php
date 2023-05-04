@@ -18,7 +18,7 @@
                 @foreach ($data_kegiatan as $kegiatan)
                 <option value="{{ $kegiatan->id }}" {{ old('id_data_kegiatan', request('id_data_kegiatan'))==$kegiatan->
                     id ? 'selected' : '' }}>
-                    {{ $kegiatan->nama }}
+                    {{ $kegiatan->nama }} - {{ $kegiatan->jenis }}
                 </option>
                 @endforeach
             </select>
@@ -50,7 +50,7 @@
                     // Ubah variabel $ksub menjadi objek dari model Kriteria
                     $key = \App\Models\Menu\DataKriteria::find($key->id);
                     @endphp
-                    Kegiatan {{ $key->kegiatan->nama }}
+                    Kegiatan {{ $key->kegiatan->nama }} - ({{ $key->kegiatan->jenis }})
                 </h6>
                 <div class="d-flex justify-content-between align-items-center w-100">
                     <p class="m-0 font-weight-bold text-primary mb-1"><strong>Kriteria : {{ $key->keterangan }}

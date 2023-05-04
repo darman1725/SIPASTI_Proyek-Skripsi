@@ -19,7 +19,7 @@
                             <option value="">-- Semua Kegiatan --</option>
                             @foreach($data_kegiatan as $kegiatan)
                             <option value="{{ $kegiatan->id }}" {{ $kegiatan->id == $selectedKegiatanId ? 'selected' :
-                                '' }}>{{ $kegiatan->nama }}</option>
+                                '' }}>{{ $kegiatan->nama }} - {{ $kegiatan->jenis }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -50,7 +50,7 @@
                             <td>{{ $dk->keterangan }}</td>
                             <td>{{ $dk->bobot }}</td>
                             <td>{{ $dk->jenis }}</td>
-                            <td>{{ $dk->kegiatan->nama }}</td>
+                            <td>{{ $dk->kegiatan->nama }} - {{ $dk->kegiatan->jenis }}</td>
                             <td>
                                 <div class="btn-group" role="group">
                                     <a data-toggle="tooltip" data-placement="bottom" title="Edit Data"

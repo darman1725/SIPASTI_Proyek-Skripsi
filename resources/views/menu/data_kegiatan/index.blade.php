@@ -17,7 +17,7 @@
                         <p class="card-text text-center">
                             <strong>Jenis: </strong>
                             @if ($kegiatan->jenis == 'Lapangan')
-                            <span class="badge bg-info text-white">Lapangan</span>
+                            <span class="badge bg-success text-white">Lapangan</span>
                             @elseif ($kegiatan->jenis == 'Pengolahan')
                             <span class="badge bg-primary text-white">Pengolahan</span>
                             @else
@@ -27,15 +27,15 @@
                         <p class="card-text text-center">
                             <strong>Level: </strong>
                             @if ($kegiatan->level == 'Umum')
-                              <span class="badge bg-light text-success border border-success">Umum</span>
+                            <span class="badge bg-light text-success border border-success">Umum</span>
                             @elseif ($kegiatan->level == 'Provinsi')
-                              <span class="badge bg-light text-primary border border-primary">Provinsi</span>
+                            <span class="badge bg-light text-primary border border-primary">Provinsi</span>
                             @elseif ($kegiatan->level == 'Kabupaten/Kota')
-                              <span class="badge bg-light text-secondary border border-secondary">Kabupaten/Kota</span>
+                            <span class="badge bg-light text-secondary border border-secondary">Kabupaten/Kota</span>
                             @else
-                              {{ $kegiatan->level }}
+                            {{ $kegiatan->level }}
                             @endif
-                          </p>                          
+                        </p>
                         <hr>
                         <p class="card-text text-center"><strong>Tanggal mulai:</strong> {{ date('d-m-Y',
                             strtotime($kegiatan->tanggal_mulai)) }}</p>

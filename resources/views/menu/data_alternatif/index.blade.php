@@ -1,10 +1,6 @@
 <x-app-layout>
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800"><i class="fas fa-fw fa-users"></i> Data Alternatif</h1>
-
-        {{-- <a href="{{ route('data_alternatif.create') }}" class="btn btn-success"> <i class="fa fa-plus"></i> Tambah
-            Data
-        </a> --}}
     </div>
 
     @if(Session::has('message'))
@@ -24,7 +20,8 @@
                         <select class="form-control" name="id_data_kegiatan">
                             <option value="">-- Semua Kegiatan --</option>
                             @foreach($data_kegiatan as $kegiatan)
-                                <option value="{{ $kegiatan->id }}" {{ $kegiatan->id == $selectedKegiatanId ? 'selected' : '' }}>{{ $kegiatan->nama }}</option>
+                            <option value="{{ $kegiatan->id }}" {{ $kegiatan->id == $selectedKegiatanId ? 'selected' :
+                                '' }}>{{ $kegiatan->nama }} - {{ $kegiatan->jenis }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -33,7 +30,7 @@
                     </div>
                 </div>
             </form>
-            
+
 
             <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -41,35 +38,27 @@
                         <tr style="text-align: center">
                             <th width="5%">No</th>
                             <th>Nama Pelamar</th>
-                            <th>Provinsi</th>
-                            <th>Kabupaten/Kota</th>
+                            <th>Daerah Saat Ini</th>
                             <th>Tujuan Kegiatan</th>
-                            {{-- <th width="15%">Aksi</th> --}}
+                            <th>Jenis</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($pendaftarans as $data)
+                        @foreach($pendaftarans as $pendaftaran)
                         <tr style="text-align: center">
                             <td>{{ $loop->iteration }}</td>
-                            <td>{{ $data->user->nama_lengkap }} </td>
-                            <td>{{ ucwords(strtolower($data->provinsi)) }}</td>
-                            <td>{{ ucwords(strtolower($data->kabupaten_kota)) }}</td>
-                            <td>{{ $data->kegiatan->nama }}</td>
-                            {{-- <td>
-                                <div class="btn-group" role="group">
-                                    <a data-toggle="tooltip" data-placement="bottom" title="Edit Data"
-                                        href="{{ route('data_alternatif.edit', $data->id) }}"
-                                        class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></a>
-                                    <form action="{{ route('data_alternatif.destroy', $data->id) }}" method="POST"
-                                        onsubmit="return confirm('Apakah anda yakin untuk menghapus data alternatif ini?')">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-danger btn-sm" data-toggle="tooltip"
-                                            data-placement="bottom" title="Hapus Data"><i
-                                                class="fa fa-trash"></i></button>
-                                    </form>
-                                </div>
-                            </td> --}}
+                            <td>{{ $pendaftaran->user->nama_lengkap }} </td>
+                            <td>{{ ucwords(strtolower($pendaftaran->provinsi)) }},<br>
+                                {{ ucwords(strtolower($pendaftaran->kabupaten_kota)) }},<br>
+                                {{ ucwords(strtolower($pendaftaran->kecamatan)) }}</td>
+                            <td>{{ $pendaftaran->kegiatan->nama }}</td>
+                            <td>
+                                @if ($pendaftaran->kegiatan->jenis == 'Lapangan')
+                                <span class="badge bg-success text-white">{{ $pendaftaran->kegiatan->jenis }}</span>
+                                @elseif ($pendaftaran->kegiatan->jenis == 'Pengolahan')
+                                <span class="badge bg-primary text-white">{{ $pendaftaran->kegiatan->jenis }}</span>
+                                @endif
+                            </td>
                         </tr>
                         @endforeach
                     </tbody>
