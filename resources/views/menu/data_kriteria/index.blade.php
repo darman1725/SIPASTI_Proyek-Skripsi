@@ -62,7 +62,7 @@
                                             @csrf
                                             @method('delete')
                                             <button type="submit" class="btn btn-danger btn-sm"
-                                                onclick="return confirm('Apakah anda yakin ingin menghapus data kriteria ini? Jika anda menghapus kriteria ini, maka secara otomatis data sub kriteria juga terhapus?')"><i
+                                                onclick="return confirm('Apakah anda yakin ingin menghapus data kriteria {{ $dk->keterangan }} ? Jika anda menghapus kriteria ini, maka secara otomatis data sub kriteria {{ $dk->keterangan }} juga terhapus?')"><i
                                                     class="fa fa-trash"></i></button>
                                         </form>
                                     </div>

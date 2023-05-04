@@ -21,7 +21,6 @@ class DataKriteriaController extends Controller
         $data_kegiatan = DataKegiatan::orderBy('nama')->get();
 
         return view('menu.data_kriteria.index', compact('data_kriteria', 'data_kegiatan', 'selectedKegiatanId'));
-        
     }
 
     public function create()
@@ -32,17 +31,17 @@ class DataKriteriaController extends Controller
 
     public function store(DataKriteriaRequest $request)
     {
-        $dataKriteria = new DataKriteria([
-            'id_data_kegiatan' => $request->id_data_kegiatan,
-            'keterangan' => $request->keterangan,
-            'kode_kriteria' => $request->kode_kriteria,
-            'bobot' => $request->bobot,
-            'jenis' => $request->jenis
-        ]);
-        $dataKriteria->save();
+    $dataKriteria = new DataKriteria([
+        'id_data_kegiatan' => $request->id_data_kegiatan,
+        'keterangan' => $request->keterangan,
+        'kode_kriteria' => $request->kode_kriteria,
+        'bobot' => $request->bobot,
+        'jenis' => $request->jenis
+    ]);
+    $dataKriteria->save();
 
-        return redirect()->route('data_kriteria')
-            ->with('success', 'Data Kriteria berhasil dibuat');
+    return redirect()->route('data_kriteria', ['id_data_kegiatan' => $request->id_data_kegiatan])
+        ->with('success', 'Data Kriteria berhasil dibuat');
     }
 
     public function edit($id)
@@ -62,18 +61,18 @@ class DataKriteriaController extends Controller
             'jenis' => 'required',
             'id_data_kegiatan' => 'required',
         ]);
-
+    
         $data_kriteria = DataKriteria::find($id);
         $data_kriteria->kode_kriteria = $request->kode_kriteria;
         $data_kriteria->keterangan = $request->keterangan;
         $data_kriteria->bobot = $request->bobot;
         $data_kriteria->jenis = $request->jenis;
         $data_kriteria->id_data_kegiatan = $request->id_data_kegiatan;
-
+    
         $data_kriteria->save();
-
-        return redirect()->route('data_kriteria')->with('success', 'Data kriteria berhasil diupdate');
-    }
+    
+        return redirect()->route('data_kriteria', ['id_data_kegiatan' => $request->id_data_kegiatan])->with('success', 'Data kriteria berhasil diupdate');
+    }    
 
     public function destroy($id)
     {
@@ -83,9 +82,10 @@ class DataKriteriaController extends Controller
         return redirect()->route('data_kriteria')->with('error', 'Data kriteria tidak ditemukan');
     }
     
+    $oldSelectedKegiatanId = $data_kriteria->id_data_kegiatan; // simpan nilai kegiatan yang dipilih sebelumnya
     $data_kriteria->forceDelete();    
 
-    return redirect()->route('data_kriteria')->with('success', 'Data kriteria berhasil dihapus');
+    return redirect()->route('data_kriteria', ['id_data_kegiatan' => $oldSelectedKegiatanId])->with('success', 'Data kriteria berhasil dihapus');
     }
 
 }
