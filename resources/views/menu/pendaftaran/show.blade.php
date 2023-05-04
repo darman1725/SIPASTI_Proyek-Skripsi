@@ -28,7 +28,7 @@
                             <p class="form-control">{{ ucwords(strtolower($pendaftarans->kecamatan)) }}</p>
                         </div>
                         <div class="form-group mb-0">
-                            <a href="{{ route('pendaftaran', $pendaftarans->id) }}" class="btn btn-primary">{{
+                            <a href="{{ route('pendaftaran', $pendaftarans->id) }}" class="btn btn-secondary">{{
                                 __('Kembali') }}</a>
                         </div>
                     </div>
