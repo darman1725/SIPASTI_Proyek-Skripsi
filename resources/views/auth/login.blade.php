@@ -42,13 +42,7 @@
                             <i class="bi bi-shield-lock"></i>
                         </div>
                     </div>
-                    <div class="form-check form-check-lg d-flex align-items-end">
-                        <input class="form-check-input me-2" type="checkbox" name="remember" id="flexCheckDefault">
-                        <label class="form-check-label text-gray-600" for="flexCheckDefault">
-                            Keep me logged in
-                        </label>
-                    </div>
-                    <button class="btn btn-primary btn-block btn-lg shadow-lg mt-4">Login</button>
+                    <button class="btn btn-primary btn-block btn-lg shadow-lg mt-2">Login</button>
                 </form>
                 <div class="text-center mt-4 text-lg">
                     @if (Route::has('register'))
