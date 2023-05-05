@@ -54,5 +54,7 @@ Route::group(['namespace' => 'App\Http\Controllers\Information', 'prefix' => 'in
     Route::get('data_profile', 'DataProfileController@index')->name('data_profile');
 });
 
-
-
+// Route::get('/', [DataProfileController::class, 'index'])->name('index');
+Route::post('/step1', [DataProfileController::class, 'step1'])->name('step1');
+Route::post('/step2', [DataProfileController::class, 'step2'])->name('step2');
+Route::post('/step3', [DataProfileController::class, 'step3'])->name('step3');

@@ -4,82 +4,48 @@ namespace App\Http\Controllers\Information;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Step1Request;
+use App\Http\Requests\Step2Request;
+use App\Http\Requests\Step3Request;
+use App\Models\Information\DataProfile;
 
 class DataProfileController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        return view('information.data_profile.index');
+        return view('information.data_profile.step1');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function step1(Step1Request $request)
     {
-        //
+        $user = new DataProfile();
+        $user->nama = $request->nama;
+        $user->save();
+
+        // simpan ID dari objek DataProfile yang baru saja disimpan ke dalam session
+        $request->session()->put('user_id', $user->id);
+
+        return view('information.data_profile.step2');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function step2(Step2Request $request)
     {
-        //
+    $user = DataProfile::findOrFail($request->session()->get('user_id'));
+    $user->phone = $request->phone;
+    $user->save();
+
+    return view('information.data_profile.step3');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+    public function step3(Step3Request $request)
     {
-        //
+        $user = DataProfile::findOrFail($request->session()->get('user_id'));
+        $user->address = $request->address;
+        $user->save();
+
+        $request->session()->forget('user_id');
+
+        return redirect('/information/data_profile')->with('success', 'Form berhasil disubmit!');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
 }
