@@ -31,7 +31,6 @@
                 </div>
             </form>
 
-
             <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead class="bg-primary text-white">
@@ -41,16 +40,18 @@
                             <th>Daerah Saat Ini</th>
                             <th>Tujuan Kegiatan</th>
                             <th>Jenis</th>
+                            <th>Kode QR</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach($pendaftarans as $pendaftaran)
                         <tr style="text-align: center">
                             <td>{{ $loop->iteration }}</td>
-                            <td>{{ $pendaftaran->user->nama_lengkap }} </td>
+                            <td>{{ $pendaftaran->user->nama_lengkap }}</td>
                             <td>{{ ucwords(strtolower($pendaftaran->provinsi)) }},<br>
                                 {{ ucwords(strtolower($pendaftaran->kabupaten_kota)) }},<br>
-                                {{ ucwords(strtolower($pendaftaran->kecamatan)) }}</td>
+                                {{ ucwords(strtolower($pendaftaran->kecamatan)) }}
+                            </td>
                             <td>{{ $pendaftaran->kegiatan->nama }}</td>
                             <td>
                                 @if ($pendaftaran->kegiatan->jenis == 'Lapangan')
@@ -59,8 +60,10 @@
                                 <span class="badge bg-primary text-white">{{ $pendaftaran->kegiatan->jenis }}</span>
                                 @endif
                             </td>
+                            <td>{!! QrCode::size(100)->generate($pendaftaran->user->nama_lengkap); !!}</td>
                         </tr>
                         @endforeach
+
                     </tbody>
                 </table>
             </div>

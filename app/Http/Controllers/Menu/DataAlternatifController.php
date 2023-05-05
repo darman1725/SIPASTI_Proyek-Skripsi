@@ -8,7 +8,7 @@ use App\Models\Menu\DataKegiatan;
 use App\Models\Menu\Pendaftaran;
 use Illuminate\Http\Request;
 use App\Http\Requests\DataAlternatifRequest;
-
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class DataAlternatifController extends Controller
 {
