@@ -14,7 +14,6 @@ use App\Http\Controllers\Management\DataPenilaianController;
 use App\Http\Controllers\Management\DataHasilAkhirController;
 use App\Http\Controllers\Information\UserController;
 use App\Http\Controllers\Information\DataProfileController;
-use App\Http\Controllers\NotFoundController;
 
 Auth::routes([
     'register' => true,
@@ -64,5 +63,3 @@ Route::post('/profile/step1', [DataProfileController::class, 'step1'])->name('pr
 Route::post('/profile/step2', [DataProfileController::class, 'step2'])->name('profile.step2');
 // Step 3
 Route::post('/profile/step3', [DataProfileController::class, 'step3'])->name('profile.step3');
-
-Route::fallback([NotFoundController::class, 'index']);

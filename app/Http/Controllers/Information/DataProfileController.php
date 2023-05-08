@@ -13,7 +13,7 @@ class DataProfileController extends Controller
 {
     public function index()
     {
-        return view('information.data_profile.step1');
+        return view('information.data_profile.index');
     }
 
     public function step1(Step1Request $request)
