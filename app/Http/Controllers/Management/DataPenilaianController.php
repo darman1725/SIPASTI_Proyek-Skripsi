@@ -11,18 +11,13 @@ use App\Http\Requests\DataPenilaianRequest;
 
 class DataPenilaianController extends Controller
 {
-    // public function __construct()
-    // {
-    //     $this->middleware('auth');
-    // }
-
     public function index()
     {
         $data = [
             'page' => "Penilaian",
             'list' => DataPenilaian::tampil(),
             'kriteria'=> DataPenilaian::get_kriteria(),
-            'alternatif'=> DataPenilaian::get_alternatif(),
+            'pendaftaran'=> DataPenilaian::get_pendaftaran(),
             'sub_kriteria'=> DataPenilaian::get_sub_kriteria(),
             'perhitungan' => DataPenilaian::tampil()
         ];
@@ -31,12 +26,12 @@ class DataPenilaianController extends Controller
 
     public function tambah_penilaian(DataPenilaianRequest $request)
     {
-        $id_data_alternatif = $request->input('id_data_alternatif');
+        $id_pendaftaran = $request->input('id_pendaftaran');
         $id_data_kriteria = $request->input('id_data_kriteria');
         $nilai = $request->input('nilai');
         $i = 0;
         foreach ($nilai as $key) {
-            DataPenilaian::tambah_penilaian($id_data_alternatif,$id_data_kriteria[$i],$key);
+            DataPenilaian::tambah_penilaian($id_pendaftaran,$id_data_kriteria[$i],$key);
             $i++;
         }
 
@@ -46,17 +41,17 @@ class DataPenilaianController extends Controller
 
     public function update_penilaian(DataPenilaianRequest $request)
     {
-        $id_data_alternatif = $request->input('id_data_alternatif');
+        $id_pendaftaran = $request->input('id_pendaftaran');
         $id_data_kriteria = $request->input('id_data_kriteria');
         $nilai = $request->input('nilai');
         $i = 0;
 
         foreach ($nilai as $key) {
-            $cek = DataPenilaian::data_penilaian($id_data_alternatif,$id_data_kriteria[$i]);
+            $cek = DataPenilaian::data_penilaian($id_pendaftaran,$id_data_kriteria[$i]);
             if ($cek==0) {
-                DataPenilaian::tambah_penilaian($id_data_alternatif,$id_data_kriteria[$i],$key);
+                DataPenilaian::tambah_penilaian($id_pendaftaran,$id_data_kriteria[$i],$key);
             } else {
-                DataPenilaian::edit_penilaian($id_data_alternatif,$id_data_kriteria[$i],$key);
+                DataPenilaian::edit_penilaian($id_pendaftaran,$id_data_kriteria[$i],$key);
             }
             $i++;
         }

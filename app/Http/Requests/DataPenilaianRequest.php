@@ -24,7 +24,7 @@ class DataPenilaianRequest extends FormRequest
     public function rules()
     {
         return [
-            'id_data_alternatif' => 'required',
+            'id_pendaftaran' => 'required',
             'id_data_kriteria' => 'required',
             'nilai' => 'required'
         ];

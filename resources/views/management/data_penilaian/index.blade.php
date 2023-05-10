@@ -24,16 +24,18 @@
                     <thead class="bg-primary text-white">
                         <tr align="center">
                             <th width="5%">No</th>
-                            <th>Alternatif</th>
+                            <th>Nama Pelamar</th>
+                            <th>Kegiatan</th>
                             <th width="15%">Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
                         @php $no=1 @endphp
-                        @foreach ($alternatif as $keys)
+                        @foreach ($pendaftaran as $keys)
                         <tr align="center">
                             <td>{{ $no }}</td>
-                            <td align="left">{{ $keys->nama }}</td>
+                            <td align="left">{{ $keys->user->nama_lengkap }}</td>
+                            <td>{{ $keys->kegiatan->nama }}</td>
                             @php $cek_tombol = App\Models\Management\DataPenilaian::untuk_tombol($keys->id) @endphp
 
                             <td>
@@ -67,7 +69,7 @@
                                             App\Models\Management\DataPenilaian::data_sub_kriteria($key->id);
                                             @endphp
                                             @if ($sub_kriteria!=NULL)
-                                            <input type="text" name="id_data_alternatif" value="{{ $keys->id }}" hidden>
+                                            <input type="text" name="id_pendaftaran" value="{{ $keys->id }}" hidden>
                                             <input type="text" name="id_data_kriteria[]" value="{{ $key->id }}" hidden>
                                             <div class="form-group">
                                                 <label class="font-weight-bold" for="{{ $key->id }}">{{
@@ -122,7 +124,7 @@
                                             $key->id);
                                             $selected_value = isset($s_option['nilai']) ? $s_option['nilai'] : null;
                                             @endphp
-                                            <input type="text" name="id_data_alternatif" value="{{ $keys->id }}" hidden>
+                                            <input type="text" name="id_pendaftaran" value="{{ $keys->id }}" hidden>
                                             <input type="text" name="id_data_kriteria[]" value="{{ $key->id }}" hidden>
                                             <div class="form-group">
                                                 <label class="font-weight-bold" for="{{ $key->id }}">{{ $key->keterangan
