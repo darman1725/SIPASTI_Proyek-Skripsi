@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Management;
 use App\Http\Controllers\Controller;
 use App\Models\Management\DataPerhitungan;
 use Illuminate\Http\Request;
+use App\Models\Menu\Pendaftaran;
 
 class DataPerhitunganController extends Controller
 {
@@ -15,15 +16,14 @@ class DataPerhitunganController extends Controller
 
     public function index()
     {
-        // if (auth()->user()->id_user_level != "1") {
-        //     return redirect()->route('home')->with('error', 'Anda tidak berhak mengakses halaman ini!');
-        // }
-
         $data = [
             'page' => "Perhitungan",
             'kriteria'=> DataPerhitungan::get_kriteria(),
-            'alternatif'=> DataPerhitungan::get_alternatif(),
+            'pendaftaran'=> DataPerhitungan::get_pendaftaran(),
         ];
+
+         // eager loading untuk memuat relasi user
+        $data['pendaftaran'] = Pendaftaran::with('user')->get();
 
         return view('management.data_perhitungan.index', $data);
     }

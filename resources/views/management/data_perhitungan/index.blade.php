@@ -26,10 +26,10 @@
                         @php
                         $no=1;
                         @endphp
-                        @foreach ($alternatif as $keys)
+                        @foreach ($pendaftaran as $keys)
                         <tr align="center">
                             <td>{{ $no }}</td>
-                            <td align="left">{{ $keys->nama }}</td>
+                            <td align="left">{{ $keys->user->nama_lengkap }}</td>
                             @foreach ($kriteria as $key)
                             <td>
                                 @php
@@ -53,7 +53,7 @@
                                 @php
                                 $min_max=App\Models\Management\DataPerhitungan::get_max_min($key->id);
                                 if(!is_null($min_max) && isset($min_max['max'])){
-                                    echo $min_max['max'];
+                                echo $min_max['max'];
                                 }
                                 @endphp
                             </th>
@@ -66,7 +66,7 @@
                                 @php
                                 $min_max=App\Models\Management\DataPerhitungan::get_max_min($key->id);
                                 if(!is_null($min_max) && isset($min_max['min'])){
-                                    echo $min_max['min'];
+                                echo $min_max['min'];
                                 }
                                 @endphp
                             </th>
@@ -75,7 +75,7 @@
                     </tbody>
                 </table>
             </div>
-        </div>        
+        </div>
     </div>
 
     <div class="card shadow mb-4">
@@ -157,10 +157,10 @@
                         @php
                         $no=1;
                         @endphp
-                        @foreach ($alternatif as $keys)
+                        @foreach ($pendaftaran as $keys)
                         <tr align="center">
                             <td>{{ $no }}</td>
-                            <td align="left">{{ $keys->nama }}</td>
+                            <td align="left">{{ $keys->user->nama_lengkap }}</td>
                             @foreach ($kriteria as $key)
                             <td>
                                 @php
@@ -212,14 +212,14 @@
                         <?php
                         $no = 1;
                         $total_bobot = \App\Models\Management\DataPerhitungan::get_total_kriteria();
-                        foreach ($alternatif as $keys) {
+                        foreach ($pendaftaran as $keys) {
                         ?>
                         <tr align="center">
                             <td>
                                 <?= $no; ?>
                             </td>
                             <td align="left">
-                                <?= $keys->nama ?>
+                                <?= $keys->user->nama_lengkap  ?>
                             </td>
                             <?php
                                 $nilai_total = 0;
@@ -246,7 +246,7 @@
                                     $nilai_total += $bobot_normalisasi * $nilai_utility;
                                 }
                                 $hasil_akhir = [
-                                    'id_data_alternatif' => $keys->id,
+                                    'id_pendaftaran' => $keys->id,
                                     'nilai' => $nilai_total
                                 ];
                                 \App\Models\Management\DataPerhitungan::insert_hasil($hasil_akhir);

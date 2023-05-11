@@ -15,7 +15,7 @@ class DataHasilAkhirController extends Controller
         $data = [
             'page' => "Perhitungan",
             'kriteria'=> DataPerhitungan::get_kriteria(),
-            'alternatif'=> DataPerhitungan::get_alternatif(),
+            'alternatif'=> DataPerhitungan::get_pendaftaran(),
         ];
 
         return view('management.data_hasil_akhir.index', $data);
@@ -26,7 +26,7 @@ class DataHasilAkhirController extends Controller
     $data = [
         'page' => "Perhitungan",
         'kriteria'=> DataPerhitungan::get_kriteria(),
-        'alternatif'=> DataPerhitungan::get_alternatif(),
+        'alternatif'=> DataPerhitungan::get_pendaftaran(),
     ];
 
     // Menambahkan kondisi untuk memastikan bahwa ada data yang dikirim dari halaman yang ingin di-generate PDF

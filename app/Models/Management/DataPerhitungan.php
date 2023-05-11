@@ -9,7 +9,7 @@ use DB;
 class DataPerhitungan extends Model
 {
     use HasFactory;
-    protected $fillable = ['id_data_alternatif', 'nilai'];
+    protected $fillable = ['id_pendaftaran', 'nilai'];
 
     public static function get_kriteria()
     {
@@ -17,18 +17,18 @@ class DataPerhitungan extends Model
         return $query->toArray();
     }
 
-    public static function get_alternatif()
+    public static function get_pendaftaran()
     {
-        $query = DB::table('data_alternatif')->get();
+        $query = DB::table('pendaftaran')->get();
         return $query->toArray();
     }
 
-    public static function data_nilai($id_data_alternatif, $id_data_kriteria)
+    public static function data_nilai($id_pendaftaran, $id_data_kriteria)
     {
     $query = DB::table('data_penilaian')
              ->join('data_sub_kriteria', 'data_penilaian.nilai', '=', 'data_sub_kriteria.id')
              ->select('data_sub_kriteria.*')
-             ->where('data_penilaian.id_data_alternatif', '=', $id_data_alternatif)
+             ->where('data_penilaian.id_pendaftaran', '=', $id_pendaftaran)
              ->where('data_penilaian.id_data_kriteria', '=', $id_data_kriteria)
              ->first();
     return $query;
@@ -58,14 +58,14 @@ class DataPerhitungan extends Model
         return $query->toArray();
     }
 
-    public static function get_hasil_alternatif($id_data_alternatif)
+    public static function get_hasil_pendaftaran($id_pendaftaran)
     {
-    $data_alternatif = DB::table('data_alternatif')
-                        ->where('id', '=', $id_data_alternatif)
+    $data_pendaftaran = DB::table('pendaftaran')
+                        ->where('id', '=', $id_pendaftaran)
                         ->first();
 
-    if($data_alternatif){
-        return (array) $data_alternatif;
+    if($data_pendaftaran){
+        return (array) $data_pendaftaran;
     }else{
         return [];
     }
@@ -73,9 +73,23 @@ class DataPerhitungan extends Model
 
     public static function insert_hasil($hasil_akhir = [])
     {
+    $existingData = DB::table('data_hasil')
+                      ->where('id_pendaftaran', $hasil_akhir['id_pendaftaran'])
+                      ->first();
+
+    if ($existingData) {
+        // Data already exists, perform update instead of insert
+        $result = DB::table('data_hasil')
+                    ->where('id_pendaftaran', $hasil_akhir['id_pendaftaran'])
+                    ->update($hasil_akhir);
+    } else {
+        // Data does not exist, perform insert
         $result = DB::table('data_hasil')->insert($hasil_akhir);
-        return $result;
     }
+
+    return $result;
+    }
+
 
     public function hapus_hasil()
     {
@@ -83,3 +97,4 @@ class DataPerhitungan extends Model
         return $query;
     }
 }
+
