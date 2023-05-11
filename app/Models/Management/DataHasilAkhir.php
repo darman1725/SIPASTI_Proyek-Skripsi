@@ -11,16 +11,16 @@ class DataHasilAkhir extends Model
     use HasFactory;
     protected $guarded=['id'];
     protected $table = "data_hasil";
-    protected $fillable = ['id_data_alternatif','nilai'];
+    protected $fillable = ['id_pendaftaran','nilai'];
 
-    public static function get_hasil_alternatif($id_data_alternatif)
+    public static function get_hasil_pendaftaran($id_pendaftaran)
     {
-    $data_alternatif = DB::table('data_alternatif')
-                        ->where('id', '=', $id_data_alternatif)
+    $data_pendaftaran = DB::table('pendaftaran')
+                        ->where('id', '=', $id_pendaftaran)
                         ->first();
 
-    if($data_alternatif){
-        return (array) $data_alternatif;
+    if($data_pendaftaran){
+        return (array) $data_pendaftaran;
     }else{
         return [];
     }

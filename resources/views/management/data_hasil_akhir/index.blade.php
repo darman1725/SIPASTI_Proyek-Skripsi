@@ -19,6 +19,7 @@
                         <tr align="center">
                             <th width="5%">No</th>
                             <th>Alternatif</th>
+                            <th width="15%">Kegiatan</th>
                             <th width="15%">Total Nilai</th>
                             <th width="10%">Rangking</th>
                         </tr>
@@ -27,9 +28,11 @@
                         <?php
                     $no = 1;
                     $total_bobot = \App\Models\Management\DataPerhitungan::get_total_kriteria();
-                    $alternatif = \App\Models\Menu\DataAlternatif::orderBy('nama', 'asc')->get();
-                    $alternatif_data = array();
-                    foreach ($alternatif as $keys) {
+                    $pendaftaran = \App\Models\Menu\Pendaftaran::with(['user' => function ($query) {
+                    $query->orderBy('nama_lengkap', 'asc');
+                    }])->get();
+                    $pendaftaran_data = array();
+                    foreach ($pendaftaran as $keys) {
                         $nilai_total = 0;
                         foreach ($kriteria as $key) {
                             $data_pencocokan = \App\Models\Management\DataPerhitungan::data_nilai($keys->id, $key->id);
@@ -53,19 +56,18 @@
     
                             $nilai_total += $bobot_normalisasi * $nilai_utility;
                         }
-                        $alternatif_data[] = [
+                        $pendaftaran_data[] = [
                             'id' => $keys->id,
-                            'nama' => $keys->nama,
+                            'nama' => $keys->user->nama_lengkap,
+                            'kegiatan' => $keys->kegiatan->nama,
                             'nilai_total' => $nilai_total
                         ];
                     }
     
                     // Urutkan data alternatif berdasarkan nilai total secara descending
-                    usort($alternatif_data, function($a, $b) {
-                        return $b['nilai_total'] <=> $a['nilai_total'];
-                    });
+                    $pendaftaran_data = collect($pendaftaran_data)->sortByDesc('nilai_total')->values()->all();
     
-                    foreach ($alternatif_data as $keys) {
+                    foreach ($pendaftaran_data as $keys) {
                     ?>
                         <tr align="center">
                             <td>
@@ -73,6 +75,9 @@
                             </td>
                             <td align="left">
                                 <?= $keys['nama']; ?>
+                            </td>
+                            <td>
+                                <?= $keys['kegiatan']; ?>
                             </td>
                             <td>
                                 <?= $keys['nilai_total']; ?>
