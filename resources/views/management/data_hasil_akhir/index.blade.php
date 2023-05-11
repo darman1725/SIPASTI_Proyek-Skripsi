@@ -18,10 +18,10 @@
                     <thead class="bg-primary text-white">
                         <tr align="center">
                             <th width="5%">No</th>
-                            <th>Alternatif</th>
-                            <th width="15%">Kegiatan</th>
-                            <th width="15%">Total Nilai</th>
-                            <th width="10%">Rangking</th>
+                            <th>Nama Pelamar</th>
+                            <th>Kegiatan</th>
+                            <th>Total Nilai</th>
+                            <th width="5%">Rangking</th>
                         </tr>
                     </thead>
                     <tbody>
