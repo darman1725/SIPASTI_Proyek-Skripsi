@@ -4,8 +4,8 @@ Sistem Pendukung Keputusan Rekrutmen Petugas Statistik Badan Pusat Statistik (BP
 ## Instalasi
 1. Clone proyek ini
     ```bash
-    git clone https://github.com/zuramai/laravel-mazer
-    cd laravel-mazer
+    git clone https://github.com/darman1725/SIPASTI_Proyek-Skripsi.git
+    cd SIPASTI_Proyek-Skripsi
     ```
 2. Install dependencies
     ```bash
@@ -40,6 +40,6 @@ Sistem Pendukung Keputusan Rekrutmen Petugas Statistik Badan Pusat Statistik (BP
 
 7. Login credentials
 
-**Email:** user@gmail.com
+**Email:** admin@example.com
 
 **Password:** password
