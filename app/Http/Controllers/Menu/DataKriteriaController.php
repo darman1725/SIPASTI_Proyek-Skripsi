@@ -41,7 +41,7 @@ class DataKriteriaController extends Controller
     $dataKriteria->save();
 
     return redirect()->route('data_kriteria', ['id_data_kegiatan' => $request->id_data_kegiatan])
-        ->with('success', 'Data Kriteria berhasil dibuat');
+        ->with('success', 'Data Kriteria berhasil ditambahkan');
     }
 
     public function edit($id)

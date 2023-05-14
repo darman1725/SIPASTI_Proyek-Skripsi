@@ -35,7 +35,7 @@ class DataPenilaianController extends Controller
             $i++;
         }
 
-        $request->session()->flash('success', 'Data Penilaian berhasil dibuat');
+        $request->session()->flash('success', 'Data Penilaian berhasil ditambahkan');
         return redirect()->route('data_penilaian');
     }
 

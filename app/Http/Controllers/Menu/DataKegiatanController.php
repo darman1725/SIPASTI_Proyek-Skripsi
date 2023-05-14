@@ -40,7 +40,7 @@ class DataKegiatanController extends Controller
         $kegiatan->save();
 
         return redirect()->route('kegiatan')
-            ->with('success', 'Data kegiatan berhasil dibuat');
+            ->with('success', 'Data kegiatan berhasil ditambahkan');
     }
 
     public function edit(DataKegiatan $kegiatan)

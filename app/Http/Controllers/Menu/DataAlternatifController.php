@@ -43,7 +43,7 @@ class DataAlternatifController extends Controller
         $data_alternatif->nama = $request->nama;
         $data_alternatif->save();
 
-        return redirect()->route('data_alternatif')->with('success', 'Data Alternatif berhasil dibuat');
+        return redirect()->route('data_alternatif')->with('success', 'Data Alternatif berhasil ditambahkan');
     }
 
     public function show(DataAlternatif $dataAlternatif)

@@ -37,7 +37,7 @@ class PendaftaranController extends Controller
             'id_pendaftaran' => $pendaftaran->id
         ]);
 
-        return redirect()->route('pendaftaran')->with('success', 'Data pendaftaran berhasil dibuat');
+        return redirect()->route('pendaftaran')->with('success', 'Data pendaftaran berhasil ditambahkan');
     }
 
     public function show($id)
