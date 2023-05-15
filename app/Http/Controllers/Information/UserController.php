@@ -14,7 +14,7 @@ class UserController extends Controller
 {
     public function index()
     {
-        $users = User::orderBy('created_at', 'desc')->paginate(10);
+        $users = User::orderBy('created_at', 'desc')->paginate(5);
         return view('information.data_pelamar.index', compact('users'));
     }
 
@@ -73,5 +73,13 @@ class UserController extends Controller
             DB::rollBack();
             return redirect()->route('user')->with('error', 'Terjadi kesalahan saat menghapus pengguna: ' . $e->getMessage());
         }
+    }
+
+    public function bulkDelete(Request $request)
+    {
+        $userIds = $request->input('user_ids');
+        User::whereIn('id', $userIds)->delete();
+
+        return redirect()->back()->with('success', 'Data pengguna berhasil dihapus');
     }
 }

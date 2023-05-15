@@ -48,18 +48,9 @@ Route::group(['namespace' => 'App\Http\Controllers\Management', 'prefix' => 'man
 });
 
 Route::resource('user', UserController::class);
+Route::delete('/users/bulk-delete', [UserController::class, 'bulkDelete'])->name('user.bulkDelete');
 
 Route::group(['namespace' => 'App\Http\Controllers\Information', 'prefix' => 'information'], function () {
     Route::get('user', 'UserController@index')->name('user');
     Route::get('data_profile', 'DataProfileController@index')->name('data_profile');
 });
-
-Route::get('/profile/edit', [DataProfileController::class, 'edit'])->name('profile.edit');
-Route::post('/profile/update', [DataProfileController::class, 'update'])->name('profile.update');
-
-// Step 1
-Route::post('/profile/step1', [DataProfileController::class, 'step1'])->name('profile.step1');
-// Step 2
-Route::post('/profile/step2', [DataProfileController::class, 'step2'])->name('profile.step2');
-// Step 3
-Route::post('/profile/step3', [DataProfileController::class, 'step3'])->name('profile.step3');
