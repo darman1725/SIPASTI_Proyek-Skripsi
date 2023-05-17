@@ -26,6 +26,8 @@
                             <th width="5%">No</th>
                             <th>Nama Pelamar</th>
                             <th>Kegiatan</th>
+                            <th>Tanggal Daftar</th>
+                            <th>Tanggal Penilaian</th>
                             <th width="15%">Aksi</th>
                         </tr>
                     </thead>
@@ -35,7 +37,45 @@
                         <tr align="center">
                             <td>{{ $no }}</td>
                             <td align="left">{{ $keys->user->nama_lengkap }}</td>
-                            <td>{{ $keys->kegiatan->nama }}</td>
+                            <td>{{ $keys->kegiatan->nama }} - {{ $keys->kegiatan->jenis }}</td>
+                            <td>{{ $keys->created_at->locale('id')->translatedFormat('l, d F Y, (H:i') }} WIB)</td>
+                            @php
+                            $latestUpdatedTime = null;
+                            $isIncomplete = false;
+                            $isEmpty = true;
+                            $penilaianByPendaftaran = \App\Models\Management\DataPenilaian::where('id_pendaftaran',
+                            $keys->id)->get();
+
+                            foreach ($kriteria as $key) {
+                            $sub_kriteria = \App\Models\Management\DataPenilaian::data_sub_kriteria($key->id);
+                            $penilaian = $penilaianByPendaftaran->firstWhere('id_data_kriteria', $key->id);
+
+                            if ($penilaian && $penilaian['nilai']) {
+                            $isEmpty = false;
+                            } else {
+                            $isIncomplete = true;
+                            }
+                            }
+                            @endphp
+
+                            @foreach ($penilaianByPendaftaran as $item)
+                            @if (!$latestUpdatedTime || $item['updated_at'] > $latestUpdatedTime)
+                            @php
+                            $latestUpdatedTime = $item['updated_at'];
+                            @endphp
+                            @endif
+                            @endforeach
+
+                            <td>
+                                @if ($isIncomplete)
+                                <span class="badge bg-danger text-white">Nilai tidak lengkap</span>
+                                @elseif ($isEmpty)
+                                <span class="badge bg-danger text-white">Nilai tidak lengkap</span>
+                                @else
+                                {{ $latestUpdatedTime->locale('id')->translatedFormat('l, d F Y, (H:i') }} WIB)
+                                @endif
+                            </td>
+
                             @php $cek_tombol = App\Models\Management\DataPenilaian::untuk_tombol($keys->id) @endphp
 
                             <td>
@@ -152,9 +192,6 @@
                                 </div>
                             </div>
                         </div>
-
-
-
 
                         @php $no++ @endphp
                         @endforeach
