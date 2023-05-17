@@ -37,6 +37,9 @@
                   @endforeach
                 </select>
               </div>
+              <p>
+              <div>{{ __('Letak Keberadaan Anda Sekarang') }}</div>
+              </p>
               <div class="form-group">
                 <label for="provinsi">{{ __('Provinsi') }}</label>
                 <select class="form-control" id="provinsi" name="provinsi" data-prov="provinsi">

@@ -63,8 +63,7 @@
                     <button type="submit" class="btn btn-danger" onclick="return confirm('Apakah Anda yakin ingin menghapus data yang dipilih?')">Hapus Terpilih</button>
                 </div>
             </form>
-
-            {{ $users->links() }}
+            {{-- {{ $users->links() }} --}}
         </div>
     </div>
 </x-app-layout>
