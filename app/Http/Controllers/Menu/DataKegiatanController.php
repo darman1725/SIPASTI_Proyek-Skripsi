@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Menu\DataKegiatan;
 use App\Http\Requests\DataKegiatanRequest;
 use Illuminate\Support\Facades\Storage;
+use RealRashid\SweetAlert\Facades\Alert;
+use Illuminate\Support\Facades\File;
 
 class DataKegiatanController extends Controller
 {
@@ -39,8 +41,8 @@ class DataKegiatanController extends Controller
 
         $kegiatan->save();
 
-        return redirect()->route('kegiatan')
-            ->with('success', 'Data kegiatan berhasil ditambahkan');
+        Alert::success('Sukses', 'Data berhasil ditambahkan')->autoClose(3000);
+        return redirect()->route('kegiatan');
     }
 
     public function edit(DataKegiatan $kegiatan)
@@ -63,16 +65,20 @@ class DataKegiatanController extends Controller
         }
         $kegiatan->save();
 
-        return redirect()->route('kegiatan')
-            ->with('success', 'Data kegiatan berhasil diperbarui.');
+        Alert::success('Sukses', 'Data berhasil diupdate')->autoClose(3000);
+        return redirect()->route('kegiatan');
     }
 
     public function destroy(DataKegiatan $kegiatan)
     {
-        Storage::delete('public/kegiatan/' . $kegiatan->gambar);
-        $kegiatan->delete();
+    $gambarPath = 'public/kegiatan/' . $kegiatan->gambar;
+    if (Storage::exists($gambarPath)) {
+        Storage::delete($gambarPath);
+    }
 
-        return redirect()->route('kegiatan')
-            ->with('success', 'Data kegiatan berhasil dihapus.');
+    $kegiatan->delete();
+
+    // Alert::success('Sukses', 'Data berhasil dihapus')->autoClose(3000);
+    return redirect()->route('kegiatan');
     }
 }

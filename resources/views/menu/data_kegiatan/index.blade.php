@@ -44,14 +44,15 @@
                         <div class="d-flex justify-content-center">
                             @if(Auth::user()->level == 'admin')
                             <a href="{{ route('kegiatan.edit', $kegiatan->id) }}" class="btn btn-primary mr-1">Edit</a>
-                            <form action="{{ route('kegiatan.destroy', $kegiatan->id) }}" method="POST">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-danger ml-1"
-                                    onclick="return confirm('Apakah anda yakin ingin menghapus data kegiatan ini ?')">Hapus</button>
-                            </form>
+                            <button class="btn btn-danger ml-1" onclick="swalConfirmDelete({{ $kegiatan->id }}, 'Apakah Anda yakin ingin menghapus data kegiatan ini?', 'Data kegiatan berhasil dihapus');">
+                                Hapus
+                            </button>
                             @endif
                         </div>
+                        <form id="destroy-form-{{ $kegiatan->id }}" action="{{ route('kegiatan.destroy', $kegiatan->id) }}" method="POST" style="display: none;">
+                            @csrf
+                            @method('DELETE')
+                        </form>
                         <hr>
                         @if(Auth::user()->level == 'admin')
                         <!-- Tombol daftar dihilangkan jika level auth adalah admin -->
@@ -64,4 +65,5 @@
             @endforeach
         </div>
     </div>
+
 </x-app-layout>
