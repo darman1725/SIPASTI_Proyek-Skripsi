@@ -17,6 +17,7 @@
         "laravel/tinker": "^2.7",
         "laravel/ui": "^4.0",
         "ramsey/uuid-doctrine": "^1.8",
+        "simplesoftwareio/simple-qrcode": "^4.2",
         "spatie/laravel-activitylog": "^4.6",
         "yoeunes/toastr": "^2.0"
     },

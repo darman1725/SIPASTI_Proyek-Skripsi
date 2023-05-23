@@ -41,7 +41,6 @@ class DataKegiatanController extends Controller
 
         $kegiatan->save();
 
-        Alert::success('Sukses', 'Data berhasil ditambahkan')->autoClose(3000);
         return redirect()->route('kegiatan');
     }
 
@@ -78,7 +77,6 @@ class DataKegiatanController extends Controller
 
     $kegiatan->delete();
 
-    // Alert::success('Sukses', 'Data berhasil dihapus')->autoClose(3000);
     return redirect()->route('kegiatan');
     }
 }

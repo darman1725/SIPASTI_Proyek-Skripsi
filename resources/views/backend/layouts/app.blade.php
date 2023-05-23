@@ -7,6 +7,7 @@
     <link rel="shortcut icon" href="{{ Vite::asset('resources/images/logo/favicon.svg') }}" type="image/x-icon">
     <link rel="shortcut icon" href="{{ Vite::asset('resources/images/logo/favicon.png') }}" type="image/png">
     <link rel="stylesheet" href="{{ asset('extensions/sweetalert2/sweetalert2.min.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Styles -->

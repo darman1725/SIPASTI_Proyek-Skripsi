@@ -1,12 +1,13 @@
 <x-app-layout>
-    
+
     <div class="container">
         <div class="row">
             <div class="col-md-8 offset-md-2">
                 <div class="card">
                     <div class="card-header">Tambah Kegiatan</div>
                     <div class="card-body">
-                        <form method="POST" action="{{ route('kegiatan.store') }}" enctype="multipart/form-data">
+                        <form method="POST" action="{{ route('kegiatan.store') }}" enctype="multipart/form-data"
+                            id="save-form">
                             @csrf
 
                             <div class="form-group">
@@ -51,7 +52,8 @@
                                     value="{{ old('tanggal_selesai') }}" required>
                             </div>
 
-                            <button type="submit" class="btn btn-primary">Simpan</button>
+                            <button type="button" class="btn btn-primary"
+                                onclick="swalConfirmStore('{{ __('Apakah Anda yakin ingin menyimpan data kegiatan ini?') }}', '{{ __('Data Kegiatan Berhasil Disimpan') }}', '{{ route('kegiatan') }}')">Simpan</button>
                             <a href="{{ route('kegiatan') }}" class="btn btn-secondary">Kembali</a>
                         </form>
                     </div>
