@@ -2,8 +2,9 @@
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800"><i class="fas fa-fw fa-book"></i> Data Kriteria</h1>
 
-        <a href="{{ route('data_kriteria')}}" class="btn btn-secondary btn-icon-split"><span class="icon text-white-50"><i
-                    class="fas fa-arrow-left"></i></span>
+        <a href="{{ route('data_kriteria', ['id_data_kegiatan' => $selectedKegiatanId]) }}"
+            class="btn btn-secondary btn-icon-split">
+            <span class="icon text-white-50"><i class="fas fa-arrow-left"></i></span>
             <span class="text">Kembali</span>
         </a>
     </div>
@@ -19,20 +20,20 @@
                 <div class="row">
                     <div class="form-group col-md-6">
                         <label class="font-weight-bold">Kode Kriteria</label>
-                        <input autocomplete="off" type="text" name="kode_kriteria" required class="form-control" 
-                        placeholder="Contoh: C1,C2..."/>
+                        <input autocomplete="off" type="text" name="kode_kriteria" required class="form-control"
+                            placeholder="Contoh: C1,C2..." />
                     </div>
 
                     <div class="form-group col-md-6">
                         <label class="font-weight-bold">Nama Kriteria</label>
-                        <input autocomplete="off" type="text" name="keterangan" required class="form-control" 
-                        placeholder="Contoh: Pendidikan,Pengalaman..."/>
+                        <input autocomplete="off" type="text" name="keterangan" required class="form-control"
+                            placeholder="Contoh: Pendidikan,Pengalaman..." />
                     </div>
 
                     <div class="form-group col-md-6">
                         <label class="font-weight-bold">Bobot Kriteria</label>
-                        <input autocomplete="off" type="number" name="bobot" step="0.01" required
-                            class="form-control" placeholder="Contoh: 10,25,..."/>
+                        <input autocomplete="off" type="number" name="bobot" step="0.01" required class="form-control"
+                            placeholder="Contoh: 10,25,..." />
                     </div>
 
                     <div class="form-group col-md-6">
@@ -43,17 +44,18 @@
                             <option value="Cost">Cost</option>
                         </select>
                     </div>
-                    
+
                     <div class="form-group col-md-6">
                         <label class="font-weight-bold">Data Kegiatan</label>
                         <select name="id_data_kegiatan" class="form-control" required>
                             <option value="">--Pilih Data Kegiatan--</option>
                             @foreach($data_kegiatan as $dk)
-                            <option value="{{ $dk->id }}">{{ $dk->nama }}</option>
+                            <option value="{{ $dk->id }}" {{ $dk->id == $selectedKegiatanId ? 'selected' : '' }}>{{
+                                $dk->nama }} - {{ $dk->jenis }}</option>
                             @endforeach
                         </select>
                     </div>
-                    
+
                 </div>
             </div>
             <div class="card-footer text-right">
