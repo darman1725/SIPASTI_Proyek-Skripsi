@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Models\Menu\DataKegiatan;
 use App\Http\Requests\DataKegiatanRequest;
 use Illuminate\Support\Facades\Storage;
-use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Facades\File;
 
 class DataKegiatanController extends Controller
@@ -64,7 +63,6 @@ class DataKegiatanController extends Controller
         }
         $kegiatan->save();
 
-        Alert::success('Sukses', 'Data berhasil diupdate')->autoClose(3000);
         return redirect()->route('kegiatan');
     }
 

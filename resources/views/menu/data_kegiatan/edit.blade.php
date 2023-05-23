@@ -1,5 +1,4 @@
 <x-app-layout>
-
     @if ($errors->any())
     <div class="alert alert-danger">
         <ul>
@@ -17,7 +16,7 @@
                     <div class="card-header">Edit Kegiatan</div>
                     <div class="card-body">
                         <form method="POST" action="{{ route('kegiatan.update', $kegiatan->id) }}"
-                            enctype="multipart/form-data">
+                            enctype="multipart/form-data" id="update-form">
                             @csrf
                             @method('PUT')
 
@@ -31,10 +30,10 @@
                                 <label for="jenis">Jenis</label>
                                 <select name="jenis" id="jenis" class="form-control" required>
                                     <option value="">-- Pilih Jenis --</option>
-                                    <option value="Lapangan" {{ $kegiatan->jenis == 'Lapangan' ? 'selected' : ''
-                                        }}>Lapangan</option>
-                                    <option value="Pengolahan" {{ $kegiatan->jenis == 'Pengolahan' ? 'selected' : ''
-                                        }}>Pengolahan</option>
+                                    <option value="Lapangan" {{ $kegiatan->jenis == 'Lapangan' ? 'selected' : '' }}>
+                                        Lapangan</option>
+                                    <option value="Pengolahan"
+                                        {{ $kegiatan->jenis == 'Pengolahan' ? 'selected' : '' }}>Pengolahan</option>
                                 </select>
                             </div>
 
@@ -44,10 +43,11 @@
                                     <option value="">-- Pilih Level --</option>
                                     <option value="Umum" {{ $kegiatan->level == 'Umum' ? 'selected' : '' }}>Umum
                                     </option>
-                                    <option value="Provinsi" {{ $kegiatan->level == 'Provinsi' ? 'selected' : ''
-                                        }}>Provinsi</option>
-                                    <option value="Kabupaten/Kota" {{ $kegiatan->level == 'Kabupaten/Kota' ? 'selected'
-                                        : '' }}>Kabupaten/Kota</option>
+                                    <option value="Provinsi" {{ $kegiatan->level == 'Provinsi' ? 'selected' : '' }}>
+                                        Provinsi</option>
+                                    <option value="Kabupaten/Kota"
+                                        {{ $kegiatan->level == 'Kabupaten/Kota' ? 'selected' : '' }}>Kabupaten/Kota
+                                    </option>
                                 </select>
                             </div>
 
@@ -77,7 +77,8 @@
                                     value="{{ $kegiatan->tanggal_selesai }}" required>
                             </div>
 
-                            <button type="submit" class="btn btn-primary">Simpan</button>
+                            <button type="button" class="btn btn-primary"
+                                onclick="swalConfirmUpdate('Apakah Anda yakin ingin mengupdate data kegiatan ini?', 'Data kegiatan berhasil diupdate', '{{ route('kegiatan') }}')">Update</button>
                             <a href="{{ route('kegiatan') }}" class="btn btn-secondary">Kembali</a>
                         </form>
                     </div>
