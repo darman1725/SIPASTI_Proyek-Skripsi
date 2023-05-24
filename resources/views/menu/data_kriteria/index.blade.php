@@ -1,9 +1,30 @@
 <x-app-layout>
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800"><i class="bi bi-journal-bookmark"></i> Data Kriteria</h1>
-        <a href="{{ route('data_kriteria.create') }}" class="btn btn-success"> <i class="fa fa-plus"></i> Tambah Data
+        <a href="{{ route('data_kriteria.create') }}" class="btn btn-success{{ $totalBobot >= 100 ? ' disabled' : '' }}" {{ $totalBobot >= 100 ? 'aria-disabled=true' : '' }}> <i class="fa fa-plus"></i> Tambah Data </a>
         </a>
     </div>
+
+    <div class="text-left">
+            @if ($selectedKegiatanId)
+                <div class="alert alert-info float-left" role="alert">
+                    Total bobot data kriteria: {{ $totalBobot }} / 100 point
+                </div>
+            @endif
+        </div>
+        <div class="text-right">
+            @if ($selectedKegiatanId)
+                @if ($totalBobot < 100)
+                    <div class="alert alert-danger float-right" role="alert">
+                        Data kriteria belum dapat digunakan, karena total bobot untuk kegiatan belum mencapai 100 point.
+                    </div>
+                @else
+                    <div class="alert alert-success float-right" role="alert">
+                        Data kriteria sudah dapat digunakan, karena total bobot untuk kegiatan sudah memenuhi kaidah perhitungan.
+                    </div>
+                @endif
+            @endif
+        </div>
 
     <div class="card shadow mb-4">
         <div class="card-header py-3">

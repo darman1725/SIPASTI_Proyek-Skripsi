@@ -7,6 +7,8 @@ use App\Models\Menu\DataKriteria;
 use App\Models\Menu\DataKegiatan;
 use Illuminate\Http\Request;
 use App\Http\Requests\DataKriteriaRequest;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 
 class DataKriteriaController extends Controller
 {
@@ -15,8 +17,11 @@ class DataKriteriaController extends Controller
     $data_kriteria = DataKriteria::with('kegiatan')->orderBy('id', 'ASC');
     $selectedKegiatanId = $request->input('id_data_kegiatan');
 
-    // Set session value for selected kegiatan
-    session(['selectedKegiatanId' => $selectedKegiatanId]);
+     // Calculate the total bobot for the selected kegiatan
+     $totalBobot = DataKriteria::where('id_data_kegiatan', $selectedKegiatanId)->sum('bobot');
+
+    // Set session value for selected kegiatan and total bobot
+    session(['selectedKegiatanId' => $selectedKegiatanId, 'totalBobot' => $totalBobot]);
 
     if ($selectedKegiatanId) {
         $data_kriteria->where('id_data_kegiatan', $selectedKegiatanId);
@@ -25,30 +30,44 @@ class DataKriteriaController extends Controller
     $data_kriteria = $data_kriteria->get();
     $data_kegiatan = DataKegiatan::orderBy('nama')->get();
 
-    return view('menu.data_kriteria.index', compact('data_kriteria', 'data_kegiatan', 'selectedKegiatanId'));
+    return view('menu.data_kriteria.index', compact('data_kriteria','selectedKegiatanId', 'totalBobot', 'data_kegiatan'));
     }
 
     public function create()
     {
     $data_kegiatan = DataKegiatan::all();
     $selectedKegiatanId = session('selectedKegiatanId');
+    $totalBobot = session('totalBobot');
 
-    return view('menu.data_kriteria.create', compact('data_kegiatan', 'selectedKegiatanId'));
+    return view('menu.data_kriteria.create', compact('data_kegiatan', 'selectedKegiatanId', 'totalBobot'));
     }
 
     public function store(DataKriteriaRequest $request)
     {
-    $dataKriteria = new DataKriteria([
-        'id_data_kegiatan' => $request->id_data_kegiatan,
-        'keterangan' => $request->keterangan,
-        'kode_kriteria' => $request->kode_kriteria,
-        'bobot' => $request->bobot,
-        'jenis' => $request->jenis
-    ]);
-    $dataKriteria->save();
+        $id_data_kegiatan = $request->id_data_kegiatan;
+        
+        // Calculate the total bobot for the selected kegiatan
+        $totalBobot = DataKriteria::where('id_data_kegiatan', $id_data_kegiatan)->sum('bobot');
+        $newBobot = $request->bobot;
+        $maxBobot = 100;
 
-    return redirect()->route('data_kriteria', ['id_data_kegiatan' => $request->id_data_kegiatan])
-        ->with('success', 'Data Kriteria berhasil ditambahkan');
+        // Check if the total bobot exceeds the maximum allowed
+        if (($totalBobot + $newBobot) > $maxBobot) {
+            return redirect()->route('data_kriteria.create')->withInput()
+            ->with('error', 'Bobot kriteria yang anda inputkan melebihi batas yang diizinkan');
+        }
+
+        $dataKriteria = new DataKriteria([
+            'id_data_kegiatan' => $id_data_kegiatan,
+            'keterangan' => $request->keterangan,
+            'kode_kriteria' => $request->kode_kriteria,
+            'bobot' => $newBobot,
+            'jenis' => $request->jenis
+        ]);
+        $dataKriteria->save();
+
+        return redirect()->route('data_kriteria', ['id_data_kegiatan' => $id_data_kegiatan])
+            ->with('success', 'Data Kriteria berhasil ditambahkan');
     }
 
     public function edit($id)
@@ -56,8 +75,9 @@ class DataKriteriaController extends Controller
     $data_kriteria = DataKriteria::find($id);
     $data_kegiatan = DataKegiatan::all();
     $selectedKegiatanId = session('selectedKegiatanId');
+    $totalBobot = session('totalBobot');
 
-    return view('menu.data_kriteria.edit', compact('data_kriteria', 'data_kegiatan', 'selectedKegiatanId'));
+    return view('menu.data_kriteria.edit', compact('data_kriteria', 'data_kegiatan', 'selectedKegiatanId', 'totalBobot'));
     }
 
     public function update(Request $request, $id)
@@ -69,18 +89,31 @@ class DataKriteriaController extends Controller
             'jenis' => 'required',
             'id_data_kegiatan' => 'required',
         ]);
-    
+
         $data_kriteria = DataKriteria::find($id);
+        $id_data_kegiatan = $request->id_data_kegiatan;
+
+        // Calculate the total bobot for the selected kegiatan
+        $totalBobot = DataKriteria::where('id_data_kegiatan', $id_data_kegiatan)->sum('bobot');
+        $newBobot = $request->bobot;
+        $maxBobot = 100;
+        
+        // Check if the total bobot exceeds the maximum allowed
+        if (($totalBobot + $newBobot) > $maxBobot) {
+        return redirect()->route('data_kriteria.create')->withInput()
+            ->with('error', 'Bobot kriteria yang anda inputkan melebihi batas yang diizinkan');
+        }
+
         $data_kriteria->kode_kriteria = $request->kode_kriteria;
         $data_kriteria->keterangan = $request->keterangan;
-        $data_kriteria->bobot = $request->bobot;
+        $data_kriteria->bobot = $newBobot;
         $data_kriteria->jenis = $request->jenis;
-        $data_kriteria->id_data_kegiatan = $request->id_data_kegiatan;
-    
+        $data_kriteria->id_data_kegiatan = $id_data_kegiatan;
+
         $data_kriteria->save();
-    
-        return redirect()->route('data_kriteria', ['id_data_kegiatan' => $request->id_data_kegiatan])->with('success', 'Data kriteria berhasil diupdate');
-    }    
+
+        return redirect()->route('data_kriteria', ['id_data_kegiatan' => $id_data_kegiatan])->with('success', 'Data kriteria berhasil diupdate');
+    }
 
     public function destroy($id)
     {

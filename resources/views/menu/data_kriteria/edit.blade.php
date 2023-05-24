@@ -9,6 +9,22 @@
         </a>
     </div>
 
+    <div class="text-left">
+        @if ($selectedKegiatanId)
+        <div class="alert alert-info float-left" role="alert">
+            Total Bobot Sementara: {{ $totalBobot }} / 100 point
+        </div>
+        @endif
+    </div>
+    <div class="text-right">
+        @if ($selectedKegiatanId)
+        @if ($totalBobot <= 100) <div class="alert alert-danger float-right" role="alert">
+            Total bobot yang masih dapat digunakan: {{ 100 - $totalBobot }} point lagi
+    </div>
+    @endif
+    @endif
+    </div>
+
     <div class="card shadow mb-4">
         <div class="card-header py-3">
             <h6 class="m-0 font-weight-bold text-primary"><i class="fas fa-fw fa-edit"></i> Edit Data Kriteria</h6>
