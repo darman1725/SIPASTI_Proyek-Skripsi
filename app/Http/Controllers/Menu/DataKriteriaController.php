@@ -82,37 +82,38 @@ class DataKriteriaController extends Controller
 
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'kode_kriteria' => 'required',
-            'keterangan' => 'required',
-            'bobot' => 'required|numeric|min:0',
-            'jenis' => 'required',
-            'id_data_kegiatan' => 'required',
-        ]);
+    $request->validate([
+        'kode_kriteria' => 'required',
+        'keterangan' => 'required',
+        'bobot' => 'required|numeric|min:0',
+        'jenis' => 'required',
+        'id_data_kegiatan' => 'required',
+    ]);
 
-        $data_kriteria = DataKriteria::find($id);
-        $id_data_kegiatan = $request->id_data_kegiatan;
+    $data_kriteria = DataKriteria::find($id);
+    $id_data_kegiatan = $request->id_data_kegiatan;
+    $newBobot = $request->bobot;
+    $maxBobot = 100;
 
-        // Calculate the total bobot for the selected kegiatan
-        $totalBobot = DataKriteria::where('id_data_kegiatan', $id_data_kegiatan)->sum('bobot');
-        $newBobot = $request->bobot;
-        $maxBobot = 100;
-        
-        // Check if the total bobot exceeds the maximum allowed
-        if (($totalBobot + $newBobot) > $maxBobot) {
-        return redirect()->route('data_kriteria.create')->withInput()
-            ->with('error', 'Bobot kriteria yang anda inputkan melebihi batas yang diizinkan');
-        }
+    // Calculate the total bobot for the selected kegiatan excluding the current criterion being updated
+    $totalBobot = DataKriteria::where('id_data_kegiatan', $id_data_kegiatan)
+        ->where('id', '!=', $id)
+        ->sum('bobot');
 
-        $data_kriteria->kode_kriteria = $request->kode_kriteria;
-        $data_kriteria->keterangan = $request->keterangan;
-        $data_kriteria->bobot = $newBobot;
-        $data_kriteria->jenis = $request->jenis;
-        $data_kriteria->id_data_kegiatan = $id_data_kegiatan;
+    // Check if the total bobot exceeds the maximum allowed
+    if (($totalBobot + $newBobot) > $maxBobot) {
+        return redirect()->route('data_kriteria.edit', ['data_kriterium' => $id])->with('error', 'Total bobot kriteria melebihi batas yang diizinkan');
+    }
 
-        $data_kriteria->save();
+    $data_kriteria->kode_kriteria = $request->kode_kriteria;
+    $data_kriteria->keterangan = $request->keterangan;
+    $data_kriteria->bobot = $newBobot;
+    $data_kriteria->jenis = $request->jenis;
+    $data_kriteria->id_data_kegiatan = $id_data_kegiatan;
 
-        return redirect()->route('data_kriteria', ['id_data_kegiatan' => $id_data_kegiatan])->with('success', 'Data kriteria berhasil diupdate');
+    $data_kriteria->save();
+
+    return redirect()->route('data_kriteria.index', ['id_data_kegiatan' => $id_data_kegiatan])->with('success', 'Data kriteria berhasil diupdate');
     }
 
     public function destroy($id)
