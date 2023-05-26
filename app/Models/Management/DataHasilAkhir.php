@@ -11,7 +11,7 @@ class DataHasilAkhir extends Model
     use HasFactory;
     protected $guarded=['id'];
     protected $table = "data_hasil";
-    protected $fillable = ['id_pendaftaran','nilai'];
+    protected $fillable = ['id_pendaftaran','jenis_kegiatan', 'nilai'];
 
     public static function get_hasil_pendaftaran($id_pendaftaran)
     {

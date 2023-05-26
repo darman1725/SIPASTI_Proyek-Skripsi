@@ -205,6 +205,7 @@
                         <tr align="center">
                             <th width="5%">No</th>
                             <th>Alternatif</th>
+                            <th>Kegiatan</th>
                             <th width="15%">Total Nilai</th>
                         </tr>
                     </thead>
@@ -247,10 +248,14 @@
                                 }
                                 $hasil_akhir = [
                                     'id_pendaftaran' => $keys->id,
+                                    'jenis_kegiatan' => $keys->kegiatan->nama,
                                     'nilai' => $nilai_total
                                 ];
                                 \App\Models\Management\DataPerhitungan::insert_hasil($hasil_akhir);
                                 ?>
+                            <td>
+                                <?= $keys->kegiatan->nama; ?>
+                            </td>
                             <td>
                                 <?= $nilai_total; ?>
                             </td>

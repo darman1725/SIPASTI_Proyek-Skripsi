@@ -113,7 +113,7 @@ class DataKriteriaController extends Controller
 
     $data_kriteria->save();
 
-    return redirect()->route('data_kriteria.index', ['id_data_kegiatan' => $id_data_kegiatan])->with('success', 'Data kriteria berhasil diupdate');
+    return redirect()->route('data_kriteria', ['id_data_kegiatan' => $id_data_kegiatan])->with('success', 'Data kriteria berhasil diupdate');
     }
 
     public function destroy($id)
