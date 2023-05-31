@@ -9,7 +9,8 @@ use DB;
 class DataPerhitungan extends Model
 {
     use HasFactory;
-    protected $fillable = ['id_pendaftaran', 'nilai'];
+    protected $table = "data_hasil";
+    protected $fillable = ['id_pendaftaran', 'jenis_kegiatan', 'nilai'];
 
     public static function get_kriteria()
     {
@@ -23,17 +24,22 @@ class DataPerhitungan extends Model
         return $query->toArray();
     }
 
-    public static function data_nilai($id_pendaftaran, $id_data_kriteria)
+    public static function data_nilai($id_pendaftaran, $id_data_kriteria, $selectedKegiatan = null)
     {
     $query = DB::table('data_penilaian')
-             ->join('data_sub_kriteria', 'data_penilaian.nilai', '=', 'data_sub_kriteria.id')
-             ->select('data_sub_kriteria.*')
-             ->where('data_penilaian.id_pendaftaran', '=', $id_pendaftaran)
-             ->where('data_penilaian.id_data_kriteria', '=', $id_data_kriteria)
-             ->first();
-    return $query;
+        ->join('data_sub_kriteria', 'data_penilaian.nilai', '=', 'data_sub_kriteria.id')
+        ->join('data_kriteria', 'data_penilaian.id_data_kriteria', '=', 'data_kriteria.id')
+        ->where('data_penilaian.id_pendaftaran', '=', $id_pendaftaran)
+        ->where('data_penilaian.id_data_kriteria', '=', $id_data_kriteria);
+
+    if ($selectedKegiatan) {
+        $query->where('data_kriteria.kode_kriteria', '=', $selectedKegiatan);
     }
 
+    $query->select('data_sub_kriteria.*');
+
+    return $query->first();
+    }
 
     public static function get_total_kriteria()
     {
@@ -41,22 +47,42 @@ class DataPerhitungan extends Model
         return (array) $query[0];
     }
 
-    public static function get_max_min($id_kriteria)
+    public static function get_max_min($id_kriteria, $selectedKegiatan = null)
     {
-    $query = DB::select("SELECT max(data_sub_kriteria.nilai) as max, min(data_sub_kriteria.nilai) as min, data_kriteria.jenis as jenis FROM `data_penilaian` JOIN data_kriteria ON data_penilaian.id_data_kriteria=data_kriteria.id JOIN data_sub_kriteria ON data_penilaian.nilai=data_sub_kriteria.id WHERE data_penilaian.id_data_kriteria='$id_kriteria' GROUP BY data_kriteria.jenis;");
-    
-    if(count($query) > 0) {
-        return (array) $query[0];
+    $query = DB::table('data_penilaian')
+        ->join('data_kriteria', 'data_penilaian.id_data_kriteria', '=', 'data_kriteria.id')
+        ->join('data_sub_kriteria', 'data_penilaian.nilai', '=', 'data_sub_kriteria.id')
+        ->where('data_penilaian.id_data_kriteria', '=', $id_kriteria);
+
+    if ($selectedKegiatan) {
+        $query->where('data_kriteria.kode_kriteria', '=', $selectedKegiatan);
+    }
+
+    $query->selectRaw('MAX(data_sub_kriteria.nilai) as max, MIN(data_sub_kriteria.nilai) as min, data_kriteria.jenis as jenis')
+        ->groupBy('data_kriteria.jenis');
+
+    $result = $query->first();
+
+    if ($result) {
+        return (array) $result;
     } else {
         return null;
     }
     }
 
-    public function get_hasil()
+    public static function get_hasil($selectedKegiatan = null)
     {
-        $query = DB::select("SELECT * FROM data_hasil ORDER BY nilai DESC;");
-        return $query->toArray();
+        $query = DB::table('data_hasil');
+
+        if ($selectedKegiatan) {
+            $query->where('jenis_kegiatan', '=', $selectedKegiatan);
+        }
+
+        $query->orderBy('nilai', 'DESC');
+
+        return $query->get()->toArray();
     }
+
 
     public static function get_hasil_pendaftaran($id_pendaftaran)
     {
@@ -97,4 +123,3 @@ class DataPerhitungan extends Model
         return $query;
     }
 }
-

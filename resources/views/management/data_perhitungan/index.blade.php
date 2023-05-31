@@ -4,6 +4,22 @@
         <h1 class="h3 mb-0 text-gray-800"><i class="fas fa-fw fa-calculator"></i> Data Perhitungan</h1>
     </div>
 
+    <form action="{{ route('data_perhitungan') }}" method="GET">
+        <div class="form-group">
+            <label for="kegiatan">Filter Kegiatan:</label>
+            <select name="kegiatan" id="kegiatan" class="form-control">
+                <option value="">-- Pilih Kegiatan --</option>
+                @foreach($kegiatanOptions as $option)
+                <option value="{{ $option->id }}" {{ $selectedKegiatan==$option->id ? 'selected' : '' }}>
+                    {{ $option->nama }}
+                </option>
+                @endforeach
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Filter</button>
+    </form>
+    <br>
+
     <div class="card shadow mb-4">
         <!-- /.card-header -->
         <div class="card-header py-3">
@@ -17,6 +33,7 @@
                         <tr align="center">
                             <th width="5%">No</th>
                             <th>Alternatif</th>
+                            <th>Kegiatan</th>
                             @foreach ($kriteria as $key)
                             <th>{{ $key->kode_kriteria }}</th>
                             @endforeach
@@ -30,6 +47,7 @@
                         <tr align="center">
                             <td>{{ $no }}</td>
                             <td align="left">{{ $keys->user->nama_lengkap }}</td>
+                            <td style="text-align: center">{{ $keys->kegiatan->nama }}</td>
                             @foreach ($kriteria as $key)
                             <td>
                                 @php
@@ -47,7 +65,7 @@
                         @endphp
                         @endforeach
                         <tr align="center" class="bg-light">
-                            <th colspan="2">Max</th>
+                            <th colspan="3">Max</th>
                             @foreach ($kriteria as $key)
                             <th>
                                 @php
@@ -60,7 +78,7 @@
                             @endforeach
                         </tr>
                         <tr align="center" class="bg-light">
-                            <th colspan="2">Min</th>
+                            <th colspan="3">Min</th>
                             @foreach ($kriteria as $key)
                             <th>
                                 @php
@@ -88,16 +106,30 @@
                 <table class="table table-bordered" width="100%" cellspacing="0">
                     <thead class="bg-primary text-white">
                         <tr align="center">
-                            @foreach ($kriteria as $key)
-                            <th>{{ $key->kode_kriteria }}</th>
-                            @endforeach
+                            <th>Kriteria</th>
+                            <th>Kegiatan</th>
+                            <th>Nilai Bobot</th>
                         </tr>
                     </thead>
                     <tbody>
+                        @php
+                        $totalBobot = 0; // Variabel untuk menyimpan total bobot
+                        @endphp
+                        @foreach ($kriteria as $key)
+                        @if ($key->kegiatan->id == $selectedKegiatan || $selectedKegiatan == '')
                         <tr align="center">
-                            @foreach ($kriteria as $key)
+                            <td>{{ $key->keterangan }} - ({{ $key->kode_kriteria }})</td>
+                            <td>{{ $key->kegiatan->nama }}</td>
                             <td>{{ $key->bobot }}</td>
-                            @endforeach
+                        </tr>
+                        @endif
+                        @php
+                        $totalBobot += $key->bobot; // Menambahkan bobot pada totalBobot
+                        @endphp
+                        @endforeach
+                        <tr align="center" class="bg-light">
+                            <td colspan="2"><strong>Total Bobot</strong></td>
+                            <td><strong>{{ $totalBobot }}</strong></td>
                         </tr>
                     </tbody>
                 </table>
@@ -115,20 +147,24 @@
                 <table class="table table-bordered" width="100%" cellspacing="0">
                     <thead class="bg-primary text-white">
                         <tr align="center">
-                            @foreach ($kriteria as $key)
-                            <th>{{ $key->kode_kriteria }}</th>
-                            @endforeach
+                            <th>Kriteria</th>
+                            <th>Kegiatan</th>
+                            <th>Hasil Normalisasi</th>
                         </tr>
                     </thead>
                     <tbody>
+                        @foreach ($kriteria as $key)
                         <tr align="center">
-                            @foreach ($kriteria as $key)
+                            @if ($key->kegiatan->id == $selectedKegiatan || $selectedKegiatan == '')
+                            <td>{{ $key->keterangan }} - ({{ $key->kode_kriteria }})</td>
+                            <td>{{ $key->kegiatan->nama }}</td>
                             @php
                             $total_bobot = app('App\Models\Management\DataPerhitungan')->get_total_kriteria();
                             @endphp
                             <td>{{ $key->bobot / $total_bobot['total_bobot'] ?? 0 }}</td>
-                            @endforeach
+                            @endif
                         </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>
@@ -148,6 +184,7 @@
                         <tr align="center">
                             <th width="5%">No</th>
                             <th>Alternatif</th>
+                            <th>Kegiatan</th>
                             @foreach ($kriteria as $key)
                             <th>{{ $key->kode_kriteria }}</th>
                             @endforeach
@@ -161,6 +198,7 @@
                         <tr align="center">
                             <td>{{ $no }}</td>
                             <td align="left">{{ $keys->user->nama_lengkap }}</td>
+                            <td>{{ $keys->kegiatan->nama }}</td>
                             @foreach ($kriteria as $key)
                             <td>
                                 @php
@@ -271,3 +309,4 @@
     </div>
 
 </x-app-layout>
+
