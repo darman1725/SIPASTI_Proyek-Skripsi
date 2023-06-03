@@ -123,9 +123,12 @@ class DataKriteriaController extends Controller
     if (!$data_kriteria) {
         return redirect()->route('data_kriteria')->with('error', 'Data kriteria tidak ditemukan');
     }
-    
+
+    // Delete the related data_penilaian records
+    $data_kriteria->data_penilaian()->delete();
+
     $oldSelectedKegiatanId = $data_kriteria->id_data_kegiatan; // simpan nilai kegiatan yang dipilih sebelumnya
-    $data_kriteria->forceDelete();    
+    $data_kriteria->delete();
 
     return redirect()->route('data_kriteria', ['id_data_kegiatan' => $oldSelectedKegiatanId])->with('success', 'Data kriteria berhasil dihapus');
     }
