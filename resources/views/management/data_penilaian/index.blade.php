@@ -46,15 +46,15 @@
                             $penilaianByPendaftaran = \App\Models\Management\DataPenilaian::where('id_pendaftaran',
                             $keys->id)->get();
 
-                            foreach ($kriteria as $key) {
-                            $sub_kriteria = \App\Models\Management\DataPenilaian::data_sub_kriteria($key->id);
-                            $penilaian = $penilaianByPendaftaran->firstWhere('id_data_kriteria', $key->id);
+                            foreach ($kriteria[$keys->kegiatan->nama] as $key) {
+                                $sub_kriteria = \App\Models\Management\DataPenilaian::data_sub_kriteria($key->id);
+                                $penilaian = $penilaianByPendaftaran->firstWhere('id_data_kriteria', $key->id);
 
-                            if ($penilaian && $penilaian['nilai']) {
-                            $isEmpty = false;
-                            } else {
-                            $isIncomplete = true;
-                            }
+                                if ($penilaian && $penilaian['nilai']) {
+                                    $isEmpty = false;
+                                } else {
+                                    $isIncomplete = true;
+                                }
                             }
                             @endphp
 
@@ -103,7 +103,7 @@
                                     <form method="POST" action="/tambah_penilaian">
                                         @csrf
                                         <div class="modal-body">
-                                            @foreach ($kriteria as $key)
+                                            @foreach ($kriteria[$keys->kegiatan->nama] as $key)
                                             @php
                                             $sub_kriteria =
                                             App\Models\Management\DataPenilaian::data_sub_kriteria($key->id);
@@ -151,7 +151,7 @@
                                     <form action="/update_penilaian" method="POST">
                                         @csrf
                                         <div class="modal-body">
-                                            @foreach ($kriteria as $key)
+                                            @foreach ($kriteria[$keys->kegiatan->nama] as $key)
                                             @php
                                             $sub_kriteria =
                                             \App\Models\Management\DataPenilaian::data_sub_kriteria($key->id);

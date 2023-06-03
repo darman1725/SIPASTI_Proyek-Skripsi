@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Management;
 
 use App\Http\Controllers\Controller;
+use App\Models\Menu\DataKegiatan;
 use App\Models\Management\DataPenilaian;
+use App\Models\Menu\DataKriteria;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
@@ -13,21 +15,49 @@ use App\Http\Requests\DataPenilaianRequest;
 class DataPenilaianController extends Controller
 {
     public function index()
-    {
+{
     $data = [
         'page' => "Penilaian",
         'list' => DataPenilaian::tampil(),
-        'kriteria' => DataPenilaian::get_kriteria(),
         'pendaftaran' => DataPenilaian::get_pendaftaran(),
-        'sub_kriteria' => DataPenilaian::get_sub_kriteria(),
         'perhitungan' => DataPenilaian::tampil(),
-        'penilaian' => DataPenilaian::all()
+        'penilaian' => DataPenilaian::all(),
+        'kegiatan' => DataKegiatan::all(),
     ];
 
-    // Menambahkan properti updatedTime ke setiap objek DataPenilaian
-    foreach ($data['penilaian'] as $penilaian) {
-        $penilaian->updatedTime = Carbon::parse($penilaian->updated_at)->format('H:i');
+    // Ambil nama-nama kegiatan dari catatan penilaian
+    $activityNames = $data['kegiatan']->pluck('nama')->unique();
+
+    // Jika tidak ada kegiatan, atasi dengan array kosong
+    if ($activityNames->isEmpty()) {
+        $activityNames = collect([]);
+        $criteria = [];
+        $subCriteria = [];
+    } else {
+        // Inisialisasi array kosong untuk kriteria dan sub-kriteria
+        $criteria = [];
+        $subCriteria = [];
+
+        // Loop melalui setiap nama kegiatan
+        foreach ($activityNames as $activityName) {
+            // Ambil kriteria dan sub-kriteria berdasarkan nama kegiatan
+            $kriteria = DataKriteria::whereHas('kegiatan', function ($query) use ($activityName) {
+                $query->where('nama', $activityName);
+            })->get();
+
+            // Tambahkan kriteria ke array
+            $criteria[$activityName] = $kriteria;
+
+            // Tambahkan sub-kriteria ke array
+            foreach ($kriteria as $kriteriaItem) {
+                $subCriteria[$activityName][$kriteriaItem->id] = $kriteriaItem->subKriteria;
+            }
+        }
     }
+
+    // Tambahkan kriteria dan sub-kriteria yang diambil pada data array
+    $data['kriteria'] = $criteria;
+    $data['sub_kriteria'] = $subCriteria;
 
     return view('management.data_penilaian.index', $data);
     }
