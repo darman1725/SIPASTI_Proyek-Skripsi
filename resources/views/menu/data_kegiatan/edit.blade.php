@@ -32,8 +32,8 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label class="font-weight-bold">Nama</label>
-                            <input type="text" name="nama" id="nama" class="form-control" placeholder="Masukkan nama kegiatan..." value="{{ $kegiatan->nama }}"
-                                required>
+                            <input type="text" name="nama" id="nama" class="form-control"
+                                placeholder="Masukkan nama kegiatan..." value="{{ $kegiatan->nama }}" required>
                         </div>
 
                         <div class="form-group">
@@ -92,15 +92,18 @@
 
                 <div class="form-group">
                     <label class="font-weight-bold">Deskripsi Kegiatan</label>
-                    <textarea name="detail_kegiatan" id="detail_kegiatan" class="form-control" placeholder="Silahkan isi deskripsi kegiatan..." rows="6"
+                    <textarea name="detail_kegiatan" id="detail_kegiatan" class="form-control"
+                        placeholder="Silahkan isi deskripsi kegiatan..." rows="6"
                         required>{{ $kegiatan->detail_kegiatan }}</textarea>
                 </div>
             </div>
 
             <div class="card-footer text-right">
                 <button type="button" class="btn btn-primary"
-                onclick="swalConfirmUpdate('Apakah Anda yakin ingin mengupdate data kegiatan ini?', 'Data kegiatan berhasil diupdate', '{{ route('kegiatan') }}')">Update</button>
-                <button type="reset" class="btn btn-info">Reset</button>
+                    onclick="swalConfirmUpdate('Apakah Anda yakin ingin mengupdate data kegiatan ini?', 'Data kegiatan berhasil diupdate', '{{ route('kegiatan') }}')">
+                    <i class="fa fa-save"></i> Update</button>
+                <button type="reset" class="btn btn-info">
+                    <i class="fa fa-sync-alt"></i> Reset</button>
             </div>
         </form>
     </div>

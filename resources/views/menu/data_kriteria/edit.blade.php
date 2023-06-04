@@ -1,6 +1,6 @@
 <x-app-layout>
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800"><i class="fas fa-fw fa-book"></i> Data Kriteria</h1>
+        <h1 class="h3 mb-0 text-gray-800"><i class="bi bi-journal-bookmark-fill"></i> Data Kriteria</h1>
 
         <a href="{{ route('data_kriteria', ['id_data_kegiatan' => $selectedKegiatanId]) }}"
             class="btn btn-secondary btn-icon-split">
@@ -77,8 +77,8 @@
                 </div>
             </div>
             <div class="card-footer text-right">
-                <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Simpan</button>
-                <button type="reset" class="btn btn-secondary"><i class="fa fa-sync-alt"></i> Reset</button>
+                <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Update</button>
+                <button type="reset" class="btn btn-info"><i class="fa fa-sync-alt"></i> Reset</button>
             </div>
         </form>
     </div>

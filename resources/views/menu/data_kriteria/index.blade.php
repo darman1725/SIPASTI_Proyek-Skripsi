@@ -1,6 +1,6 @@
 <x-app-layout>
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800"><i class="bi bi-journal-bookmark"></i> Data Kriteria</h1>
+        <h1 class="h3 mb-0 text-gray-800"><i class="bi bi-journal-bookmark-fill"></i> Data Kriteria</h1>
         <a href="{{ route('data_kriteria.create') }}" class="btn btn-success{{ $totalBobot >= 100 ? ' disabled' : '' }}" {{ $totalBobot >= 100 ? 'aria-disabled=true' : '' }}> <i class="fa fa-plus"></i> Tambah Data </a>
         </a>
     </div>
@@ -74,7 +74,7 @@
                             <td>{{ $dk->kegiatan->nama }} - {{ $dk->kegiatan->jenis }}</td>
                             <td>
                                 <div class="btn-group" role="group">
-                                    <a data-toggle="tooltip" data-placement="bottom" title="Edit Data"
+                                    <a data-toggle="tooltip" data-placement="bottom" title="Edit Kriteria"
                                         href="{{ route('data_kriteria.edit', $dk->id) }}"
                                         class="btn btn-warning btn-sm"><i class="fa fa-edit"></i>
                                     </a>
@@ -82,7 +82,7 @@
                                         <form action="{{route('data_kriteria.destroy', $dk->id)}}" method="post">
                                             @csrf
                                             @method('delete')
-                                            <button type="submit" class="btn btn-danger btn-sm"
+                                            <button type="submit" class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="bottom" title="Hapus Kriteria"
                                                 onclick="return confirm('Apakah anda yakin ingin menghapus data kriteria {{ $dk->keterangan }} ? Jika anda menghapus kriteria ini, maka secara otomatis data sub kriteria {{ $dk->keterangan }} juga terhapus?')"><i
                                                     class="fa fa-trash"></i></button>
                                         </form>

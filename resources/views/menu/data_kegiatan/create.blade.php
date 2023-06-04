@@ -69,8 +69,9 @@
             </div>
 
             <div class="card-footer text-right">
-                <button type="button" class="btn btn-primary"
-                    onclick="swalConfirmStore('{{ __('Apakah Anda yakin ingin menyimpan data kegiatan ini?') }}', '{{ __('Data Kegiatan Berhasil Disimpan') }}', '{{ route('kegiatan') }}')">Simpan</button>
+                <button type="button" class="btn btn-success" 
+                    onclick="swalConfirmStore('{{ __('Apakah Anda yakin ingin menyimpan data kegiatan ini?') }}', '{{ __('Data Kegiatan Berhasil Disimpan') }}', '{{ route('kegiatan') }}')">
+                    <i class="fa fa-save"></i> Simpan</button>
                 <button type="reset" class="btn btn-info"><i class="fa fa-sync-alt"></i> Reset</button>
             </div>
         </form>

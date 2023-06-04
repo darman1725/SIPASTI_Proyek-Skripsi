@@ -1,6 +1,6 @@
 <x-app-layout>
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800"><i class="fas fa-fw fa-users"></i> Data Alternatif</h1>
+        <h1 class="h3 mb-0 text-gray-800"><i class="bi bi-people-fill"></i> Data Alternatif</h1>
     </div>
 
     @if(Session::has('message'))

@@ -43,13 +43,15 @@
                             strtotime($kegiatan->tanggal_selesai)) }}</p>
                         <div class="d-flex justify-content-center">
                             @if(Auth::user()->level == 'admin')
-                            <a href="{{ route('kegiatan.edit', $kegiatan->id) }}" class="btn btn-primary mr-1"><i
+                            <a data-toggle="tooltip" data-placement="bottom" title="Edit Kegiatan"
+                                href="{{ route('kegiatan.edit', $kegiatan->id) }}" class="btn btn-primary mr-1"><i
                                     class="fa fa-edit"></i></a>
-                            <button class="btn btn-warning ml-1" data-toggle="modal"
-                                data-target="#detailModal{{ $kegiatan->id }}">
+                            <button data-toggle="modal" data-placement="bottom" title="Detail Kegiatan"
+                                class="btn btn-warning ml-1" data-target="#detailModal{{ $kegiatan->id }}">
                                 <i class="fa fa-eye"></i>
                             </button>
-                            <button class="btn btn-danger ml-1"
+                            <button data-toggle="tooltip" data-placement="bottom" title="Hapus Kegiatan"
+                                class="btn btn-danger ml-1"
                                 onclick="swalConfirmDelete({{ $kegiatan->id }}, 'Apakah Anda yakin ingin menghapus data kegiatan ini?', 'Data kegiatan berhasil dihapus');"><i
                                     class="fa fa-trash"></i>
                             </button>
@@ -92,18 +94,37 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div>
-                                        <strong>Jenis:</strong> {{ $kegiatan->jenis }}
+                                        <strong>Jenis:</strong>
+                                        @if ($kegiatan->jenis == 'Lapangan')
+                                        <span class="badge bg-success text-white">Lapangan</span>
+                                        @elseif ($kegiatan->jenis == 'Pengolahan')
+                                        <span class="badge bg-primary text-white">Pengolahan</span>
+                                        @else
+                                        {{ $kegiatan->jenis }}
+                                        @endif
                                     </div>
                                     <div>
-                                        <strong>Level:</strong> {{ $kegiatan->level }}
+                                        <strong>Tanggal Mulai :</strong> {{ date('d-m-Y',
+                                        strtotime($kegiatan->tanggal_mulai)) }}
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div>
-                                        <strong>Tanggal Mulai:</strong> {{ $kegiatan->tanggal_mulai }}
+                                        <strong>Level:</strong>
+                                        @if ($kegiatan->level == 'Umum')
+                                        <span class="badge bg-light text-success border border-success">Umum</span>
+                                        @elseif ($kegiatan->level == 'Provinsi')
+                                        <span class="badge bg-light text-primary border border-primary">Provinsi</span>
+                                        @elseif ($kegiatan->level == 'Kabupaten/Kota')
+                                        <span
+                                            class="badge bg-light text-secondary border border-secondary">Kabupaten/Kota</span>
+                                        @else
+                                        {{ $kegiatan->level }}
+                                        @endif
                                     </div>
                                     <div>
-                                        <strong>Tanggal Selesai:</strong> {{ $kegiatan->tanggal_selesai }}
+                                        <strong>Tanggal Selesai :</strong> {{ date('d-m-Y',
+                                        strtotime($kegiatan->tanggal_selesai)) }}
                                     </div>
                                 </div>
                             </div>
