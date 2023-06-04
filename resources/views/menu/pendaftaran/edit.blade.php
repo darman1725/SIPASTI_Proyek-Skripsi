@@ -58,6 +58,11 @@
                   <option>{{ ($pendaftaran->kecamatan) }}</option>
                 </select>
               </div>
+              <div class="form-group">
+                <label for="alamat_lengkap">{{ __('Alamat lengkap') }}</label>
+                <textarea id="alamat_lengkap" class="form-control" name="alamat_lengkap" rows="4" cols="50"
+                  placeholder="Silahkan masukkan alamat lengkap anda...">{{ ($pendaftaran->alamat_lengkap) }}</textarea>
+              </div>
               <div class="form-group mb-0">
                 <button type="submit" class="btn btn-primary">{{ __('Simpan') }}</button>
                 <a href="{{ route('pendaftaran') }}" class="btn btn-secondary">{{ __('Kembali') }}</a>

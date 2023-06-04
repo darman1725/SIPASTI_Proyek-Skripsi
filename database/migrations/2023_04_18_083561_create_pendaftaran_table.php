@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('provinsi');
             $table->string('kabupaten_kota');
             $table->string('kecamatan');
+            $table->text('alamat_lengkap');
             $table->timestamps();
         });
     }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Menu;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Menu\DataKegiatan;
+use App\Models\Menu\Pendaftaran;
 use App\Http\Requests\DataKegiatanRequest;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
@@ -14,7 +15,8 @@ class DataKegiatanController extends Controller
     public function index()
     {
         $kegiatans = DataKegiatan::all();
-        return view('menu.data_kegiatan.index', compact('kegiatans'));
+        $pendaftaran = Pendaftaran::all();
+        return view('menu.data_kegiatan.index', compact('kegiatans', 'pendaftaran'));
     }
 
     public function create()

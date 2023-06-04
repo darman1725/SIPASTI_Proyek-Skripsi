@@ -30,6 +30,7 @@ class DataPendaftaranRequest extends FormRequest
             'provinsi' => 'required|string|max:255',
             'kabupaten_kota' => 'required|string|max:255',
             'kecamatan' => 'required|string|max:255',
+            'alamat_lengkap' => 'required|string|max:255',
         ];
     }
 }

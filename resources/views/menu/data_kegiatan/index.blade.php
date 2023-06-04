@@ -67,7 +67,7 @@
                         @if(Auth::user()->level == 'admin')
                         <!-- Tombol daftar dihilangkan jika level auth adalah admin -->
                         @else
-                        <a href="{{ route('pendaftaran') }}" class="btn btn-primary btn-block"
+                        <a href="{{ route('pendaftaran.create') }}" class="btn btn-primary btn-block"
                             style="margin-bottom: 10px;"><i class="fa fa-edit"></i> Daftar</a>
                         <button class="btn btn-warning btn-block" data-toggle="modal"
                             data-target="#detailModal{{ $kegiatan->id }}">

@@ -27,6 +27,10 @@
                             <label for="kecamatan">{{ __('Kecamatan') }}</label>
                             <p class="form-control">{{ ucwords(strtolower($pendaftarans->kecamatan)) }}</p>
                         </div>
+                        <div class="form-group">
+                            <label for="kecamatan">{{ __('Alamat lengkap') }}</label>
+                            <p class="form-control">{{ ($pendaftarans->alamat_lengkap) }}</p>
+                        </div>
                         <div class="form-group mb-0">
                             <a href="{{ route('pendaftaran', $pendaftarans->id) }}" class="btn btn-secondary">{{
                                 __('Kembali') }}</a>
