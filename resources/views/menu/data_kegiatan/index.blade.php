@@ -43,9 +43,9 @@
                             strtotime($kegiatan->tanggal_selesai)) }}</p>
                         <div class="d-flex justify-content-center">
                             @if(Auth::user()->level == 'admin')
-                            <a href="{{ route('kegiatan.edit', $kegiatan->id) }}" class="btn btn-primary mr-1">Edit</a>
-                            <button class="btn btn-danger ml-1"
-                                onclick="swalConfirmDelete({{ $kegiatan->id }}, 'Apakah Anda yakin ingin menghapus data kegiatan ini?', 'Data kegiatan berhasil dihapus');">
+                            <a href="{{ route('kegiatan.edit', $kegiatan->id) }}" class="btn btn-primary mr-1"><i class="fa fa-edit"></i> Edit</a>
+                            <button class="btn btn-danger ml-1" 
+                                onclick="swalConfirmDelete({{ $kegiatan->id }}, 'Apakah Anda yakin ingin menghapus data kegiatan ini?', 'Data kegiatan berhasil dihapus');"><i class="fa fa-trash"></i>
                                 Hapus
                             </button>
                             @endif
@@ -60,7 +60,10 @@
                         @if(Auth::user()->level == 'admin')
                         <!-- Tombol daftar dihilangkan jika level auth adalah admin -->
                         @else
-                        <a href="{{ route('pendaftaran') }}" class="btn btn-primary btn-block">Daftar</a>
+                        <a href="{{ route('pendaftaran') }}" class="btn btn-primary btn-block"
+                            style="margin-bottom: 10px;"><i class="fa fa-edit"></i> Daftar</a>
+                        <a href="{{ route('pendaftaran') }}" class="btn btn-warning btn-block"><i class="fa fa-eye"></i>
+                            Detail</a>
                         @endif
                     </div>
                 </div>

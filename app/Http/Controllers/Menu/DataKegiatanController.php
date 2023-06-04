@@ -30,6 +30,7 @@ class DataKegiatanController extends Controller
         $kegiatan->level = $request->level;
         $kegiatan->tanggal_mulai = $request->tanggal_mulai;
         $kegiatan->tanggal_selesai = $request->tanggal_selesai;
+        $kegiatan->detail_kegiatan = $request->detail_kegiatan;
 
         if ($request->hasFile('gambar')) {
             $gambar = $request->file('gambar');
@@ -55,6 +56,8 @@ class DataKegiatanController extends Controller
         $kegiatan->level = $request->level;
         $kegiatan->tanggal_mulai = $request->tanggal_mulai;
         $kegiatan->tanggal_selesai = $request->tanggal_selesai;
+        $kegiatan->detail_kegiatan = $request->detail_kegiatan;
+
         if ($request->hasFile('gambar')) {
             $gambar = $request->file('gambar');
             $gambarName = time() . '_' . $gambar->getClientOriginalName();
