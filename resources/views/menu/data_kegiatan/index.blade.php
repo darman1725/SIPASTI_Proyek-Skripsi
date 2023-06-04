@@ -43,10 +43,15 @@
                             strtotime($kegiatan->tanggal_selesai)) }}</p>
                         <div class="d-flex justify-content-center">
                             @if(Auth::user()->level == 'admin')
-                            <a href="{{ route('kegiatan.edit', $kegiatan->id) }}" class="btn btn-primary mr-1"><i class="fa fa-edit"></i> Edit</a>
-                            <button class="btn btn-danger ml-1" 
-                                onclick="swalConfirmDelete({{ $kegiatan->id }}, 'Apakah Anda yakin ingin menghapus data kegiatan ini?', 'Data kegiatan berhasil dihapus');"><i class="fa fa-trash"></i>
-                                Hapus
+                            <a href="{{ route('kegiatan.edit', $kegiatan->id) }}" class="btn btn-primary mr-1"><i
+                                    class="fa fa-edit"></i></a>
+                            <button class="btn btn-warning ml-1" data-toggle="modal"
+                                data-target="#detailModal{{ $kegiatan->id }}">
+                                <i class="fa fa-eye"></i>
+                            </button>
+                            <button class="btn btn-danger ml-1"
+                                onclick="swalConfirmDelete({{ $kegiatan->id }}, 'Apakah Anda yakin ingin menghapus data kegiatan ini?', 'Data kegiatan berhasil dihapus');"><i
+                                    class="fa fa-trash"></i>
                             </button>
                             @endif
                         </div>
@@ -62,9 +67,56 @@
                         @else
                         <a href="{{ route('pendaftaran') }}" class="btn btn-primary btn-block"
                             style="margin-bottom: 10px;"><i class="fa fa-edit"></i> Daftar</a>
-                        <a href="{{ route('pendaftaran') }}" class="btn btn-warning btn-block"><i class="fa fa-eye"></i>
-                            Detail</a>
+                        <button class="btn btn-warning btn-block" data-toggle="modal"
+                            data-target="#detailModal{{ $kegiatan->id }}">
+                            <i class="fa fa-eye"></i> Detail
+                        </button>
                         @endif
+                    </div>
+                </div>
+            </div>
+
+            <!-- Detail Modal -->
+            <div class="modal fade" id="detailModal{{ $kegiatan->id }}" tabindex="-1" role="dialog"
+                aria-labelledby="detailModalLabel{{ $kegiatan->id }}" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="detailModalLabel{{ $kegiatan->id }}">Detail Kegiatan: {{
+                                $kegiatan->nama }}</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div>
+                                        <strong>Jenis:</strong> {{ $kegiatan->jenis }}
+                                    </div>
+                                    <div>
+                                        <strong>Level:</strong> {{ $kegiatan->level }}
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div>
+                                        <strong>Tanggal Mulai:</strong> {{ $kegiatan->tanggal_mulai }}
+                                    </div>
+                                    <div>
+                                        <strong>Tanggal Selesai:</strong> {{ $kegiatan->tanggal_selesai }}
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+                            <img src="{{ asset('storage/kegiatan/'.$kegiatan->gambar) }}" class="img-fluid mt-3"
+                                alt="Gambar Kegiatan">
+                            <div class="mt-3">
+                                <strong>Deskripsi:</strong> {{ $kegiatan->detail_kegiatan }}
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -73,3 +125,13 @@
     </div>
 
 </x-app-layout>
+
+@section('scripts')
+<script>
+    $(document).ready(function() {
+            $('.modal').on('hidden.bs.modal', function() {
+                $(this).find('form')[0].reset();
+            });
+        });
+</script>
+@endsection
