@@ -40,6 +40,8 @@ Route::group(['namespace' => 'App\Http\Controllers\Menu', 'prefix' => 'menu'], f
 
 Route::post('/tambah_penilaian', [DataPenilaianController::class, 'tambah_penilaian'])->name('data_penilaian.tambah_penilaian');
 Route::post('/update_penilaian', [DataPenilaianController::class, 'update_penilaian'])->name('data_penilaian.update_penilaian');
+Route::delete('/hapus_penilaian/{pendaftaran}', [DataPenilaianController::class, 'hapus_penilaian'])->name('data_penilaian.hapus_penilaian');
+
 Route::get('/generate_pdf', [DataHasilAkhirController::class, 'generatePDF'])->name('generate_pdf');
 
 Route::get('/data_perhitungan/filter', [DataPerhitunganController::class, 'filter'])->name('data_perhitungan.filter');

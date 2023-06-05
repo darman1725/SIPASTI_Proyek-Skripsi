@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Management;
 
 use App\Http\Controllers\Controller;
+use App\Models\Menu\Pendaftaran;
 use App\Models\Menu\DataKegiatan;
 use App\Models\Management\DataPenilaian;
 use App\Models\Menu\DataKriteria;
@@ -100,6 +101,16 @@ class DataPenilaianController extends Controller
 
     $request->session()->flash('success', 'Data Penilaian berhasil diupdate');
     return redirect()->route('data_penilaian')->with($data);
+    }
+
+    public function hapus_penilaian(Pendaftaran $pendaftaran)
+    {
+    if ($pendaftaran) {
+        $pendaftaran->delete();
+        return redirect()->route('data_penilaian')->with('success', 'Data penilaian berhasil dihapus');
+    } else {
+        return redirect()->route('data_penilaian')->with('error', 'Data penilaian tidak ditemukan');
+    }
     }
     
 }

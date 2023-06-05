@@ -47,14 +47,14 @@
                             $keys->id)->get();
 
                             foreach ($kriteria[$keys->kegiatan->nama] as $key) {
-                                $sub_kriteria = \App\Models\Management\DataPenilaian::data_sub_kriteria($key->id);
-                                $penilaian = $penilaianByPendaftaran->firstWhere('id_data_kriteria', $key->id);
+                            $sub_kriteria = \App\Models\Management\DataPenilaian::data_sub_kriteria($key->id);
+                            $penilaian = $penilaianByPendaftaran->firstWhere('id_data_kriteria', $key->id);
 
-                                if ($penilaian && $penilaian['nilai']) {
-                                    $isEmpty = false;
-                                } else {
-                                    $isIncomplete = true;
-                                }
+                            if ($penilaian && $penilaian['nilai']) {
+                            $isEmpty = false;
+                            } else {
+                            $isIncomplete = true;
+                            }
                             }
                             @endphp
 
@@ -79,13 +79,25 @@
                             @php $cek_tombol = App\Models\Management\DataPenilaian::untuk_tombol($keys->id) @endphp
 
                             <td>
-                                @if ($cek_tombol==0)
-                                <a data-toggle="modal" href="#set{{ $keys->id }}" class="btn btn-success btn-sm"><i
-                                        class="fa fa-plus"></i> Beri Nilai</a>
-                                @else
-                                <a data-toggle="modal" href="#edit{{ $keys->id }}" class="btn btn-warning btn-sm"><i
-                                        class="fa fa-edit"></i> Edit Nilai</a>
-                                @endif
+                                <div class="btn-group" role="group">
+                                    @if ($cek_tombol==0)
+                                    <a data-toggle="modal" href="#set{{ $keys->id }}" class="btn btn-success btn-sm"><i
+                                            class="fa fa-plus"></i> Input</a>
+                                    @else
+                                    <a data-toggle="modal" href="#edit{{ $keys->id }}" class="btn btn-warning btn-sm"><i
+                                            class="fa fa-edit"></i> Edit</a>
+                                    @endif
+                                    <form action="{{ route('data_penilaian.hapus_penilaian', $keys->id) }}"
+                                        method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger btn-sm" data-toggle="tooltip"
+                                            data-placement="bottom" title="Hapus Penilaian"
+                                            onclick="return confirm('Apakah Anda yakin ingin menghapus data nilai orang ini?')">
+                                            <i class="fa fa-trash"></i>
+                                        </button>
+                                    </form>
+                                </div>
                             </td>
                         </tr>
 
