@@ -44,6 +44,11 @@
                                     $selectedKegiatan->jenis }}</option>
                             </select>
                         </div>
+
+                        <span class="badge bg-light text-success border border-success">
+                            Untuk data provinsi, kabupaten/kota, kecamatan, dan <br>
+                            alamat lengkap isi sesuai lokasi keberadaan Anda sekarang
+                          </span>
                     </div>
 
                     <div class="col-md-6">

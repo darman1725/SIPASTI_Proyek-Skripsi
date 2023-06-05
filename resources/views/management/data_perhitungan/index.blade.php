@@ -206,8 +206,8 @@
                                 app('App\Models\Management\DataPerhitungan')->data_nilai($keys->id,$key->id);
                                 $min_max=app('App\Models\Management\DataPerhitungan')->get_max_min($key->id);
                                 $min_max = (object) $min_max; // ubah array menjadi objek
+                                if (isset($min_max->max) && isset($min_max->min)) {
                                 if ($min_max->max == $min_max->min) {
-                                // echo "Indefinited";
                                 echo 0;
                                 } else {
                                 if ($key->jenis == "Benefit") {
@@ -215,6 +215,9 @@
                                 } else {
                                 echo @(($min_max->max-$data_pencocokan->nilai)/($min_max->max-$min_max->min));
                                 }
+                                }
+                                } else {
+                                echo 0;
                                 }
                                 @endphp
                             </td>
@@ -309,4 +312,3 @@
     </div>
 
 </x-app-layout>
-

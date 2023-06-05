@@ -66,7 +66,7 @@ class DataPerhitungan extends Model
     if ($result) {
         return (array) $result;
     } else {
-        return null;
+        return ['min' => 0, 'max' => 0];
     }
     }
 
