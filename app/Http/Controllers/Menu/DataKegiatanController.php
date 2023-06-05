@@ -8,6 +8,7 @@ use App\Models\Menu\Pendaftaran;
 use App\Http\Requests\DataKegiatanRequest;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Auth;
 
 class DataKegiatanController extends Controller
 {
@@ -16,7 +17,8 @@ class DataKegiatanController extends Controller
     {
         $kegiatans = DataKegiatan::all();
         $pendaftaran = Pendaftaran::all();
-        return view('menu.data_kegiatan.index', compact('kegiatans', 'pendaftaran'));
+        $pendaftarans = Pendaftaran::with('user', 'kegiatan')->where('id_data_user', Auth::id())->get();
+        return view('menu.data_kegiatan.index', compact('kegiatans', 'pendaftaran', 'pendaftarans'));
     }
 
     public function create()

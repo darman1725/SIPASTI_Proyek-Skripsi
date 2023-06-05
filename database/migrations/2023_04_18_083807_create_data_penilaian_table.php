@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('data_penilaian', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('id_pendaftaran');
-            $table->foreign('id_pendaftaran')->references('id')->on('pendaftaran');
+            $table->foreign('id_pendaftaran')->references('id')->on('pendaftaran')->onDelete('cascade');
             $table->unsignedBigInteger('id_data_kriteria');
             $table->foreign('id_data_kriteria')->references('id')->on('data_kriteria');
             $table->integer('nilai');

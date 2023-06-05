@@ -67,12 +67,27 @@
                         @if(Auth::user()->level == 'admin')
                         <!-- Tombol daftar dihilangkan jika level auth adalah admin -->
                         @else
-                        <a href="{{ route('pendaftaran.create') }}" class="btn btn-primary btn-block"
-                            style="margin-bottom: 10px;"><i class="fa fa-edit"></i> Daftar</a>
+                        @php
+                        // Cek apakah user sudah terdaftar pada kegiatan ini
+                        $isRegistered = $pendaftarans->contains('id_data_kegiatan', $kegiatan->id) &&
+                        Auth::user()->pendaftaran->contains('id_data_kegiatan', $kegiatan->id);
+                        @endphp
+                        @if($isRegistered)
+                        <button class="btn btn-success btn-block" style="margin-bottom: 10px;" disabled><i
+                                class="fa fa-check"></i> Terdaftar</button>
                         <button class="btn btn-warning btn-block" data-toggle="modal"
                             data-target="#detailModal{{ $kegiatan->id }}">
                             <i class="fa fa-eye"></i> Detail
                         </button>
+                        @else
+                        <a href="{{ route('pendaftaran.create', ['id_data_kegiatan' => $kegiatan->id]) }}"
+                            class="btn btn-primary btn-block" style="margin-bottom: 10px;"><i class="fa fa-edit"></i>
+                            Daftar</a>
+                        <button class="btn btn-warning btn-block" data-toggle="modal"
+                            data-target="#detailModal{{ $kegiatan->id }}">
+                            <i class="fa fa-eye"></i> Detail
+                        </button>
+                        @endif
                         @endif
                     </div>
                 </div>

@@ -1,7 +1,6 @@
 <x-app-layout>
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800"><i class="bi bi-journal-bookmark"></i> Riwayat Pendaftaran</h1>
-        <a href="{{ route('pendaftaran.create') }}" class="btn btn-success"> <i class="fa fa-plus"></i> Daftarkan diri</a>
+        <h1 class="h3 mb-0 text-gray-800"><i class="bi bi-ui-checks"></i> Riwayat Pendaftaran</h1>
     </div>
 
     <div class="card shadow mb-4">
@@ -38,13 +37,13 @@
                                 @if(Auth::user()->level == 'admin' || Auth::user()->id == $pendaftaran->id_data_user)
                                 <div class="btn-group" role="group">
                                     <a href="{{ route('pendaftaran.edit', $pendaftaran->id) }}"
-                                        class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></a>
+                                        class="btn btn-warning btn-sm" data-toggle="tooltip" data-placement="bottom" title="Edit Pendaftaran"><i class="fa fa-edit"></i></a>
                                     <a href="{{ route('pendaftaran.show', $pendaftaran->id) }}"
-                                        class="btn btn-primary btn-sm"><i class="fa fa-eye"></i></a>
+                                        class="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="bottom" title="Detail Pendaftaran"><i class="fa fa-eye"></i></a>
                                     <form action="{{ route('pendaftaran.destroy', $pendaftaran->id) }}" method="POST">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="btn btn-danger btn-sm"
+                                        <button type="submit" class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="bottom" title="Hapus Pendaftaran"
                                             onclick="return confirm('Apakah Anda yakin ingin mengundurkan diri dari kegiatan ini?')">Mundur</button>
                                     </form>
                                 </div>

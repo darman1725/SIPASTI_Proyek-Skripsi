@@ -15,16 +15,20 @@ class PendaftaranController extends Controller
 {
     public function index()
     {
+        $kegiatan = DataKegiatan::all();
         $pendaftarans = Pendaftaran::with('user', 'kegiatan')->get();
-        return view('menu.pendaftaran.index', compact('pendaftarans'));
+        return view('menu.pendaftaran.index', compact('pendaftarans','kegiatan'));
     }
 
-    public function create()
+    public function create(Request $request)
     {
         $users = User::all();
-        $kegiatans = DataKegiatan::all();
+        $kegiatan = DataKegiatan::all();
         $pendaftarans = Pendaftaran::with('user', 'kegiatan')->get();
-        return view('menu.pendaftaran.create', compact('users', 'kegiatans', 'pendaftarans'));
+
+        $idDataKegiatan = $request->get('id_data_kegiatan');
+        $selectedKegiatan = DataKegiatan::findOrFail($idDataKegiatan);
+        return view('menu.pendaftaran.create', compact('users', 'kegiatan', 'pendaftarans', 'selectedKegiatan'));
     }
 
     public function store(DataPendaftaranRequest $request)
@@ -32,12 +36,9 @@ class PendaftaranController extends Controller
         $validatedData = $request->validated();
 
         $pendaftaran = Pendaftaran::create($validatedData);
+        $kegiatan = DataKegiatan::all();
 
-        $data_alternatif = DataAlternatif::create([
-            'id_pendaftaran' => $pendaftaran->id
-        ]);
-
-        return redirect()->route('pendaftaran')->with('success', 'Data pendaftaran berhasil ditambahkan');
+        return redirect()->route('kegiatan')->with('success', 'Proses pendaftaran berhasil dilakukan');
     }
 
     public function show($id)
@@ -60,27 +61,17 @@ class PendaftaranController extends Controller
 
         $pendaftaran->update($validatedData);
 
-        $data_alternatif = $pendaftaran->data_alternatif;
-        $data_alternatif->update([
-            'id_pendaftaran' => $pendaftaran->id
-        ]);
-
         return redirect()->route('pendaftaran')->with('success', 'Data pendaftaran berhasil diupdate');
     }
 
     public function destroy(Pendaftaran $pendaftaran)
     {
-        $data_alternatif = $pendaftaran->data_alternatif;
-
-        if ($data_alternatif) {
-            $data_alternatif->delete();
-        }
-
-        if ($pendaftaran) {
-            $pendaftaran->delete();
-            return redirect()->route('pendaftaran')->with('success', 'Data pendaftaran berhasil dihapus');
-        } else {
-            return redirect()->route('pendaftaran')->with('error', 'Data pendaftaran tidak ditemukan');
-        }
+    if ($pendaftaran) {
+        $pendaftaran->delete();
+        return redirect()->route('pendaftaran')->with('success', 'Data pendaftaran berhasil dihapus');
+    } else {
+        return redirect()->route('pendaftaran')->with('error', 'Data pendaftaran tidak ditemukan');
     }
+    }
+
 }
