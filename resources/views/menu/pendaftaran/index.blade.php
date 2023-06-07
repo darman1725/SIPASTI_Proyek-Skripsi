@@ -17,33 +17,48 @@
                             <th>Kegiatan</th>
                             <th>Tanggal Daftar</th>
                             <th>Posisi Sekarang</th>
+                            <th>Status</th>
                             <th width="15%">Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
                         @php
-                            $nomor = 1;
+                        $nomor = 1;
                         @endphp
                         @foreach($pendaftarans as $pendaftaran)
                         @if(Auth::user()->level == 'admin' || Auth::user()->id == $pendaftaran->id_data_user)
                         <tr style="text-align: center">
                             <td>{{ $nomor }}</td>
                             <td>{{ $pendaftaran->kegiatan->nama }} - {{ $pendaftaran->kegiatan->jenis }}</td>
-                            <td>{{ $pendaftaran->updated_at->locale('id')->translatedFormat('l, d F Y, (H:i') }} WIB)</td>
-                            <td>{{ ucwords(strtolower($pendaftaran->provinsi)) }},
-                                {{ ucwords(strtolower($pendaftaran->kabupaten_kota)) }},
-                                {{ ucwords(strtolower($pendaftaran->kecamatan)) }}</td>
+                            <td>{{ $pendaftaran->updated_at->locale('id')->translatedFormat('l, d F Y, (H:i') }} WIB)
+                            </td>
+                            <td>{{ ucwords(strtolower($pendaftaran->provinsi)) }}, {{
+                                ucwords(strtolower($pendaftaran->kabupaten_kota)) }}, {{
+                                ucwords(strtolower($pendaftaran->kecamatan)) }}</td>
+                            <td>
+                                @php
+                                $penilaian = App\Models\Management\DataPenilaian::where('id_pendaftaran',
+                                $pendaftaran->id)->first();
+                                $status = $penilaian ? 
+                                '<span class="badge bg-success text-white">Sudah Dinilai</span>' : 
+                                '<span class="badge bg-danger text-white">Belum Dinilai</span>';
+                                @endphp
+                                {!! $status !!}
+                            </td>
                             <td>
                                 @if(Auth::user()->level == 'admin' || Auth::user()->id == $pendaftaran->id_data_user)
                                 <div class="btn-group" role="group">
                                     <a href="{{ route('pendaftaran.edit', $pendaftaran->id) }}"
-                                        class="btn btn-warning btn-sm" data-toggle="tooltip" data-placement="bottom" title="Edit Pendaftaran"><i class="fa fa-edit"></i></a>
+                                        class="btn btn-warning btn-sm" data-toggle="tooltip" data-placement="bottom"
+                                        title="Edit Pendaftaran"><i class="fa fa-edit"></i></a>
                                     <a href="{{ route('pendaftaran.show', $pendaftaran->id) }}"
-                                        class="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="bottom" title="Detail Pendaftaran"><i class="fa fa-eye"></i></a>
+                                        class="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="bottom"
+                                        title="Detail Pendaftaran"><i class="fa fa-eye"></i></a>
                                     <form action="{{ route('pendaftaran.destroy', $pendaftaran->id) }}" method="POST">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="bottom" title="Hapus Pendaftaran"
+                                        <button type="submit" class="btn btn-danger btn-sm" data-toggle="tooltip"
+                                            data-placement="bottom" title="Hapus Pendaftaran"
                                             onclick="return confirm('Apakah Anda yakin ingin mengundurkan diri dari kegiatan ini?')">Mundur</button>
                                     </form>
                                 </div>
@@ -51,7 +66,7 @@
                             </td>
                         </tr>
                         @php
-                            $nomor++;
+                        $nomor++;
                         @endphp
                         @endif
                         @endforeach
