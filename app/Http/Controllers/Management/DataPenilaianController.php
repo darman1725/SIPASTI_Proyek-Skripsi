@@ -15,8 +15,11 @@ use App\Http\Requests\DataPenilaianRequest;
 
 class DataPenilaianController extends Controller
 {
-    public function index()
+    public function index(Request $request)
 {
+    // Retrieve the selected kegiatan from the session or request
+    $selectedKegiatan = $request->input('kegiatan') ?? session('selectedKegiatan');
+    
     $data = [
         'page' => "Penilaian",
         'list' => DataPenilaian::tampil(),
@@ -25,6 +28,31 @@ class DataPenilaianController extends Controller
         'penilaian' => DataPenilaian::all(),
         'kegiatan' => DataKegiatan::all(),
     ];
+
+    // Apply filter if a kegiatan is selected
+    if ($selectedKegiatan && $selectedKegiatan !== 'all') {
+    $data['pendaftaran'] = $data['pendaftaran']->filter(function ($pendaftaran) use ($selectedKegiatan) {
+        return $pendaftaran->kegiatan->nama === $selectedKegiatan;
+    });
+    }
+
+    if ($selectedKegiatan === 'all') {
+        $data['pendaftaran'] = DataPenilaian::get_pendaftaran();
+    }
+
+    // Pass the selected kegiatan to the view
+    $data['selectedKegiatan'] = $selectedKegiatan ?? 'all';
+
+    // Store the selected kegiatan in the session
+    session(['selectedKegiatan' => $selectedKegiatan]);
+
+    // Tambahkan opsi "All Kegiatan" pada array kegiatan
+    $kegiatanOptions = $data['kegiatan']->map(function ($kegiatan) {
+        return [
+            'nama' => $kegiatan->nama,
+            'jenis' => $kegiatan->jenis,
+        ];
+    })->prepend(['nama' => 'All Kegiatan', 'jenis' => null]);
 
     // Ambil nama-nama kegiatan dari catatan penilaian
     $activityNames = $data['kegiatan']->pluck('nama')->unique();
@@ -59,8 +87,11 @@ class DataPenilaianController extends Controller
     // Tambahkan kriteria dan sub-kriteria yang diambil pada data array
     $data['kriteria'] = $criteria;
     $data['sub_kriteria'] = $subCriteria;
+    
+    // Tambahkan kegiatanOptions ke dalam data array
+    $data['kegiatanOptions'] = $kegiatanOptions;
 
-    return view('management.data_penilaian.index', $data);
+    return view('management.data_penilaian.index', $data, ['kegiatan' => $request->input('kegiatan')]);
     }
 
     public function tambah_penilaian(DataPenilaianRequest $request)
@@ -79,7 +110,7 @@ class DataPenilaianController extends Controller
         }
     
         $request->session()->flash('success', 'Data Penilaian berhasil ditambahkan');
-        return redirect()->route('data_penilaian');
+        return redirect()->route('data_penilaian', ['kegiatan' => $request->input('kegiatan')]);
     }
 
     public function update_penilaian(DataPenilaianRequest $request)
@@ -100,16 +131,16 @@ class DataPenilaianController extends Controller
     }
 
     $request->session()->flash('success', 'Data Penilaian berhasil diupdate');
-    return redirect()->route('data_penilaian')->with($data);
+    return redirect()->route('data_penilaian', ['kegiatan' => $request->input('kegiatan')])->with($data);
     }
 
-    public function hapus_penilaian(Pendaftaran $pendaftaran)
+    public function hapus_penilaian(Pendaftaran $pendaftaran, Request $request)
     {
     if ($pendaftaran) {
         $pendaftaran->delete();
-        return redirect()->route('data_penilaian')->with('success', 'Data penilaian berhasil dihapus');
+        return redirect()->route('data_penilaian', ['kegiatan' => $request->input('kegiatan')])->with('success', 'Data penilaian berhasil dihapus');
     } else {
-        return redirect()->route('data_penilaian')->with('error', 'Data penilaian tidak ditemukan');
+        return redirect()->route('data_penilaian', ['kegiatan' => $request->input('kegiatan')])->with('error', 'Data penilaian tidak ditemukan');
     }
     }
     

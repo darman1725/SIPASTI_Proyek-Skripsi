@@ -11,7 +11,7 @@
 <link rel="icon" href="{{ asset('assets/img/favicon.ico') }}" type="image/x-icon">
 </head>
 
-<header class='mb-3'>
+<header class='mb-0'>
     <nav class="navbar navbar-expand navbar-light ">
         <div class="container-fluid">
             <a href="#" class="burger-btn d-block">

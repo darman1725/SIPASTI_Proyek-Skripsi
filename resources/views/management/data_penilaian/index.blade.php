@@ -19,6 +19,20 @@
         </div>
 
         <div class="card-body">
+            <form action="{{ route('data_penilaian') }}" method="GET">
+                <div class="form-group">
+                    <label for="kegiatan">Filter Kegiatan:</label>
+                    <select name="kegiatan" id="kegiatan" class="form-control">
+                        <option value="all" {{ $selectedKegiatan==='all' ? 'selected' : '' }}>-- Semua Kegiatan --</option>
+                        @foreach($kegiatan as $kg)
+                        <option value="{{ $kg->nama }}" {{ $selectedKegiatan===$kg->nama ? 'selected' : '' }}>{{
+                            $kg->nama }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary">Filter</button>
+            </form>
+            <br>
             <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead class="bg-primary text-white">
