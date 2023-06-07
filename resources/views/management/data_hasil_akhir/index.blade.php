@@ -20,15 +20,22 @@
     </form>
     <br>
 
-    @if(isset($totalBobot) && $totalBobot < 100) <div class="alert alert-danger" role="alert"><i
-            class="bi bi-info-circle"></i>
-        Proses perhitungan belum dapat dilanjutkan pada kegiatan ini. Dikarenakan data masih belum lengkap.<br>
-        Silahkan lengkapi data pada menu perhitungan, agar data kegiatan ini memenuhi kaidah perhitungan.
+    @if(isset($totalBobot) && $totalBobot < 100) 
+    @if(Auth::user()->level == 'admin')
+        <div class="alert alert-danger" role="alert"><i class="bi bi-info-circle"></i>
+            Proses perhitungan belum dapat dilanjutkan pada kegiatan ini. Dikarenakan data masih belum lengkap.<br>
+            Silahkan lengkapi data pada menu perhitungan, agar data kegiatan ini memenuhi kaidah perhitungan.
         </div>
         <a href="{{ route('data_perhitungan') }}" class="btn btn-success btn-icon-split"><span
                 class="icon text-white-50"><i class="fas fa-arrow-left"></i></span>
             <span class="text">Kembali ke menu data perhitungan</span>
         </a>
+    @else
+        <div class="alert alert-danger" role="alert"><i class="bi bi-info-circle"></i>
+            Proses perangkingan masih sedang berlangsung dan belum dapat dikeluarkan <br>
+            oleh sistem penyelenggara seleksi rekrutmen calon petugas statistik 
+        </div>
+    @endif
         @else
         <div class="card shadow mb-4">
             <!-- /.card-header -->
