@@ -11,7 +11,7 @@
                 <option value="">-- Pilih Kegiatan --</option>
                 @foreach($kegiatanOptions as $option)
                 <option value="{{ $option->id }}" {{ $selectedKegiatan==$option->id ? 'selected' : '' }}>
-                    {{ $option->nama }}
+                    {{ $option->nama }} - {{ $option->jenis }}
                 </option>
                 @endforeach
             </select>
@@ -20,7 +20,7 @@
     </form>
     <br>
 
-    <div class="card shadow mb-4">
+    <div class="card shadow mb-4" @if(empty($selectedKegiatan)) style="display: none;" @endif>
         <!-- /.card-header -->
         <div class="card-header py-3">
             <h6 class="m-0 font-weight-bold text-primary"><i class="fa fa-table"></i> Matrix Keputusan (X)</h6>
@@ -40,6 +40,11 @@
                         </tr>
                     </thead>
                     <tbody>
+                        @if(empty($selectedKegiatan))
+                        <tr>
+                            <td colspan="3">Tidak ada kegiatan yang dipilih.</td>
+                        </tr>
+                        @else
                         @php
                         $no=1;
                         @endphp
@@ -47,7 +52,8 @@
                         <tr align="center">
                             <td>{{ $no }}</td>
                             <td align="left">{{ $keys->user->nama_lengkap }}</td>
-                            <td style="text-align: center">{{ $keys->kegiatan->nama }}</td>
+                            <td style="text-align: center">{{ $keys->kegiatan->nama }} - {{ $keys->kegiatan->jenis }}
+                            </td>
                             @foreach ($kriteria as $key)
                             <td>
                                 @php
@@ -90,6 +96,7 @@
                             </th>
                             @endforeach
                         </tr>
+                        @endif
                     </tbody>
                 </table>
             </div>
@@ -112,6 +119,11 @@
                         </tr>
                     </thead>
                     <tbody>
+                        @if(empty($selectedKegiatan))
+                        <tr>
+                            <td colspan="3">Tidak ada kegiatan yang dipilih.</td>
+                        </tr>
+                        @else
                         @php
                         $totalBobot = 0; // Variabel untuk menyimpan total bobot
                         @endphp
@@ -119,7 +131,7 @@
                         @if ($key->kegiatan->id == $selectedKegiatan || $selectedKegiatan == '')
                         <tr align="center">
                             <td>{{ $key->keterangan }} - ({{ $key->kode_kriteria }})</td>
-                            <td>{{ $key->kegiatan->nama }}</td>
+                            <td>{{ $key->kegiatan->nama }} - {{ $key->kegiatan->jenis }}</td>
                             <td>{{ $key->bobot }}</td>
                         </tr>
                         @endif
@@ -131,6 +143,7 @@
                             <td colspan="2"><strong>Total Bobot</strong></td>
                             <td><strong>{{ $totalBobot }}</strong></td>
                         </tr>
+                        @endif
                     </tbody>
                 </table>
             </div>
@@ -153,18 +166,24 @@
                         </tr>
                     </thead>
                     <tbody>
+                        @if(empty($selectedKegiatan))
+                        <tr>
+                            <td colspan="3">Tidak ada kegiatan yang dipilih.</td>
+                        </tr>
+                        @else
                         @foreach ($kriteria as $key)
                         <tr align="center">
                             @if ($key->kegiatan->id == $selectedKegiatan || $selectedKegiatan == '')
                             <td>{{ $key->keterangan }} - ({{ $key->kode_kriteria }})</td>
-                            <td>{{ $key->kegiatan->nama }}</td>
+                            <td>{{ $key->kegiatan->nama }} - {{ $key->kegiatan->jenis }}</td>
                             @php
                             $total_bobot = app('App\Models\Management\DataPerhitungan')->get_total_kriteria();
                             @endphp
-                            <td>{{ $key->bobot / $total_bobot['total_bobot'] ?? 0 }}</td>
+                            <td>{{ $key->bobot / $totalBobot ?? 0 }}</td>
                             @endif
                         </tr>
                         @endforeach
+                        @endif
                     </tbody>
                 </table>
             </div>
@@ -191,6 +210,11 @@
                         </tr>
                     </thead>
                     <tbody>
+                        @if(empty($selectedKegiatan))
+                        <tr>
+                            <td colspan="3">Tidak ada kegiatan yang dipilih.</td>
+                        </tr>
+                        @else
                         @php
                         $no=1;
                         @endphp
@@ -198,7 +222,7 @@
                         <tr align="center">
                             <td>{{ $no }}</td>
                             <td align="left">{{ $keys->user->nama_lengkap }}</td>
-                            <td>{{ $keys->kegiatan->nama }}</td>
+                            <td>{{ $keys->kegiatan->nama }} - {{ $keys->kegiatan->jenis }}</td>
                             @foreach ($kriteria as $key)
                             <td>
                                 @php
@@ -227,6 +251,7 @@
                         $no++;
                         @endphp
                         @endforeach
+                        @endif
                     </tbody>
                 </table>
             </div>
@@ -251,6 +276,11 @@
                         </tr>
                     </thead>
                     <tbody>
+                        @if(empty($selectedKegiatan))
+                        <tr>
+                            <td colspan="3">Tidak ada kegiatan yang dipilih.</td>
+                        </tr>
+                        @else
                         <?php
                         $no = 1;
                         $total_bobot = \App\Models\Management\DataPerhitungan::get_total_kriteria();
@@ -258,10 +288,10 @@
                         ?>
                         <tr align="center">
                             <td>
-                                <?= $no; ?>
+                                {{ $no }}
                             </td>
                             <td align="left">
-                                <?= $keys->user->nama_lengkap  ?>
+                                {{ $keys->user->nama_lengkap }}
                             </td>
                             <?php
                                 $nilai_total = 0;
@@ -270,7 +300,7 @@
                                     $min_max = \App\Models\Management\DataPerhitungan::get_max_min($key->id);
     
                                     if ($total_bobot['total_bobot'] != 0) {
-                                        $bobot_normalisasi = $key->bobot / $total_bobot['total_bobot'];
+                                        $bobot_normalisasi = $key->bobot / $totalBobot ?? 0;
                                     } else {
                                         $bobot_normalisasi = 0;
                                     }
@@ -295,16 +325,17 @@
                                 \App\Models\Management\DataPerhitungan::insert_hasil($hasil_akhir);
                                 ?>
                             <td>
-                                <?= $keys->kegiatan->nama; ?>
+                                {{ $keys->kegiatan->nama }} - {{ $keys->kegiatan->jenis }}
                             </td>
                             <td>
-                                <?= $nilai_total; ?>
+                                {{ $nilai_total }}
                             </td>
                         </tr>
                         <?php
                             $no++;
                         }
                         ?>
+                        @endif
                     </tbody>
                 </table>
             </div>
