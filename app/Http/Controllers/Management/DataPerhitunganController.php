@@ -78,6 +78,12 @@ class DataPerhitunganController extends Controller
         'minMaxValues' => $minMaxValues // Add minMaxValues to the data array
     ];
 
+    // Hitung total bobot
+    $totalBobot = $kriteria->sum('bobot'); // Anda perlu menyesuaikan nama kolom bobot sesuai dengan struktur tabelnya
+
+    // Tambahkan totalBobot ke dalam data
+    $data['totalBobot'] = $totalBobot;
+
     return view('management.data_perhitungan.index', $data, [
         'selectedKegiatan' => $request->input('kegiatan'),
     ]);

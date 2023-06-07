@@ -20,6 +20,19 @@
     </form>
     <br>
 
+    @if(isset($totalBobot) && $totalBobot < 100)
+    <div class="alert alert-info float-left" role="alert"><i class="bi bi-calculator-fill"></i>
+        Total bobot data kriteria: {{ $totalBobot }} / 100 point
+    </div>
+    <div class="alert alert-danger" role="alert"><i class="bi bi-info-circle"></i>
+        Bobot kriteria kegiatan ini harus sama dengan 100. Proses perhitungan belum dapat dilanjutkan.<br>
+        Silahkan lengkapi bobot pada menu data kriteria agar memenuhi kaidah perhitungan.
+    </div>
+    <a href="{{ route('data_kriteria') }}" class="btn btn-success btn-icon-split"><span
+        class="icon text-white-50"><i class="fas fa-arrow-left"></i></span>
+    <span class="text">Kembali ke menu data kriteria</span>
+    </a>
+    @else
     <div class="card shadow mb-4" @if(empty($selectedKegiatan)) style="display: none;" @endif>
         <!-- /.card-header -->
         <div class="card-header py-3">
@@ -190,7 +203,7 @@
         </div>
     </div>
 
-    <div class="card shadow mb-4">
+    <div class="card shadow mb-4" @if(empty($selectedKegiatan)) style="display: none;" @endif>
         <!-- /.card-header -->
         <div class="card-header py-3">
             <h6 class="m-0 font-weight-bold text-primary"><i class="fa fa-table"></i> Nilai Utility (U)</h6>
@@ -341,5 +354,6 @@
             </div>
         </div>
     </div>
+    @endif
 
 </x-app-layout>
