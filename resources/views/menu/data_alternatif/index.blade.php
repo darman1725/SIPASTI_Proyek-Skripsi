@@ -40,7 +40,6 @@
                             <th>Daerah Saat Ini</th>
                             <th>Tujuan Kegiatan</th>
                             <th>Jenis</th>
-                            <th>Kode QR</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -60,7 +59,6 @@
                                 <span class="badge bg-primary text-white">{{ $pendaftaran->kegiatan->jenis }}</span>
                                 @endif
                             </td>
-                            <td>{!! QrCode::size(100)->generate($pendaftaran->user->nama_lengkap); !!}</td>
                         </tr>
                         @endforeach
 

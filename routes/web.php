@@ -9,6 +9,7 @@ use App\Http\Controllers\Menu\DataKriteriaController;
 use App\Http\Controllers\Menu\DataSubKriteriaController;
 use App\Http\Controllers\Menu\DataAlternatifController;
 use App\Http\Controllers\Menu\DataKegiatanController;
+use App\Http\Controllers\Menu\BeritaController;
 use App\Http\Controllers\Menu\PendaftaranController;
 use App\Http\Controllers\Management\DataPenilaianController;
 use App\Http\Controllers\Management\DataHasilAkhirController;
@@ -27,11 +28,13 @@ Route::resource('data_sub_kriteria', DataSubKriteriaController::class);
 Route::resource('data_alternatif', DataAlternatifController::class);
 Route::resource('kegiatan', DataKegiatanController::class);
 Route::resource('pendaftaran', PendaftaranController::class);
+Route::resource('berita', BeritaController::class);
 
 Route::group(['namespace' => 'App\Http\Controllers\Menu', 'prefix' => 'menu'], function () {
     Route::get('dashboard', 'DashboardController@index')->name('dashboard');
     Route::get('dashboard_user', 'DashboardUserController@index')->name('dashboard_user');
     Route::get('kegiatan', 'DataKegiatanController@index')->name('kegiatan');
+    Route::get('berita', 'BeritaController@index')->name('berita');
     Route::get('pendaftaran', 'PendaftaranController@index')->name('pendaftaran');
     Route::get('data_kriteria', 'DataKriteriaController@index')->name('data_kriteria');
     Route::get('data_sub_kriteria', 'DataSubKriteriaController@index')->name('data_sub_kriteria');
