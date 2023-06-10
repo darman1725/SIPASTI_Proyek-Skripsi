@@ -77,28 +77,22 @@ class DataHasilAkhirController extends Controller
     
         // Tambahkan totalBobot ke dalam data
         $data['totalBobot'] = $totalBobot;
+
+        if ($request->has('print')) {
+            // Panggil method untuk membuat dan menampilkan dokumen PDF
+            return $this->printPDF($data);
+        }
     
         return view('management.data_hasil_akhir.index', $data, [
             'selectedKegiatan' => $request->input('kegiatan'),
         ]);
     }
-    
-    public function generatePDF(Request $request)
+
+    public function printPDF($data)
     {
-    $data = [
-        'page' => "Perhitungan",
-        'kriteria'=> DataPerhitungan::get_kriteria(),
-        'pendaftaran'=> DataPerhitungan::get_pendaftaran(),
-    ];
-
-    // Menambahkan kondisi untuk memastikan bahwa ada data yang dikirim dari halaman yang ingin di-generate PDF
-    if ($request->filled('data')) {
-        $data = json_decode($request->data, true); // mengambil data dari halaman yang ingin di-generate PDF
+    $pdf = PDF::loadView('management.data_hasil_akhir.print', $data);
+    return $pdf->stream('data_hasil_akhir.pdf');
     }
 
-    $pdf = PDF::loadView('management.data_hasil_akhir.pdf-template', $data); // load view PDF template dengan data yang dibutuhkan
-
-    return $pdf->stream('laporan-hasil-akhir.pdf'); // menampilkan PDF dalam browser dengan nama file yang diinginkan
-    }
 
 }

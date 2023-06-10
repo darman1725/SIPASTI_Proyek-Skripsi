@@ -4,24 +4,36 @@
         <h1 class="h3 mb-0 text-gray-800"><i class="fas fa-fw fa-chart-area"></i> Data Hasil Akhir</h1>
     </div>
 
-    <form action="{{ route('data_hasil_akhir') }}" method="GET">
-        <div class="form-group">
-            <label for="kegiatan">Filter Kegiatan:</label>
-            <select name="kegiatan" id="kegiatan" class="form-control">
-                <option value="">-- Pilih Kegiatan --</option>
-                @foreach($kegiatanOptions as $option)
-                <option value="{{ $option->id }}" {{ $selectedKegiatan==$option->id ? 'selected' : '' }}>
-                    {{ $option->nama }} - {{ $option->jenis }}
-                </option>
-                @endforeach
-            </select>
-        </div>
-        <button type="submit" class="btn btn-primary">Filter</button>
-    </form>
+    <div class="d-flex justify-content-between align-items-center">
+        <form action="{{ route('data_hasil_akhir') }}" method="GET" class="d-flex">
+            <div class="form-group">
+                <label for="kegiatan">Filter Kegiatan:</label>
+                <select name="kegiatan" id="kegiatan" class="form-control">
+                    <option value="">-- Pilih Kegiatan --</option>
+                    @foreach($kegiatanOptions as $option)
+                    <option value="{{ $option->id }}" {{ $selectedKegiatan==$option->id ? 'selected' : '' }}>
+                        {{ $option->nama }} - {{ $option->jenis }}
+                    </option>
+                    @endforeach
+                </select>
+                <div style="margin-top: 5px;">
+                    <button type="submit" class="btn btn-primary"> <i class="bi bi-funnel-fill"></i> Filter</button>
+                </div>
+            </div>
+        </form>
+
+        @if(isset($selectedKegiatan))
+        <form action="{{ route('data_hasil_akhir') }}" method="GET" style="display: inline;" target="_blank">
+            <input type="hidden" name="kegiatan" value="{{ $selectedKegiatan }}">
+            <button type="submit" name="print" value="1" class="btn btn-danger" formtarget="_blank">
+                <i class="bi bi-file-earmark-pdf-fill"></i> Cetak
+            </button>
+        </form>
+        @endif
+    </div>
     <br>
 
-    @if(isset($totalBobot) && $totalBobot < 100) 
-    @if(Auth::user()->level == 'admin')
+    @if(isset($totalBobot) && $totalBobot < 100) @if(Auth::user()->level == 'admin')
         <div class="alert alert-danger" role="alert"><i class="bi bi-info-circle"></i>
             Proses perhitungan belum dapat dilanjutkan pada kegiatan ini. Dikarenakan data masih belum lengkap.<br>
             Silahkan lengkapi data pada menu perhitungan, agar data kegiatan ini memenuhi kaidah perhitungan.
@@ -30,12 +42,12 @@
                 class="icon text-white-50"><i class="fas fa-arrow-left"></i></span>
             <span class="text">Kembali ke menu data perhitungan</span>
         </a>
-    @else
+        @else
         <div class="alert alert-danger" role="alert"><i class="bi bi-info-circle"></i>
             Proses perangkingan masih sedang berlangsung dan belum dapat dikeluarkan <br>
-            oleh sistem penyelenggara seleksi rekrutmen calon petugas statistik 
+            oleh sistem penyelenggara seleksi rekrutmen calon petugas statistik
         </div>
-    @endif
+        @endif
         @else
         <div class="card shadow mb-4">
             <!-- /.card-header -->
@@ -91,7 +103,7 @@
                             }
                             $data[] = [
                                 'id_pendaftaran' => $keys->user->nama_lengkap,
-                                'jenis_kegiatan' => $keys->kegiatan->nama,
+                                'jenis_kegiatan' => $keys->kegiatan->nama. ' - '. $keys->kegiatan->jenis,
                                 'nilai' => $nilai_total
                             ];
                         }

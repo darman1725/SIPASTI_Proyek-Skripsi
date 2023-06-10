@@ -26,7 +26,7 @@
                         <option value="all" {{ $selectedKegiatan==='all' ? 'selected' : '' }}>-- Semua Kegiatan --</option>
                         @foreach($kegiatan as $kg)
                         <option value="{{ $kg->nama }}" {{ $selectedKegiatan===$kg->nama ? 'selected' : '' }}>{{
-                            $kg->nama }}</option>
+                            $kg->nama }} - {{ $kg->jenis }}</option>
                         @endforeach
                     </select>
                 </div>
