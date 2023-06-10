@@ -4,48 +4,78 @@ namespace App\Http\Controllers\Information;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Step1Request;
-use App\Http\Requests\Step2Request;
-use App\Http\Requests\Step3Request;
-use App\Models\Information\DataProfile;
+use App\Models\Information\User;
+use Illuminate\Support\Facades\Storage;
 
 class DataProfileController extends Controller
 {
     public function index()
     {
-        return view('information.data_profile.index');
+        $user = User::find(auth()->user()->id); 
+        return view('information.data_profile.index', compact('user'));
     }
 
-    public function step1(Step1Request $request)
+    public function edit()
     {
-        $user = new DataProfile();
-        $user->nama = $request->nama;
+        $user = User::find(auth()->user()->id); // Mengambil data user yang sedang login
+        return view('information.data_profile.edit', compact('user'));
+    }
+
+    public function update(Request $request)
+    {
+        $user = User::find(auth()->user()->id);
+
+        $user->nama_lengkap = $request->input('nama_lengkap');
+        $user->nik = $request->input('nik');
+        $user->username = $request->input('username');
+        $user->email = $request->input('email');
+        $user->npwp = $request->input('npwp');
+        $user->alamat = $request->input('alamat');
+        $user->tanggal_lahir = $request->input('tanggal_lahir');
+        $user->jenis_kelamin = $request->input('jenis_kelamin');
+        $user->agama = $request->input('agama');
+        $user->status_perkawinan = $request->input('status_perkawinan');
+        $user->pendidikan_terakhir = $request->input('pendidikan_terakhir');
+        $user->no_handphone = $request->input('no_handphone');
+        $user->pekerjaan = $request->input('pekerjaan');
+        $user->catatan = $request->input('catatan');
+
+        // Update pengalaman
+        $pengalaman = $request->input('pengalaman');
+        $user->pengalaman = $pengalaman ? implode(',', $pengalaman) : '';
+
+        // Upload pas_foto
+        if ($request->hasFile('pas_foto')) {
+        $pasFoto = $request->file('pas_foto');
+        $extension = $pasFoto->getClientOriginalExtension();
+        $filename = $pasFoto->getClientOriginalName();
+        $path = $pasFoto->storeAs('pas_foto', $filename, 'public');
+
+        // Hapus foto lama jika ada
+        if ($user->pas_foto) {
+            Storage::disk('public')->delete($user->pas_foto);
+        }
+
+        $user->pas_foto = $path;
+        }
+
+        // Upload foto_ktp
+        if ($request->hasFile('foto_ktp')) {
+        $fotoKtp = $request->file('foto_ktp');
+        $extension = $fotoKtp->getClientOriginalExtension();
+        $filename = $fotoKtp->getClientOriginalName();
+        $path = $fotoKtp->storeAs('foto_ktp', $filename, 'public');
+
+        // Hapus foto lama jika ada
+        if ($user->foto_ktp) {
+            Storage::disk('public')->delete($user->foto_ktp);
+        }
+
+        $user->foto_ktp = $path;
+        }
+
         $user->save();
 
-        // simpan ID dari objek DataProfile yang baru saja disimpan ke dalam session
-        $request->session()->put('user_id', $user->id);
-
-        return view('information.data_profile.step2');
+        return redirect()->route('data_profile')->with('success', 'Data profil berhasil diperbarui');
     }
-
-    public function step2(Step2Request $request)
-    {
-    $user = DataProfile::findOrFail($request->session()->get('user_id'));
-    $user->phone = $request->phone;
-    $user->save();
-
-    return view('information.data_profile.step3');
-    }
-
-    public function step3(Step3Request $request)
-    {
-        $user = DataProfile::findOrFail($request->session()->get('user_id'));
-        $user->address = $request->address;
-        $user->save();
-
-        $request->session()->forget('user_id');
-
-        return redirect('/information/data_profile')->with('success', 'Form berhasil disubmit!');
-    }
-
 }

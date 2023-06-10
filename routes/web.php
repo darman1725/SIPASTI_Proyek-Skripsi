@@ -46,7 +46,6 @@ Route::post('/update_penilaian', [DataPenilaianController::class, 'update_penila
 Route::delete('/hapus_penilaian/{pendaftaran}', [DataPenilaianController::class, 'hapus_penilaian'])->name('data_penilaian.hapus_penilaian');
 
 Route::get('/generate_pdf', [DataHasilAkhirController::class, 'generatePDF'])->name('generate_pdf');
-
 Route::get('/data_perhitungan/filter', [DataPerhitunganController::class, 'filter'])->name('data_perhitungan.filter');
 
 Route::group(['namespace' => 'App\Http\Controllers\Management', 'prefix' => 'management'], function () {
@@ -58,7 +57,12 @@ Route::group(['namespace' => 'App\Http\Controllers\Management', 'prefix' => 'man
 Route::resource('user', UserController::class);
 Route::delete('/users/bulk-delete', [UserController::class, 'bulkDelete'])->name('user.bulkDelete');
 
+Route::get('/data_profile/edit', [DataProfileController::class, 'edit'])->name('data_profile.edit');
+Route::match(['PUT', 'PATCH'], '/data_profile/update', [DataProfileController::class, 'update'])->name('data_profile.update');
+
 Route::group(['namespace' => 'App\Http\Controllers\Information', 'prefix' => 'information'], function () {
     Route::get('user', 'UserController@index')->name('user');
     Route::get('data_profile', 'DataProfileController@index')->name('data_profile');
 });
+
+

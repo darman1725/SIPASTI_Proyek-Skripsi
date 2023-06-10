@@ -12,7 +12,7 @@ class User extends Authenticatable
     use HasFactory;
     protected $guarded=['id'];
     protected $table = "users";
-    protected $fillable = ['nik','email','email_verified_at','nama_lengkap','username','password','level'];
+    protected $fillable = ['nik', 'email', 'email_verified_at', 'nama_lengkap', 'username', 'password', 'level', 'npwp', 'alamat', 'tanggal_lahir', 'jenis_kelamin', 'agama', 'status_perkawinan', 'pendidikan_terakhir', 'no_handphone', 'pekerjaan', 'catatan', 'pengalaman', 'pas_foto', 'foto_ktp'];
 
     public function pendaftaran()
     {

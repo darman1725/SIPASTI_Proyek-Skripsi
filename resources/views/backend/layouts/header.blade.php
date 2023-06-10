@@ -62,11 +62,16 @@
                             </div>
                             <div class="user-img d-flex align-items-center">
                                 <div class="avatar avatar-md">
-                                    @if (empty(Auth::user()->profile->avatar))
-                                        <img src="{{ Vite::asset('public/images/faces/1.jpg') }}" alt="">
+                                    @if (!empty(Auth::user()->profile->pas_foto))
+                                        <img src="{{ url('storage/' . Auth::user()->profile->pas_foto) }}" alt="">
                                     @else
-                                        <img src="{{ url('storage/avatar/' . Auth::user()->profile->avatar) }}"
-                                            alt="">
+                                        @if (Auth::user()->jenis_kelamin == 'Laki-laki')
+                                            <img src="{{ Vite::asset('public/images/faces/2.jpg') }}" alt="">
+                                        @elseif (Auth::user()->jenis_kelamin == 'Perempuan')
+                                            <img src="{{ Vite::asset('public/images/faces/5.jpg') }}" alt="">
+                                        @else
+                                            <img src="{{ Vite::asset('public/images/faces/1.jpg') }}" alt="">
+                                        @endif
                                     @endif
                                 </div>
                             </div>
@@ -80,7 +85,7 @@
                             <hr class="dropdown-divider">
                         </li>
                         <li>
-                            <a href="#" class="dropdown-item"
+                            <a href="{{ route('data_profile') }}" class="dropdown-item"
                                 href=""><i class="icon-mid bi bi-eye-fill me-2"></i>Lihat Profile</a>
                         </li>
                         <li>
