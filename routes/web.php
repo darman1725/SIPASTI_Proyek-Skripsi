@@ -46,6 +46,7 @@ Route::post('/update_penilaian', [DataPenilaianController::class, 'update_penila
 Route::delete('/hapus_penilaian/{pendaftaran}', [DataPenilaianController::class, 'hapus_penilaian'])->name('data_penilaian.hapus_penilaian');
 
 Route::get('/data_perhitungan/filter', [DataPerhitunganController::class, 'filter'])->name('data_perhitungan.filter');
+Route::post('/data-hasil-akhir/export-excel', [DataHasilAkhirController::class, 'exportExcel'])->name('data-hasil-akhir.export-excel');
 
 Route::group(['namespace' => 'App\Http\Controllers\Management', 'prefix' => 'management'], function () {
     Route::get('data_penilaian', 'DataPenilaianController@index')->name('data_penilaian');

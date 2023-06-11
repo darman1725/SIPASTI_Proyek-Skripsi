@@ -16,7 +16,7 @@
                     </option>
                     @endforeach
                 </select>
-                <div style="margin-top: 5px;">
+                <div style="margin-top: 10px;">
                     <button type="submit" class="btn btn-primary"> <i class="bi bi-funnel-fill"></i> Filter</button>
                 </div>
             </div>
@@ -31,7 +31,16 @@
         </form>
         @endif
     </div>
+
+    
+    @if(isset($selectedKegiatan))
+    <form action="{{ route('data-hasil-akhir.export-excel') }}" method="POST">
+        @csrf
+        <input type="hidden" name="kegiatan" value="{{ $selectedKegiatan }}">
+        <button type="submit" class="btn btn-success"><i class="bi bi-file-earmark-excel-fill"></i> Cetak Excel</button>
+    </form>
     <br>
+    @endif
 
     @if(isset($totalBobot) && $totalBobot < 100) @if(Auth::user()->level == 'admin')
         <div class="alert alert-danger" role="alert"><i class="bi bi-info-circle"></i>

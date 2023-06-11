@@ -137,12 +137,12 @@
                             ];
                         }
 
-                        // Sort the data based on 'nilai' in descending order
-                        usort($data, function ($a, $b) {
-                            return $b['nilai'] <=> $a['nilai'];
-                        });
+                // Sort the data based on 'nilai' in descending order
+                usort($data, function ($a, $b) {
+                return $b['nilai'] <=> $a['nilai'];
+                });
 
-                        foreach ($data as $index => $item) {
+                foreach ($data as $index => $item) {
                             ?>
                 <tr align="center">
                     <td>
