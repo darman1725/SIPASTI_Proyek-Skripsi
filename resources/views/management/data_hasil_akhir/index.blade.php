@@ -63,6 +63,11 @@
                                 <th width="5%">No</th>
                                 <th>Alternatif</th>
                                 <th>Kegiatan</th>
+                                @if(isset($selectedKegiatan))
+                                @foreach ($kriteria as $key)
+                                <th>{{ $key->kode_kriteria }}</th>
+                                @endforeach
+                                @endif
                                 <th width="15%">Total Nilai</th>
                                 <th>Rangking</th>
                             </tr>
@@ -79,6 +84,8 @@
                         $total_bobot = \App\Models\Management\DataPerhitungan::get_total_kriteria();
                         foreach ($pendaftaran as $keys) {
                             $nilai_total = 0;
+                            $nilai_kriteria = [];
+                            
                             foreach ($kriteria as $key) {
                                 $data_pencocokan = \App\Models\Management\DataPerhitungan::data_nilai($keys->id, $key->id);
                                 $min_max = \App\Models\Management\DataPerhitungan::get_max_min($key->id);
@@ -100,11 +107,18 @@
                                 }
 
                                 $nilai_total += $bobot_normalisasi * $nilai_utility;
+
+                                if (!is_null($data_pencocokan) && isset($data_pencocokan->nilai)) {
+                                   $nilai_kriteria[$key->id] = $data_pencocokan->nilai;
+                                } else {
+                                   $nilai_kriteria[$key->id] = null;
+                                }
                             }
                             $data[] = [
                                 'id_pendaftaran' => $keys->user->nama_lengkap,
                                 'jenis_kegiatan' => $keys->kegiatan->nama. ' - '. $keys->kegiatan->jenis,
-                                'nilai' => $nilai_total
+                                'nilai' => $nilai_total,
+                                'nilai_kriteria' => $nilai_kriteria
                             ];
                         }
 
@@ -125,6 +139,11 @@
                                 <td>
                                     {{ $item['jenis_kegiatan'] }}
                                 </td>
+                                @foreach ($kriteria as $key)
+                                <td>
+                                    {{ $item['nilai_kriteria'][$key->id] }}
+                                </td>
+                                @endforeach
                                 <td>
                                     {{ $item['nilai'] }}
                                 </td>
