@@ -5,15 +5,15 @@ namespace App\Http\Controllers\Menu;
 use App\Http\Controllers\Controller;
 use App\Models\Menu\Dashboard;
 use Illuminate\Http\Request;
+use App\Models\Menu\Berita;
+use App\Models\Menu\Pendaftaran;
+use App\Models\Menu\DataKegiatan;
+use App\Models\Information\User;
+use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    
+
     public function __construct()
     {
         $this->middleware('auth');
@@ -21,7 +21,12 @@ class DashboardController extends Controller
 
     public function index()
     {
-        return view('menu.dashboard.index');
+        $jumlahBerita = Berita::count();
+        $beritas = Berita::latest()->take(3)->get();
+        $jumlahKegiatan = DataKegiatan::count();
+        return view('menu.dashboard.index', compact(
+        'jumlahBerita', 'beritas',
+        'jumlahKegiatan'));
     }
 
     /**

@@ -32,7 +32,7 @@
         @endif
     </div>
 
-    
+    @if(Auth::user()->level == 'admin')
     @if(isset($selectedKegiatan))
     <form action="{{ route('data-hasil-akhir.export-excel') }}" method="POST">
         @csrf
@@ -40,6 +40,7 @@
         <button type="submit" class="btn btn-success"><i class="bi bi-file-earmark-excel-fill"></i> Cetak Excel</button>
     </form>
     <br>
+    @endif
     @endif
 
     @if(isset($totalBobot) && $totalBobot < 100) @if(Auth::user()->level == 'admin')
