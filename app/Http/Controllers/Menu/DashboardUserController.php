@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Menu;
 use App\Http\Controllers\Controller;
 use App\Models\Menu\DashboardUser;
 use Illuminate\Http\Request;
+use App\Models\Menu\Berita;
 
 class DashboardUserController extends Controller
 {
@@ -15,7 +16,9 @@ class DashboardUserController extends Controller
      */
     public function index()
     {
-        return view('menu.dashboard_user.index');
+        $beritas = Berita::latest()->take(3)->get();
+        return view('menu.dashboard_user.index', compact(
+        'beritas'));
     }
 
     /**
