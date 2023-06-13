@@ -39,30 +39,46 @@
                                 @php
                                 $penilaian = App\Models\Management\DataPenilaian::where('id_pendaftaran',
                                 $pendaftaran->id)->first();
-                                $status = $penilaian ? 
-                                '<span class="badge bg-success text-white">Sudah Dinilai</span>' : 
-                                '<span class="badge bg-danger text-white">Belum Dinilai</span>';
+                                $status = $penilaian ? '<span class="badge bg-success text-white">Sudah Dinilai</span>'
+                                : '<span class="badge bg-danger text-white">Belum Dinilai</span>';
+                                $isDinilai = $penilaian ? true : false;
                                 @endphp
                                 {!! $status !!}
                             </td>
                             <td>
-                                @if(Auth::user()->level == 'admin' || Auth::user()->id == $pendaftaran->id_data_user)
                                 <div class="btn-group" role="group">
-                                    <a href="{{ route('pendaftaran.edit', $pendaftaran->id) }}"
-                                        class="btn btn-warning btn-sm" data-toggle="tooltip" data-placement="bottom"
-                                        title="Edit Pendaftaran"><i class="fa fa-edit"></i></a>
                                     <a href="{{ route('pendaftaran.show', $pendaftaran->id) }}"
                                         class="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="bottom"
-                                        title="Detail Pendaftaran"><i class="fa fa-eye"></i></a>
+                                        title="Detail Pendaftaran">
+                                        <i class="fa fa-eye"></i>
+                                    </a>
+                                    @if ($isDinilai)
+                                    <button class="btn btn-warning btn-sm" data-toggle="tooltip" data-placement="bottom"
+                                        title="Edit Pendaftaran" disabled>
+                                        <i class="fa fa-edit"></i>
+                                    </button>
+                                    <button class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="bottom"
+                                        title="Hapus Pendaftaran" disabled
+                                        onclick="return confirm('Apakah Anda yakin ingin mengundurkan diri dari kegiatan ini?')">
+                                        Mundur
+                                    </button>
+                                    @else
+                                    <a href="{{ route('pendaftaran.edit', $pendaftaran->id) }}"
+                                        class="btn btn-warning btn-sm" data-toggle="tooltip" data-placement="bottom"
+                                        title="Edit Pendaftaran">
+                                        <i class="fa fa-edit"></i>
+                                    </a>
                                     <form action="{{ route('pendaftaran.destroy', $pendaftaran->id) }}" method="POST">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-danger btn-sm" data-toggle="tooltip"
                                             data-placement="bottom" title="Hapus Pendaftaran"
-                                            onclick="return confirm('Apakah Anda yakin ingin mengundurkan diri dari kegiatan ini?')">Mundur</button>
+                                            onclick="return confirm('Apakah Anda yakin ingin mengundurkan diri dari kegiatan ini?')">
+                                            Mundur
+                                        </button>
                                     </form>
+                                    @endif
                                 </div>
-                                @endif
                             </td>
                         </tr>
                         @php
