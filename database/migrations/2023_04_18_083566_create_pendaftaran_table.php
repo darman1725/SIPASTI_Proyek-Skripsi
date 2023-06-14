@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('id_data_user')->constrained('users')->onDelete('cascade');
             $table->unsignedBigInteger('id_data_kegiatan');
-            $table->foreign('id_data_kegiatan')->references('id')->on('data_kegiatan');
+            $table->foreign('id_data_kegiatan')->references('id')->on('data_kegiatan')->onDelete('cascade');
             $table->string('provinsi');
             $table->string('kabupaten_kota');
             $table->string('kecamatan');

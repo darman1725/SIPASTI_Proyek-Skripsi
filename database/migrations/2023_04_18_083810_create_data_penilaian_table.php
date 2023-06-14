@@ -13,6 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
+        Schema::disableForeignKeyConstraints(); 
+
         Schema::create('data_penilaian', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('id_pendaftaran');
@@ -22,6 +24,8 @@ return new class extends Migration
             $table->integer('nilai');
             $table->timestamps();
         });
+
+        Schema::enableForeignKeyConstraints();
     }
 
     /**

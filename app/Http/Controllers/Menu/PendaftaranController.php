@@ -68,7 +68,7 @@ class PendaftaranController extends Controller
     {
     if ($pendaftaran) {
         $pendaftaran->delete();
-        return redirect()->route('pendaftaran')->with('success', 'Data pendaftaran berhasil dihapus');
+        return redirect()->route('pendaftaran')->with('success', 'Permintaan pengunduran diri dari kegiatan berhasil');
     } else {
         return redirect()->route('pendaftaran')->with('error', 'Data pendaftaran tidak ditemukan');
     }
