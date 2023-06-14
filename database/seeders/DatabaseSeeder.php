@@ -6,6 +6,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Database\Seeders\BeritaSeeder;
 use Database\Seeders\KegiatanSeeder;
+use Database\Seeders\DataKriteriaSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -17,6 +18,7 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             BeritaSeeder::class,
             KegiatanSeeder::class,
+            DataKriteriaSeeder::class,
         ]);
     }
 }
