@@ -25,7 +25,7 @@
                             </video>
                             @else
                             <img src="{{ asset('storage/berita/'.$berita->file) }}" class="card-img" alt="Berita Image"
-                                style="width:295px; height: 235px;">
+                                style="width:295px; height: 225px;">
                             @endif
                         </div>
                         <div class="col-md-8">
@@ -35,9 +35,9 @@
                                         @if($berita->kategori == 'Sosial dan Kependudukan')
                                         bg-danger text-white
                                         @elseif($berita->kategori == 'Ekonomi dan Perdagangan')
-                                        bg-success text-white
-                                        @elseif($berita->kategori == 'Pertanian dan Pertambangan')
                                         bg-warning text-white
+                                        @elseif($berita->kategori == 'Pertanian dan Pertambangan')
+                                        bg-success text-white
                                         @elseif($berita->kategori == 'Pengumuman Resmi')
                                         bg-primary text-white
                                         @else
@@ -47,7 +47,7 @@
                                     </span>
                                 </p>
                                 <h5 class="card-title">{{ $berita->judul }}</h5>
-                                <p class="card-text">{{ Str::limit($berita->isi, 125, '...') }}</p>
+                                <p class="card-text">{{ Str::limit($berita->isi, 145, '...') }}</p>
                                 <p class="float-right">{{
                                     \Carbon\Carbon::parse($berita->tanggal_publikasi)->locale('id')->isoFormat('dddd,
                                     D MMMM Y') }}</p>
@@ -99,9 +99,9 @@
                                         @if($berita->kategori == 'Sosial dan Kependudukan')
                                         bg-danger text-white
                                         @elseif($berita->kategori == 'Ekonomi dan Perdagangan')
-                                        bg-success text-white
-                                        @elseif($berita->kategori == 'Pertanian dan Pertambangan')
                                         bg-warning text-white
+                                        @elseif($berita->kategori == 'Pertanian dan Pertambangan')
+                                        bg-success text-white
                                         @elseif($berita->kategori == 'Pengumuman Resmi')
                                         bg-primary text-white
                                         @else

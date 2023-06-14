@@ -36,16 +36,18 @@
                             <select name="kategori" id="kategori" class="form-control" required>
                                 <option value="">-- Pilih kategori kegiatan --</option>
                                 <option value="Sosial dan Kependudukan" {{ old('kategori', $berita->kategori) ===
-                                    'Sosial dan Kependudukan' ? 'selected' : '' }}>Sosial dan Kependudukan</option>
-                                <option value="Ekonomi dan Perdagangan" {{ old('kategori', $berita->kategori) ===
-                                    'Ekonomi dan Perdagangan' ? 'selected' : '' }}>Ekonomi dan Perdagangan</option>
-                                <option value="Pertanian dan Pertambangan" {{ old('kategori', $berita->kategori) ===
-                                    'Pertanian dan Pertambangan' ? 'selected' : '' }}>Pertanian dan Pertambangan
+                                    strval('Sosial dan Kependudukan') ? 'selected' : '' }}>Sosial dan Kependudukan
                                 </option>
-                                <option value="Pengumuman Resmi" {{ old('kategori', $berita->kategori) === 'Pengumuman
-                                    Resmi' ? 'selected' : '' }}>Pengumuman Resmi</option>
-                                <option value="Lainnya" {{ old('kategori', $berita->kategori) === 'Lainnya' ? 'selected'
-                                    : '' }}>Lainnya</option>
+                                <option value="Ekonomi dan Perdagangan" {{ old('kategori', $berita->kategori) ===
+                                    strval('Ekonomi dan Perdagangan') ? 'selected' : '' }}>Ekonomi dan Perdagangan
+                                </option>
+                                <option value="Pertanian dan Pertambangan" {{ old('kategori', $berita->kategori) ===
+                                    strval('Pertanian dan Pertambangan') ? 'selected' : '' }}>Pertanian dan Pertambangan
+                                </option>
+                                <option value="Pengumuman Resmi" {{ old('kategori', $berita->kategori) ===
+                                    strval('Pengumuman Resmi') ? 'selected' : '' }}>Pengumuman Resmi</option>
+                                <option value="Lainnya" {{ old('kategori', $berita->kategori) === strval('Lainnya') ?
+                                    'selected' : '' }}>Lainnya</option>
                             </select>
                         </div>
 
