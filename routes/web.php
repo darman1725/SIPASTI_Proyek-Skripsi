@@ -54,6 +54,9 @@ Route::group(['namespace' => 'App\Http\Controllers\Management', 'prefix' => 'man
     Route::get('data_hasil_akhir', 'DataHasilAkhirController@index')->name('data_hasil_akhir');
 });
 
+Route::post('/generate-users', [UserController::class, 'generateUsers'])->name('generate.users');
+Route::post('/user/import', [UserController::class, 'import'])->name('user.import');
+
 Route::resource('user', UserController::class);
 Route::delete('/users/bulk-delete', [UserController::class, 'bulkDelete'])->name('user.bulkDelete');
 
