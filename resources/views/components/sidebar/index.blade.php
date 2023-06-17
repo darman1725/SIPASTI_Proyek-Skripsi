@@ -5,7 +5,7 @@
         <div class="sidebar-header position-relative">
             <div class="d-flex justify-content-between align-items-center">
                 <div class="logo">
-                    <a href="{{ $href }}"><img src="{{ $logo }}" alt="Logo" srcset=""></a>
+                    <a href="{{ $href }}"><img src="{{ $logo }}" alt="Logo" srcset="" style="width: 28px; height: 36px;">Sipasti</a><br>
                 </div>
                 <div class="theme-toggle d-flex gap-2  align-items-center mt-2">
                     <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"

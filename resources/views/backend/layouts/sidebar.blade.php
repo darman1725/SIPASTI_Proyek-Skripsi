@@ -1,4 +1,4 @@
-<x-sidebar.index :href="route('dashboard')" :logo="Vite::asset('public/images/logo/logo.svg')">
+<x-sidebar.index :href="route('dashboard')" :logo="Vite::asset('public/images/logo/favicon2.png')">
     <li class="sidebar-title">Menu</li>
     @if(Auth::user()->level == 'admin')
         <x-sidebar.item name="Dashboard" :link="route('dashboard')" :active="'dashboard'" :icon="'speedometer'">

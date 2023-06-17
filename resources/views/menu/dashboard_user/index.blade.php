@@ -61,11 +61,10 @@
                                 (BPS) menyelenggarakan kegiatan sensus dan survei secara rutin. Salah satu tahapan penting dalam 
                                 pelaksanaan kegiatan sensus dan survei adalah rekruitment mitra/petugas.<br><br>
                                 Rekrutmen mitra/petugas harus direncanakan dan dilaksanakan dengan sungguh-sungguh dan saksama
-                                agar diperoleh petugas yang bertanggung jawab, disiplin, ulet, dan teliti. Untuk itu, 
-                                rekrutmen petugas statistik menjadi perhatian utama BPS Kota Malang.</p>
+                                agar diperoleh petugas yang bertanggung jawab, disiplin, ulet, dan teliti.</p>
                         </div>
                     </div>
-                    <div class="col-md-5">
+                    <div class="col-md-6">
                         <div class="card p-3 bg-white">
                             <h2 style="text-align: center; color: #111">Kilas Kegiatan</h2>
                             <div id="imageCarousel" class="carousel slide" data-ride="carousel">
@@ -76,13 +75,13 @@
                                 </ol>
                                 <div class="carousel-inner">
                                     <div class="carousel-item active">
-                                        <img src="{{ asset('images/faces/1.jpg') }}" class="d-block w-100" alt="Gambar 1">
+                                        <img src="{{ asset('images/faces/kilas1.jpg') }}" class="d-block" width="400" height="300" alt="Gambar 1">
                                     </div>
                                     <div class="carousel-item">
-                                        <img src="{{ asset('images/faces/2.jpg') }}" class="d-block w-100" alt="Gambar 2">
+                                        <img src="{{ asset('images/faces/kilas2.jpg') }}" class="d-block" width="400" height="300" alt="Gambar 2">
                                     </div>
                                     <div class="carousel-item">
-                                        <img src="{{ asset('images/faces/3.jpg') }}" class="d-block w-100" alt="Gambar 3">
+                                        <img src="{{ asset('images/faces/kilas3.jpg') }}" class="d-block" width="400" height="300" alt="Gambar 3">
                                     </div>
                                 </div>
                             </div>
