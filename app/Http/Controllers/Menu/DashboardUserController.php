@@ -6,6 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Models\Menu\DashboardUser;
 use Illuminate\Http\Request;
 use App\Models\Menu\Berita;
+use App\Models\Menu\DataKegiatan;
+use App\Models\Menu\Pendaftaran;
+use App\Models\Management\DataPenilaian;
+use Illuminate\Support\Facades\Auth;
 
 class DashboardUserController extends Controller
 {
@@ -17,8 +21,25 @@ class DashboardUserController extends Controller
     public function index()
     {
         $beritas = Berita::latest()->take(3)->get();
-        return view('menu.dashboard_user.index', compact(
-        'beritas'));
+        $jumlahKegiatan = DataKegiatan::count();
+
+        $userId = Auth::id();
+        $pendaftarans = Pendaftaran::where('id_data_user', $userId)->get();
+
+        $totalPendaftaran = $pendaftarans->count();
+        $totalSudahDinilai = 0;
+        $totalBelumDinilai = 0;
+
+        foreach ($pendaftarans as $pendaftaran) {
+        $penilaian = DataPenilaian::where('id_pendaftaran', $pendaftaran->id)->first();
+        if ($penilaian) {
+          $totalSudahDinilai++;
+        } else {
+        $totalBelumDinilai++;
+        }
+    }
+    
+    return view('menu.dashboard_user.index', compact('beritas', 'jumlahKegiatan', 'totalPendaftaran', 'totalSudahDinilai', 'totalBelumDinilai'));
     }
 
     /**

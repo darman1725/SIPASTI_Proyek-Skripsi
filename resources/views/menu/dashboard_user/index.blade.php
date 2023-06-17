@@ -11,8 +11,8 @@
                             <div class="stats-icon purple">
                                 <i class="iconly-boldShow"></i>
                             </div>
-                            <h6 class="text-muted font-semibold">Data Kegiatan</h6>
-                            <h6 class="font-extrabold mb-0">x</h6>
+                            <h6 class="text-muted font-semibold">Kegiatan</h6>
+                            <h6 class="font-extrabold mb-0">{{ $jumlahKegiatan }} Kegiatan</h6>
                         </div>
                     </div>
                 </div>
@@ -22,8 +22,8 @@
                             <div class="stats-icon blue">
                                 <i class="iconly-boldProfile"></i>
                             </div>
-                            <h6 class="text-muted font-semibold">Pendaftaran</h6>
-                            <h6 class="font-extrabold mb-0">x</h6>
+                            <h6 class="text-muted font-semibold">Diikuti</h6>
+                            <h6 class="font-extrabold mb-0">{{ $totalPendaftaran }} Kegiatan</h6>
                         </div>
                     </div>
                 </div>
@@ -34,7 +34,7 @@
                                 <i class="iconly-boldAdd-User"></i>
                             </div>
                             <h6 class="text-muted font-semibold">Sudah Dinilai</h6>
-                            <h6 class="font-extrabold mb-0">x</h6>
+                            <h6 class="font-extrabold mb-0">{{ $totalSudahDinilai }} Kegiatan</h6>
                         </div>
                     </div>
                 </div>
@@ -45,7 +45,7 @@
                                 <i class="iconly-boldBookmark"></i>
                             </div>
                             <h6 class="text-muted font-semibold">Belum Dinilai</h6>
-                            <h6 class="font-extrabold mb-0">x</h6>
+                            <h6 class="font-extrabold mb-0">{{ $totalBelumDinilai }} Kegiatan</h6>
                         </div>
                     </div>
                 </div>

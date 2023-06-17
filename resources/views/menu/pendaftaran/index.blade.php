@@ -25,6 +25,7 @@
                         @php
                         $nomor = 1;
                         @endphp
+
                         @foreach($pendaftarans as $pendaftaran)
                         @if(Auth::user()->level == 'admin' || Auth::user()->id == $pendaftaran->id_data_user)
                         <tr style="text-align: center">
