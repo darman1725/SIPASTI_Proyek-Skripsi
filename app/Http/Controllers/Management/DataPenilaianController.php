@@ -16,7 +16,9 @@ use App\Http\Requests\DataPenilaianRequest;
 class DataPenilaianController extends Controller
 {
     public function index(Request $request)
-{
+    {   
+    $count = 0;
+    $countIncomplete = 0;
     // Retrieve the selected kegiatan from the session or request
     $selectedKegiatan = $request->input('kegiatan') ?? session('selectedKegiatan');
     
@@ -27,6 +29,8 @@ class DataPenilaianController extends Controller
         'perhitungan' => DataPenilaian::tampil(),
         'penilaian' => DataPenilaian::all(),
         'kegiatan' => DataKegiatan::all(),
+        'count' => $count,
+        'countIncomplete' => $countIncomplete,
     ];
 
     // Apply filter if a kegiatan is selected

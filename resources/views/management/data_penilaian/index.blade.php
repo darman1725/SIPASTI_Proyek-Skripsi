@@ -23,7 +23,8 @@
                 <div class="form-group">
                     <label for="kegiatan">Filter Kegiatan:</label>
                     <select name="kegiatan" id="kegiatan" class="form-control">
-                        <option value="all" {{ $selectedKegiatan==='all' ? 'selected' : '' }}>-- Semua Kegiatan --</option>
+                        <option value="all" {{ $selectedKegiatan==='all' ? 'selected' : '' }}>-- Semua Kegiatan --
+                        </option>
                         @foreach($kegiatan as $kg)
                         <option value="{{ $kg->nama }}" {{ $selectedKegiatan===$kg->nama ? 'selected' : '' }}>{{
                             $kg->nama }} - {{ $kg->jenis }}</option>
@@ -81,12 +82,12 @@
                             @endforeach
 
                             <td>
-                                @if ($isIncomplete)
+                                @if ($isIncomplete || $isEmpty)
                                 <span class="badge bg-danger text-white">Nilai tidak lengkap</span>
-                                @elseif ($isEmpty)
-                                <span class="badge bg-danger text-white">Nilai tidak lengkap</span>
+                                <?php $countIncomplete++ ?>
                                 @else
                                 {{ $latestUpdatedTime->locale('id')->translatedFormat('l, d F Y, (H:i') }} WIB)
+                                <?php $count++ ?>
                                 @endif
                             </td>
 
@@ -223,6 +224,9 @@
                         @endforeach
                     </tbody>
                 </table>
+                Jumlah Dinilai: <span class="badge bg-success text-white">{{ $count }} Orang</span><br>
+                Jumlah Belum Dinilai: <span class="badge bg-danger text-dark">{{ $countIncomplete }} Orang</span>
+                </p>
             </div>
         </div>
     </div>
