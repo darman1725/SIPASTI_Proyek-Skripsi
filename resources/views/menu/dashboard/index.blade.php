@@ -12,7 +12,7 @@
                                 <i class="iconly-boldShow"></i>
                             </div>
                             <h6 class="text-muted font-semibold">Jumlah Berita</h6>
-                            <h6 class="font-extrabold mb-0">{{ $jumlahBerita }}</h6>
+                            <h6 class="font-extrabold mb-0">{{ $jumlahBerita }} Berita</h6>
                         </div>
                     </div>
                 </div>
@@ -23,7 +23,7 @@
                                 <i class="iconly-boldProfile"></i>
                             </div>
                             <h6 class="text-muted font-semibold">Data Kegiatan</h6>
-                            <h6 class="font-extrabold mb-0">{{ $jumlahKegiatan }}</h6>
+                            <h6 class="font-extrabold mb-0">{{ $jumlahKegiatan }} Kegiatan</h6>
                         </div>
                     </div>
                 </div>
@@ -34,7 +34,7 @@
                                 <i class="iconly-boldAdd-User"></i>
                             </div>
                             <h6 class="text-muted font-semibold">Sudah Dinilai</h6>
-                            <h6 class="font-extrabold mb-0">x</h6>
+                            <h6 class="font-extrabold mb-0">{{ $count_dash }} Orang</h6>
                         </div>
                     </div>
                 </div>
@@ -45,7 +45,7 @@
                                 <i class="iconly-boldBookmark"></i>
                             </div>
                             <h6 class="text-muted font-semibold">Belum Dinilai</h6>
-                            <h6 class="font-extrabold mb-0">x</h6>
+                            <h6 class="font-extrabold mb-0">{{ $countIncomplete_dash }} Orang</h6>
                         </div>
                     </div>
                 </div>

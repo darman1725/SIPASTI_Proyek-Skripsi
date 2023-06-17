@@ -18,7 +18,35 @@ class DataPenilaianController extends Controller
     public function index(Request $request)
     {   
     $count = 0;
-    $countIncomplete = 0;
+    $countIncomplete = 0; 
+    $pendaftaran_count_dash = Pendaftaran::with('user', 'kegiatan')->get();
+    $kriteria_count_dash = DataKriteria::pluck('keterangan', 'id');
+    $count_dash = 0;
+    $countIncomplete_dash = 0;
+
+    foreach ($pendaftaran_count_dash as $pendaftar) {
+        $penilaianByPendaftaran = DataPenilaian::where('id_pendaftaran', $pendaftar->id)->get();
+        $isIncomplete = false;
+        $isEmpty = true;
+
+        foreach ($kriteria_count_dash as $key => $keterangan) {
+            $sub_kriteria = DataPenilaian::data_sub_kriteria($key);
+            $penilaian = $penilaianByPendaftaran->firstWhere('id_data_kriteria', $key);
+
+            if ($penilaian && $penilaian['nilai']) {
+                $isEmpty = false;
+            } else {
+                $isIncomplete = true;
+            }
+        }
+
+        if ($isIncomplete || $isEmpty) {
+            $countIncomplete_dash++;
+        } else {
+            $count_dash++;
+        }
+    }
+
     // Retrieve the selected kegiatan from the session or request
     $selectedKegiatan = $request->input('kegiatan') ?? session('selectedKegiatan');
     
@@ -31,6 +59,8 @@ class DataPenilaianController extends Controller
         'kegiatan' => DataKegiatan::all(),
         'count' => $count,
         'countIncomplete' => $countIncomplete,
+        'count_dash' => $count_dash,
+        'countIncomplete_dash' => $countIncomplete_dash,
     ];
 
     // Apply filter if a kegiatan is selected
