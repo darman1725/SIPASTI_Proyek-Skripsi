@@ -86,9 +86,9 @@
                                                             @if($berita->kategori == 'Sosial dan Kependudukan')
                                                             bg-danger text-white
                                                             @elseif($berita->kategori == 'Ekonomi dan Perdagangan')
-                                                            bg-success text-white
-                                                            @elseif($berita->kategori == 'Pertanian dan Pertambangan')
                                                             bg-warning text-white
+                                                            @elseif($berita->kategori == 'Pertanian dan Pertambangan')
+                                                            bg-success text-white
                                                             @elseif($berita->kategori == 'Pengumuman Resmi')
                                                             bg-primary text-white
                                                             @else
@@ -150,9 +150,9 @@
                                                             @if($berita->kategori == 'Sosial dan Kependudukan')
                                                             bg-danger text-white
                                                             @elseif($berita->kategori == 'Ekonomi dan Perdagangan')
-                                                            bg-success text-white
-                                                            @elseif($berita->kategori == 'Pertanian dan Pertambangan')
                                                             bg-warning text-white
+                                                            @elseif($berita->kategori == 'Pertanian dan Pertambangan')
+                                                            bg-success text-white
                                                             @elseif($berita->kategori == 'Pengumuman Resmi')
                                                             bg-primary text-white
                                                             @else
