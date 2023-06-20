@@ -30,7 +30,7 @@ class DataKriteriaSeeder extends Seeder
             [
                 'id_data_kegiatan' => 1,
                 'keterangan' => 'Pendidikan',
-                'kode_kriteria' => 'REG-3',
+                'kode_kriteria' => 'REG-2',
                 'bobot' => 20,
                 'jenis' => 'Benefit',
                 'created_at' => now(),
@@ -39,7 +39,7 @@ class DataKriteriaSeeder extends Seeder
             [
                 'id_data_kegiatan' => 1,
                 'keterangan' => 'Pekerjaan',
-                'kode_kriteria' => 'REG-4',
+                'kode_kriteria' => 'REG-3',
                 'bobot' => 25,
                 'jenis' => 'Cost',
                 'created_at' => now(),
@@ -48,7 +48,7 @@ class DataKriteriaSeeder extends Seeder
             [
                 'id_data_kegiatan' => 1,
                 'keterangan' => 'Pengalaman',
-                'kode_kriteria' => 'REG-2',
+                'kode_kriteria' => 'REG-4',
                 'bobot' => 30,
                 'jenis' => 'Benefit',
                 'created_at' => now(),
