@@ -21,43 +21,43 @@
                 <form action="" method="POST">
                     @csrf
                     <div class="form-group position-relative has-icon-left mb-4">
-                        <input type="number" class="form-control form-control" name="nik" placeholder="Data NIK..."
-                            value="{{ old('nik') }}">
+                        <input type="number" class="form-control" name="nik" placeholder="Data NIK..."
+                            value="{{ old('nik') }}" required maxlength="16" required>
                         <div class="form-control-icon">
                             <i class="bi bi-123"></i>
                         </div>
-                    </div>
+                    </div>                                                                  
                     <div class="form-group position-relative has-icon-left mb-4">
                         <input type="email" class="form-control form-control" name="email" placeholder="Email..."
-                            value="{{ old('email') }}">
+                            value="{{ old('email') }}" required>
                         <div class="form-control-icon">
                             <i class="bi bi-envelope"></i>
                         </div>
                     </div>
                     <div class="form-group position-relative has-icon-left mb-4">
                         <input type="text" class="form-control form-control" name="nama_lengkap"
-                            placeholder="Nama Lengkap..." value="{{ old('nama_lengkap') }}">
+                            placeholder="Nama Lengkap..." value="{{ old('nama_lengkap') }}" required>
                         <div class="form-control-icon">
                             <i class="bi bi-person-lines-fill"></i>
                         </div>
                     </div>
                     <div class="form-group position-relative has-icon-left mb-4">
                         <input type="text" class="form-control form-control" name="username" placeholder="Username..."
-                            value="{{ old('username') }}">
+                            value="{{ old('username') }}" required>
                         <div class="form-control-icon">
                             <i class="bi bi-person"></i>
                         </div>
                     </div>
                     <div class="form-group position-relative has-icon-left mb-4">
                         <input type="password" class="form-control form-control" name="password"
-                            placeholder="Password...">
+                            placeholder="Password..." required>
                         <div class="form-control-icon">
                             <i class="bi bi-shield-lock"></i>
                         </div>
                     </div>
                     <div class="form-group position-relative has-icon-left mb-4">
                         <input type="password" class="form-control form-control" name="password_confirmation"
-                            placeholder="Confirm Password...">
+                            placeholder="Confirm Password..." required>
                         <div class="form-control-icon">
                             <i class="bi bi-shield-lock"></i>
                         </div>

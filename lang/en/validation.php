@@ -87,7 +87,7 @@ return [
     'max' => [
         'array' => 'The :attribute must not have more than :max items.',
         'file' => 'The :attribute must not be greater than :max kilobytes.',
-        'numeric' => 'The :attribute must not be greater than :max.',
+        'numeric' => 'Kolom :attribute tidak boleh lebih dari :max karakter',
         'string' => 'The :attribute must not be greater than :max characters.',
     ],
     'max_digits' => 'The :attribute must not have more than :max digits.',
@@ -131,7 +131,7 @@ return [
         'array' => 'The :attribute must contain :size items.',
         'file' => 'The :attribute must be :size kilobytes.',
         'numeric' => 'The :attribute must be :size.',
-        'string' => 'The :attribute must be :size characters.',
+        'string' => 'Kolom :attribute harus :size karakter',
     ],
     'starts_with' => 'The :attribute must start with one of the following: :values.',
     'string' => 'The :attribute must be a string.',
