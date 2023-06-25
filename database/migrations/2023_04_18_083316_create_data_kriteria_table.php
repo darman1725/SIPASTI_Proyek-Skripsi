@@ -11,7 +11,7 @@ return new class extends Migration
         Schema::create('data_kriteria', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('id_data_kegiatan');
-            $table->foreign('id_data_kegiatan')->references('id')->on('data_kegiatan');
+            $table->foreign('id_data_kegiatan')->references('id')->on('data_kegiatan')->onDelete('cascade');
             $table->string('keterangan', 100);
             $table->string('kode_kriteria', 100);
             $table->double('bobot');

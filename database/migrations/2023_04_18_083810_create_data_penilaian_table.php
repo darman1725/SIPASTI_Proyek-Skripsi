@@ -20,7 +20,7 @@ return new class extends Migration
             $table->unsignedBigInteger('id_pendaftaran');
             $table->foreign('id_pendaftaran')->references('id')->on('pendaftaran')->onDelete('cascade');
             $table->unsignedBigInteger('id_data_kriteria');
-            $table->foreign('id_data_kriteria')->references('id')->on('data_kriteria');
+            $table->foreign('id_data_kriteria')->references('id')->on('data_kriteria')->onDelete('cascade');
             $table->integer('nilai');
             $table->timestamps();
         });

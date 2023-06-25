@@ -23,6 +23,7 @@ Auth::routes([
 
 Route::get('/', [LandingPageController::class, 'index']);
 
+Route::middleware('auth')->group(function () {
 Route::resource('data_kriteria', DataKriteriaController::class);
 Route::resource('data_sub_kriteria', DataSubKriteriaController::class);
 Route::resource('data_alternatif', DataAlternatifController::class);
@@ -66,6 +67,7 @@ Route::match(['PUT', 'PATCH'], '/data_profile/update', [DataProfileController::c
 Route::group(['namespace' => 'App\Http\Controllers\Information', 'prefix' => 'information'], function () {
     Route::get('user', 'UserController@index')->name('user');
     Route::get('data_profile', 'DataProfileController@index')->name('data_profile');
+});
 });
 
 

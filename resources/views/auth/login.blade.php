@@ -22,7 +22,7 @@
                     @csrf
                     <div class="form-group position-relative has-icon-left mb-4">
                         <input
-                            class="form-control{{ $errors->has('username') || $errors->has('email') ? ' is-invalid' : '' }}"l"
+                            class="form-control{{ $errors->has('username') || $errors->has('email') ? ' is-invalid' : '' }}"
                             type="text" name="login"
                             placeholder="Username..."value="{{ old('username') ?: old('email') }}" required
                             autofocus>
@@ -49,10 +49,6 @@
                         <p class="text-gray-600">Belum memiliki akun? <a href="{{ route('register') }}"
                                 class="font-bold">Daftar
                                 Sekarang</a></p>
-                    @endif
-
-                    @if (Route::has('password.request'))
-                        <p><a class="font-bold" href="{{ route('password.request') }}">Lupa password?</a></p>
                     @endif
                 </div>
             </div>

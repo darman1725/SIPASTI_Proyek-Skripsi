@@ -75,13 +75,9 @@ class DataKegiatanController extends Controller
 
     public function destroy(DataKegiatan $kegiatan)
     {
-    $gambarPath = 'public/kegiatan/' . $kegiatan->gambar;
-    if (Storage::exists($gambarPath)) {
-        Storage::delete($gambarPath);
-    }
-
-    $kegiatan->delete();
-
-    return redirect()->route('kegiatan');
+        $kegiatan->dataKriteria()->delete(); // Menghapus semua baris terkait di data_kriteria
+        $kegiatan->delete(); // Menghapus baris di data_kegiatan
+    
+        return redirect()->route('kegiatan');
     }
 }

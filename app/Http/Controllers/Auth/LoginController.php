@@ -52,9 +52,13 @@ class LoginController extends Controller
 
     function authenticated(Request $request, $user)
     {
-        if ($user->level == 'user') {
-            return redirect('/menu/dashboard_user');
-        }
-        return redirect('/menu/dashboard');
+    if ($user->level == 'user') {
+        return redirect('/menu/dashboard_user')->with('success', 'Selamat, Anda berhasil masuk ke dalam website SIPASTI!');
+    } else if ($user->level == 'admin') {
+        return redirect('/menu/dashboard')->with('success', 'Selamat, Anda berhasil masuk ke dalam website SIPASTI!');
+    } else {
+        return redirect('/menu/dashboard')->with('error', 'Mohon maaf, anda tidak dapat masuk kehalaman yang dituju. Silahkan login terlebih dahulu!');
     }
+    }
+
 }
