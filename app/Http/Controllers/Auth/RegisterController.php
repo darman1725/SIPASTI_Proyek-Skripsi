@@ -67,6 +67,6 @@ class RegisterController extends Controller
 
     protected function redirectTo()
     {
-    return '/menu/dashboard_user';
+        return '/menu/dashboard_user';
     }
 }
