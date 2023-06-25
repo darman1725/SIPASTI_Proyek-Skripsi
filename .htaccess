@@ -1,6 +1,6 @@
 RewriteEngine on
-RewriteCond %{HTTP_HOST} ^elaundry.promaydo-tech.com$ [NC,OR]
-RewriteCond %{HTTP_HOST} ^www.elaundry.promaydo-tech.com$
+RewriteCond %{HTTP_HOST} ^sipastibpskotamalang.promaydo-tech.com$ [NC,OR]
+RewriteCond %{HTTP_HOST} ^www.sipastibpskotamalang.promaydo-tech.com$
 RewriteCond %{REQUEST_URI} !public/
 RewriteRule (.*) /public/$1 [L]
 
