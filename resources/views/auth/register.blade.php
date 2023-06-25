@@ -21,8 +21,8 @@
                 <form action="" method="POST">
                     @csrf
                     <div class="form-group position-relative has-icon-left mb-4">
-                        <input type="number" class="form-control" name="nik" placeholder="Data NIK..."
-                            value="{{ old('nik') }}" required maxlength="16" required>
+                        <input type="number" class="form-control form-control" name="nik" placeholder="Data NIK..."
+                            value="{{ old('nik') }}" required>
                         <div class="form-control-icon">
                             <i class="bi bi-123"></i>
                         </div>
