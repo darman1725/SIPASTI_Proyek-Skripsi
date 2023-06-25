@@ -44,11 +44,11 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'nik' => ['required', 'numeric', 'max:16'],
+            'nik' => 'required|string|unique:users,nik',
             'email' => 'required|string|email|unique:users,email',
             'nama_lengkap' => 'required|string',
-            'username' => 'nullable|string',
-            'password' => 'required|string|min:6',
+            'username' => 'nullable|string|unique:users,username',
+            'password' => 'required|string|min:8|max:16|confirmed|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,16}$/',
             'level' => 'nullable|string|in:user,admin',
         ]);
     }
