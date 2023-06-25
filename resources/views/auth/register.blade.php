@@ -9,14 +9,14 @@
                 <p class="auth-subtitle mb-3">Inputkan isian kolom sesuai dengan data yang anda miliki untuk melengkapi
                     proses pendaftaran.</p>
                 @if (session('status'))
-                <div class="mb-4 font-medium text-sm text-green-600">
-                    {{ session('status') }}
-                </div>
+                    <div class="mb-4 font-medium text-sm text-green-600">
+                        {{ session('status') }}
+                    </div>
                 @endif
                 @if ($errors->any())
-                <div class="alert alert-danger">
-                    {{ $errors->first() }}
-                </div>
+                    <div class="alert alert-danger">
+                        {{ $errors->first() }}
+                    </div>
                 @endif
                 <form action="" method="POST">
                     @csrf
@@ -26,7 +26,7 @@
                         <div class="form-control-icon">
                             <i class="bi bi-123"></i>
                         </div>
-                    </div>                                                                  
+                    </div>
                     <div class="form-group position-relative has-icon-left mb-4">
                         <input type="email" class="form-control form-control" name="email" placeholder="Email..."
                             value="{{ old('email') }}" required>
@@ -42,8 +42,8 @@
                         </div>
                     </div>
                     <div class="form-group position-relative has-icon-left mb-4">
-                        <input type="text" class="form-control form-control" name="username" placeholder="Username..."
-                            value="{{ old('username') }}" required>
+                        <input type="text" class="form-control form-control" name="username"
+                            placeholder="Username..." value="{{ old('username') }}" required>
                         <div class="form-control-icon">
                             <i class="bi bi-person"></i>
                         </div>
