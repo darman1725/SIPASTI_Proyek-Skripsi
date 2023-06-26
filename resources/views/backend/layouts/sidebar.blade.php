@@ -1,6 +1,6 @@
-<x-sidebar.index :href="route('dashboard')" :logo="Vite::asset('public/images/logo/favicon2.png')">
+<x-sidebar.index :href="route('dashboard')" :logo="asset('images/logo/favicon2.png')">
     <li class="sidebar-title">Menu</li>
-    @if(Auth::user()->level == 'admin')
+    @if (Auth::user()->level == 'admin')
         <x-sidebar.item name="Dashboard" :link="route('dashboard')" :active="'dashboard'" :icon="'speedometer'">
         </x-sidebar.item>
         <x-sidebar.item name="Berita Statistik" :link="route('berita')" :active="'berita'" :icon="'bi bi-info-circle-fill'">
@@ -14,7 +14,7 @@
         <x-sidebar.item name="Data Alternatif" :link="route('data_alternatif')" :active="'data_alternatif'" :icon="'people-fill'"></x-sidebar.item>
     @endif
 
-    @if(Auth::user()->level == 'user')
+    @if (Auth::user()->level == 'user')
         <x-sidebar.item name="Dashboard" :link="route('dashboard_user')" :active="'dashboard_user'" :icon="'speedometer'">
         </x-sidebar.item>
         <x-sidebar.item name="Berita Statistik" :link="route('berita')" :active="'berita'" :icon="'bi bi-info-circle-fill'">
@@ -31,7 +31,7 @@
         </x-sidebar.item>
     @endif
 
-    @if(Auth::user()->level == 'admin')
+    @if (Auth::user()->level == 'admin')
         <li class="sidebar-title">Manajemen</li>
         <x-sidebar.item name="Data Penilaian" :link="route('data_penilaian')" :active="'data_penilaian*'" :icon="'pencil-square'">
         </x-sidebar.item>
@@ -40,7 +40,7 @@
             </x-sidebar.submenu>
             <x-sidebar.submenu :name="'Data Hasil Akhir'" :link="route('data_hasil_akhir')" :active="Route::currentRouteName() == 'data_perhitungan'" :icon="'box2-heart-fill'">
             </x-sidebar.submenu>
-        </x-sidebar.dropdown>        
+        </x-sidebar.dropdown>
 
         <li class="sidebar-title">Informasi</li>
         <x-sidebar.item name="Data Pengguna" :link="route('user')" :active="'user'" :icon="'person-check'">
