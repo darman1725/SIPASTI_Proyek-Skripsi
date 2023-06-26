@@ -8,6 +8,8 @@ export default defineConfig({
             'resources/css/app.css',
             'resources/css/auth.css', 
             'resources/js/app.js',
+            'resources/images/logo.favicon.svg',
+            'resources/images/logo.favicon.png',
         ],
         refresh: true,
         }),
