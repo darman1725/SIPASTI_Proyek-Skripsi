@@ -1,13 +1,13 @@
 <x-app-layout>
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800"><i class="bi bi-person-check"></i> Data Pelamar</h1>
+        <h1 class="h3 mb-0 text-gray-800"><i class="bi bi-person-check"></i> Data Pengguna</h1>
         <a href="{{ route('user.create') }}" class="btn btn-success"> <i class="fa fa-plus"></i> Tambah Data
         </a>
     </div>
 
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary"><i class="fa fa-table"></i> Daftar Data Pelamar</h6>
+            <h6 class="m-0 font-weight-bold text-primary"><i class="fa fa-table"></i> Daftar Data Pengguna</h6>
         </div>
 
         <div class="card-body">
@@ -33,7 +33,7 @@
                     </form>
                 </div>
             </div>
-            
+
             @if (session('success'))
             <div class="alert alert-success">{{ session('success') }}</div>
             @endif

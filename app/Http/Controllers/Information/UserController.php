@@ -26,11 +26,18 @@ class UserController extends Controller
 
     public function store(UserRequest $request)
     {
-        $data = $request->validated();
-        $data['password'] = Hash::make($data['password']);
-        $data['level'] = 'user';
-        User::create($data);
-        return redirect()->route('user')->with('success', 'Data pelamar berhasil ditambahkan');
+    $data = $request->validated();
+    $data['password'] = Hash::make($data['password']);
+
+    if (auth()->user()->level === 'admin') {
+        $data['level'] = $data['level']; // Ambil opsi level dari form input
+    } else {
+        $data['level'] = 'user'; // Set level pengguna menjadi 'user'
+    }
+
+    User::create($data);
+
+    return redirect()->route('user')->with('success', 'Data pengguna berhasil ditambahkan');
     }
 
     public function show(User $user)

@@ -48,7 +48,7 @@ class RegisterController extends Controller
             'email' => 'required|string|email|unique:users,email',
             'nama_lengkap' => 'required|string',
             'username' => 'nullable|string|unique:users,username',
-            'password' => 'required|string|min:8|max:16|confirmed|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,16}$/',
+            'password' => ['required', 'string', 'min:8', 'max:16', 'confirmed'],
             'level' => 'nullable|string|in:user,admin',
         ]);
     }
