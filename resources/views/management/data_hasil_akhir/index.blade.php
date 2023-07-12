@@ -80,7 +80,6 @@
                                 @endif
                                 <th width="15%">Total Nilai</th>
                                 <th>Rank</th>
-                                <th>Status</th>
                             </tr>
                         </thead>
                         <tbody>
