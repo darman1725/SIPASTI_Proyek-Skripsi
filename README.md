@@ -40,6 +40,6 @@ Sistem Pendukung Keputusan Rekrutmen Petugas Statistik Badan Pusat Statistik (BP
 
 7. Login credentials
 
-**Email:** admin@example.com
+**Email:** Admin Web
 
 **Password:** password
